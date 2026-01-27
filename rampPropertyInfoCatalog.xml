@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RampPropertyCatalog>
+    <CatalogVersion>1.0</CatalogVersion>
     <Info>
         <InfoVersion>6.2.0</InfoVersion>
         <Url>https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/rampPropertyInfo_v6.2.0.json</Url>
     </Info>
 </RampPropertyCatalog>
+
