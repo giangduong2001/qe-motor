@@ -2,10 +2,16 @@
   "deviceData": {
     "RA6T2": {
       "stackModuleId": "module.middleware.motor_on_motor_control",
+      "sensorSelectInfo": {
+        "moduleId": "module.middleware.motor_on_motor_pm_foc",
+        "propertyId": "module.middleware.motor_algorithm.sensor_select",
+        "interfaceKeyword": "module.middleware.motor_algorithm.requires"
+      },
       "deviceSensorTypes": [
         {
-          "sensorTypeId": "Sensor-less Vector Control",
-          "modules": [
+          "sensorTypeId": "Sensorless Vector Control",
+          "sensorModuleId": "module.middleware.motor_sensor_on_motor_bemf",
+          "moduleConfigs": [
             {
               "moduleId": "module.middleware.motor_sensor_on_motor_bemf",
               "parentModuleId": "module.middleware.motor_on_motor_pm_foc",
@@ -24,10 +30,9 @@
           ]
         },
         {
-          "sensorTypeId": "Hall Sensor Vector Control",
-          "parentModuleId": "module.middleware.motor_on_motor_pm_foc",
-          "interfaceId": "module.middleware.motor_algorithm.requires.sensor1",
-          "modules": [
+          "sensorTypeId": "Vector Control with hall sensors",
+          "sensorModuleId": "module.middleware.motor_sensor_on_motor_hall",
+          "moduleConfigs": [
             {
               "moduleId": "module.middleware.motor_sensor_on_motor_hall",
               "parentModuleId": "module.middleware.motor_on_motor_pm_foc",
@@ -49,7 +54,7 @@
       "devicesShuntTypes": [
         {
           "shuntTypeId": "1-Shunt",
-          "modules": [
+          "moduleConfigs": [
             {
               "moduleId": "module.middleware.motor_on_motor_hal_driver",
               "properties": [
@@ -181,7 +186,7 @@
         },
         {
           "shuntTypeId": "2-Shunt",
-          "modules": [
+          "moduleConfigs": [
             {
               "moduleId": "module.middleware.motor_on_motor_hal_driver",
               "properties": [
@@ -315,7 +320,7 @@
         },
         {
           "shuntTypeId": "3-Shunt",
-          "modules": [
+          "moduleConfigs": [
             {
               "moduleId": "module.middleware.motor_on_motor_hal_driver",
               "properties": [
