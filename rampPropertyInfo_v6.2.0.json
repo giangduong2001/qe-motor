@@ -59,6 +59,7 @@
       "devicesShuntTypes": [
         {
           "shuntTypeId": "1-Shunt",
+          "propertyValue": "module.middleware.motor_hal_driver.shunt.1_shunt",
           "moduleConfigs": [
             {
               "moduleId": "module.middleware.motor_on_motor_hal_driver",
@@ -191,6 +192,7 @@
         },
         {
           "shuntTypeId": "2-Shunt",
+          "propertyValue": "module.middleware.motor_hal_driver.shunt.2_shunt",
           "moduleConfigs": [
             {
               "moduleId": "module.middleware.motor_on_motor_hal_driver",
@@ -325,6 +327,7 @@
         },
         {
           "shuntTypeId": "3-Shunt",
+          "propertyValue": "module.middleware.motor_hal_driver.shunt.3_shunt",
           "moduleConfigs": [
             {
               "moduleId": "module.middleware.motor_on_motor_hal_driver",
