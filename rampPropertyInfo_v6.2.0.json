@@ -1,11 +1,16 @@
 {
   "deviceData": {
     "RA6T2": {
-      "stackModuleId": "module.middleware.motor_on_motor_control",
+      "motorControlModuleId": "module.middleware.motor_on_motor_control",
+      "motorTunerModuleId": "module.middleware.motor_tuner",
       "sensorSelectInfo": {
         "moduleId": "module.middleware.motor_on_motor_pm_foc",
         "propertyId": "module.middleware.motor_algorithm.sensor_select",
         "interfaceKeyword": "module.middleware.motor_algorithm.requires"
+      },
+      "shuntSelectInfo": {
+        "moduleId": "module.middleware.motor_on_motor_hal_driver",
+        "propertyId": "module.middleware.motor_hal_driver.shunt"
       },
       "deviceSensorTypes": [
         {
