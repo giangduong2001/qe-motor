@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Kits>
+	<Kit>
+		<KitName en="MCK-RA2T1 Renesas Flexible Motor Control Kit for RA2T1 MCU Group" jp="MCK-RA2T1 Renesas Flexible Motor Control Kit for RA2T1 MCU Group"/>
+		<DeviceName>RA2T1</DeviceName>
+		<KitImageUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardPictures/MCK-RA2T1.png</KitImageUrl>
+		<Keyword>RA2T1</Keyword>
+		<KitDescription en="The MCK-RA2T1 is a development kit that enables easy evaluation of motor control using permanent magnet synchronous motors (brushless DC motors)." jp="MCK-RA2T1は、永久磁石同期モータ(ブラシレスDCモータ)を用いたモータ制御の評価を簡単に行うことができる開発キットです。"/>
+		<Motor en="Brushless DC Motor (R42BLD30L3)" jp="ブラシレスDCモータ（R42BLD30L3）"/>
+		<HardwareInfo en="https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardHardwareInfo/en/MCK-RA2T1-HardwareInfo.html" jp="https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardHardwareInfo/jp/MCK-RA2T1-HardwareInfo.html" />
+		<Project>
+			<ProjectFolderName>RA2T1_MCILV1_PM_LESS_FOC_1S_E2S_V100</ProjectFolderName>
+			<ProjectFolderName>RA2T1_MCILV1_PM_LESS_FOC_3S_E2S_V100</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an7813xx0100-ra2t1-sensorless-foc.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA2T1_MCILV1_PM_120_E2S_V100</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an7891xx0100-ra2t1-120-degree.xml</ProjectUrl>
+		</Project>
+	</Kit>
+	<Kit>
+		<KitName en="MCK-RA4T1 Renesas Flexible Motor Control Kit for RA4T1 MCU Group" jp="MCK-RA4T1 Renesas Flexible Motor Control Kit for RA4T1 MCU Group"/>
+		<DeviceName>RA4T1</DeviceName>
+		<KitImageUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardPictures/MCK-RA4T1.png</KitImageUrl>
+		<Keyword>RA4T1</Keyword>
+		<KitDescription en="The MCK-RA4T1 is a development kit that enables easy evaluation of motor control using permanent magnet synchronous motors (brushless DC motors)." jp="MCK-RA4T1は、永久磁石同期モータ(ブラシレスDCモータ)を用いたモータ制御を簡単に評価できる開発キットです。"/>
+		<Motor en="Brushless DC Motor (R42BLD30L3)" jp="ブラシレスDCモータ（R42BLD30L3）"/>
+		<HardwareInfo en="https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardHardwareInfo/en/MCK-RA4T1-HardwareInfo.html" jp="https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardHardwareInfo/jp/MCK-RA4T1-HardwareInfo.html" />
+		<Project>
+			<ProjectFolderName>RA4T1_MCILV1_SPM_HALL_FOC_E2S_V111</ProjectFolderName>
+			<ProjectFolderName>RA4T1_MCILV1_SPM_HALL_FOC_TUNER_E2S_V111</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6466xx0131-ra-hall-foc.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA4T1_MCILV1_SPM_LESS_FOC_1SHUNT_E2S_V111</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6840xx0121-ra-sensorless-foc-1shunt.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA4T1_MCILV1_SPM_ENCD_FOC_E2S_V111</ProjectFolderName>
+			<ProjectFolderName>RA4T1_MCILV1_SPM_ENCD_FOC_TUNER_E2S_V111</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6841xx0122-ra-encoder-foc.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA4T1_MCILV1_SPM_LESS_120_E2S_V110</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6844xx0121-ra-sensorless-120.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA4T1_MCILV1_SPM_LESS_FOC_E2S_V111</ProjectFolderName>
+			<ProjectFolderName>RA4T1_MCILV1_SPM_LESS_FOC_TUNER_E2S_V111</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6839xx0121-ra-sensorless-foc.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA4T1_MCILV1_SPM_HALL_120_E2S_V110</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6843xx0121-ra-hall-120.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA4T1_MCILV1_SPM_IS_FOC_E2S_V110</ProjectFolderName>
+			<ProjectFolderName>RA4T1_MCILV1_SPM_IS_FOC_TUNER_E2S_V110</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6842xx0121-ra-inductive-foc.xml</ProjectUrl>
+		</Project>
+	</Kit>
+	<Kit>
+		<KitName en="Motor Control Evaluation System for RA Family - RA6T1 Group" jp="RAファミリ用モータ制御評価システム - RA6T1 グループ"/>
+		<DeviceName>RA6T1</DeviceName>
+		<KitImageUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardPictures/RSSK-RA6T1.png</KitImageUrl>
+		<Keyword>RA6T1</Keyword>
+		<KitDescription en="The Motor Control Evaluation System for RA Family - RA6T1 Group is a low-voltage permanent magnet synchronous motor (brushless DC motor) solution that allows anyone to easily evaluate motor control." jp="RAファミリ用モータ制御評価システム RA6T1グループは、誰でも簡単にモータ制御を評価できる低電圧永久磁石同期モータ（ブラシレスDCモータ）ソリューションです。"/>
+		<Motor en="Brushless DC Mortor (TG-55L-KA 24V)" jp="ブラシレスDCモータ (TG-55L-KA 24V)"/>
+		<HardwareInfo en="https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardHardwareInfo/en/RSSK-RA6T1-HardwareInfo.html" jp="https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardHardwareInfo/jp/RSSK-RA6T1-HardwareInfo.html" />
+		<Project>
+			<ProjectFolderName>RA6T1_ESB_2SPM_LESS_FOC_E2S_V100</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an5905xx0110-ra6t1-sensorless-foc-2motor.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA6T1_ESB_SPM_LESS_FOC_E2S_V101</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an5558xx0111-motor.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA6T1_ESB_SPM_ENCD_FOC_E2S_V101</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an5923xx0111-motor.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA6T1_ESB_SPM_LESS_FOC_1SHUNT_E2S_V101</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6256xx0101-motor.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA6T1_ESB_SPM_HALL_120_E2S_V100</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6258xx0100-motor.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA6T1_ESB_SPM_LESS_120_E2S_V100</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6259xx0100-motor.xml</ProjectUrl>
+		</Project>
+	</Kit>
+	<Kit>
+		<KitName en="MCK-RA6T2 Renesas Flexible Motor Control Kit for RA6T2 MCU Group Version 2" jp="MCK-RA6T2 Renesas Flexible Motor Control Kit for RA6T2 MCU Group Version 2"/>
+		<DeviceName>RA6T2</DeviceName>
+		<KitImageUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardPictures/MCK-RA6T2.png</KitImageUrl>
+		<Keyword>RA6T2</Keyword>
+		<KitDescription en="The MCK-RA6T2 Version 2 is a development kit that enables easy evaluation of motor control using permanent magnet synchronous motors (brushless DC motors)." jp="MCK-RA6T2 Version 2は、永久磁石同期モータ(ブラシレスDCモータ)を用いたモータ制御を簡単に評価できる開発キットです。"/>
+		<Motor en="Brushless DC Motor (R42BLD30L3)" jp="ブラシレスDCモータ（R42BLD30L3）"/>
+		<HardwareInfo en="https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardHardwareInfo/en/MCK-RA6T2-V2-HardwareInfo.html" jp="https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardHardwareInfo/jp/MCK-RA6T2-V2-HardwareInfo.html" />
+		<Project>
+			<ProjectFolderName>RA6T2_MCB2_MCILV1_2SPM_LESS_FOC_E2S_V100</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6421xx0131-ra-sensorless-foc-2motor.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA6T2_MCB2_MCILV1_SPM_HALL_FOC_E2S_V100</ProjectFolderName>
+			<ProjectFolderName>RA6T2_MCB2_MCILV1_SPM_HALL_FOC_TUNER_E2S_V100</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6466xx0131-ra-hall-foc.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA6T2_MCB2_MCILV1_SPM_LESS_FOC_1SHUNT_E2S_V100</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6840xx0121-ra-sensorless-foc-1shunt.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA6T2_MCB2_MCILV1_SPM_ENCD_FOC_E2S_V100</ProjectFolderName>
+			<ProjectFolderName>RA6T2_MCB2_MCILV1_SPM_ENCD_FOC_TUNER_E2S_V100</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6841xx0122-ra-encoder-foc.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA6T2_MCB2_MCILV1_SPM_LESS_120_E2S_V100</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6844xx0121-ra-sensorless-120.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA6T2_MCB2_MCILV1_SPM_LESS_FOC_E2S_V100</ProjectFolderName>
+			<ProjectFolderName>RA6T2_MCB2_MCILV1_SPM_LESS_FOC_TUNER_E2S_V100</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6839xx0121-ra-sensorless-foc.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA6T2_MCB2_MCILV1_SPM_HALL_120_E2S_V100</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6843xx0121-ra-hall-120.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA6T2_MCB2_MCILV1_SPM_LESS_FOC_1SHUNT_RAMP_E2S_V100</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/r01an6840xx0121-ra-sensorless-foc-1shunt-ramp.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA6T2_MCB2_MCILV1_SPM_IS_FOC_E2S_V100</ProjectFolderName>
+			<ProjectFolderName>RA6T2_MCB2_MCILV1_SPM_IS_FOC_TUNER_E2S_V100</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6842xx0121-ra-inductive-foc.xml</ProjectUrl>
+		</Project>-->
+	</Kit>
+	<Kit>
+		<KitName en="MCK-RA6T2 Renesas Flexible Motor Control Kit for RA6T2 MCU Group" jp="MCK-RA6T2 Renesas Flexible Motor Control Kit for RA6T2 MCU Group"/>
+		<DeviceName>RA6T2</DeviceName>
+		<KitImageUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardPictures/MCK-RA6T2.png</KitImageUrl>
+		<Keyword>RA6T2</Keyword>
+		<KitDescription en="The MCK-RA6T2 is a development kit that enables easy evaluation of motor control using permanent magnet synchronous motors (brushless DC motors)." jp="MCK-RA6T2は、永久磁石同期モータ(ブラシレスDCモータ)を用いたモータ制御を簡単に評価できる開発キットです。"/>
+		<Motor en="Brushless DC Motor (R42BLD30L3)" jp="ブラシレスDCモータ（R42BLD30L3）"/>
+		<HardwareInfo en="https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardHardwareInfo/en/MCK-RA6T2-HardwareInfo.html" jp="https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardHardwareInfo/jp/MCK-RA6T2-HardwareInfo.html" />
+		<Project>
+			<ProjectFolderName>RA6T2_MCILV1_2SPM_LESS_FOC_E2S_V121</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6421xx0131-ra-sensorless-foc-2motor.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA6T2_MCILV1_SPM_HALL_FOC_E2S_V121</ProjectFolderName>
+			<ProjectFolderName>RA6T2_MCILV1_SPM_HALL_FOC_TUNER_E2S_V121</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6466xx0131-ra-hall-foc.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA6T2_MCILV1_2SPM_HALL_LESS_FOC_E2S_V100</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6980xx0100-ra-motor.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA6T2_MCILV1_SPM_HALL_FOC_1SHUNT_E2S_V100</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6979xx0100-ra-motor.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA6T2_MCILV1_SPM_LESS_FOC_1SHUNT_E2S_V121</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6840xx0121-ra-sensorless-foc-1shunt.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA6T2_MCILV1_SPM_ENCD_FOC_E2S_V121</ProjectFolderName>
+			<ProjectFolderName>RA6T2_MCILV1_SPM_ENCD_FOC_TUNER_E2S_V121</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6841xx0122-ra-encoder-foc.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA6T2_MCILV1_SPM_LESS_120_E2S_V120</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6844xx0121-ra-sensorless-120.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA6T2_MCILV1_SPM_LESS_FOC_E2S_V121</ProjectFolderName>
+			<ProjectFolderName>RA6T2_MCILV1_SPM_LESS_FOC_TUNER_E2S_V121</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6839xx0121-ra-sensorless-foc.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA6T2_MCILV1_SPM_HALL_120_E2S_V120</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6843xx0121-ra-hall-120.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA6T2_MCILV1_SPM_IS_FOC_E2S_V120</ProjectFolderName>
+			<ProjectFolderName>RA6T2_MCILV1_SPM_IS_FOC_TUNER_E2S_V120</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6842xx0121-ra-inductive-foc.xml</ProjectUrl>
+		</Project>
+	</Kit>
+	<Kit>
+		<KitName en="MCK-RA6T3 Renesas Flexible Motor Control Kit for RA6T3 MCU Group" jp="MCK-RA6T3 Renesas Flexible Motor Control Kit for RA6T3 MCU Group"/>
+		<DeviceName>RA6T3</DeviceName>
+		<KitImageUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardPictures/MCK-RA6T3.png</KitImageUrl>
+		<Keyword>RA6T3</Keyword>
+		<KitDescription en="The MCK-RA6T3 is a development kit that enables easy evaluation of motor control using permanent magnet synchronous motors (brushless DC motors)." jp="MCK-RA6T3は、永久磁石同期モータ(ブラシレスDCモータ)を用いたモータ制御を簡単に評価できる開発キットです。"/>
+		<Motor en="Brushless DC Motor (R42BLD30L3)" jp="ブラシレスDCモータ（R42BLD30L3）"/>
+		<HardwareInfo en="https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardHardwareInfo/en/MCK-RA6T3-HardwareInfo.html" jp="https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardHardwareInfo/jp/MCK-RA6T3-HardwareInfo.html" />
+		<Project>
+			<ProjectFolderName>RA6T3_MCILV1_SPM_HALL_FOC_E2S_V111</ProjectFolderName>
+			<ProjectFolderName>RA6T3_MCILV1_SPM_HALL_FOC_TUNER_E2S_V111</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6466xx0131-ra-hall-foc.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA6T3_MCILV1_SPM_LESS_FOC_1SHUNT_E2S_V111</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6840xx0121-ra-sensorless-foc-1shunt.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA6T3_MCILV1_SPM_ENCD_FOC_E2S_V111</ProjectFolderName>
+			<ProjectFolderName>RA6T3_MCILV1_SPM_ENCD_FOC_TUNER_E2S_V111</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6841xx0122-ra-encoder-foc.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA6T3_MCILV1_SPM_LESS_120_E2S_V110</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6844xx0121-ra-sensorless-120.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA6T3_MCILV1_SPM_LESS_FOC_E2S_V111</ProjectFolderName>
+			<ProjectFolderName>RA6T3_MCILV1_SPM_LESS_FOC_TUNER_E2S_V111</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6839xx0121-ra-sensorless-foc.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA6T3_MCILV1_SPM_HALL_120_E2S_V110</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6843xx0121-ra-hall-120.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA6T3_MCILV1_SPM_IS_FOC_E2S_V110</ProjectFolderName>
+			<ProjectFolderName>RA6T3_MCILV1_SPM_IS_FOC_TUNER_E2S_V110</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6842xx0121-ra-inductive-foc.xml</ProjectUrl>
+		</Project>
+	</Kit>
+	<Kit>
+		<KitName en="MCK-RA8T1 Renesas Flexible Motor Control Kit for RA8T1 MCU Group" jp="MCK-RA8T1 Renesas Flexible Motor Control Kit for RA8T1 MCU Group"/>
+		<DeviceName>RA8T1</DeviceName>
+		<KitImageUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardPictures/MCK-RA8T1.png</KitImageUrl>
+		<Keyword>RA8T1</Keyword>
+		<KitDescription en="The MCK-RA8T1 is a development kit that enables easy evaluation of motor control using permanent magnet synchronous motors (brushless DC motors)." jp="MCK-RA8T1は、永久磁石同期モータ(ブラシレスDCモータ)を用いたモータ制御を簡単に評価できる開発キットです。"/>
+		<Motor en="Brushless DC Motor (R42BLD30L3)" jp="ブラシレスDCモータ（R42BLD30L3）"/>
+		<HardwareInfo en="https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardHardwareInfo/en/MCK-RA8T1-HardwareInfo.html" jp="https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardHardwareInfo/jp/MCK-RA8T1-HardwareInfo.html" />
+		<Project>
+			<ProjectFolderName>RA8T1_MCILV1_2SPM_LESS_FOC_E2S_V111</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6421xx0131-ra-sensorless-foc-2motor.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA8T1_MCILV1_SPM_HALL_FOC_E2S_V111</ProjectFolderName>
+			<ProjectFolderName>RA8T1_MCILV1_SPM_HALL_FOC_TUNER_E2S_V111</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6466xx0131-ra-hall-foc.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA8T1_MCILV1_SPM_LESS_FOC_1SHUNT_E2S_V111</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6840xx0121-ra-sensorless-foc-1shunt.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA8T1_MCILV1_SPM_ENCD_FOC_E2S_V111</ProjectFolderName>
+			<ProjectFolderName>RA8T1_MCILV1_SPM_ENCD_FOC_TUNER_E2S_V111</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6841xx0122-ra-encoder-foc.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA8T1_MCILV1_SPM_LESS_120_E2S_V110</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6844xx0121-ra-sensorless-120.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA8T1_MCILV1_SPM_LESS_FOC_E2S_V111</ProjectFolderName>
+			<ProjectFolderName>RA8T1_MCILV1_SPM_LESS_FOC_TUNER_E2S_V111</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6839xx0121-ra-sensorless-foc.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA8T1_MCILV1_SPM_HALL_120_E2S_V110</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6843xx0121-ra-hall-120.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA8T1_MCILV1_SPM_IS_FOC_E2S_V110</ProjectFolderName>
+			<ProjectFolderName>RA8T1_MCILV1_SPM_IS_FOC_TUNER_E2S_V110</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6842xx0121-ra-inductive-foc.xml</ProjectUrl>
+		</Project>
+	</Kit>
+	<Kit>
+		<KitName en="MCK-RA8T2 Renesas Flexible Motor Control Kit for RA8T2 MCU Group" jp="MCK-RA8T2 Renesas Flexible Motor Control Kit for RA8T2 MCU Group"/>
+		<DeviceName>RA8T2</DeviceName>
+		<KitImageUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardPictures/MCK-RA8T2.png</KitImageUrl>
+		<Keyword>RA8T2</Keyword>
+		<KitDescription en="The MCK-RA8T2 is a development kit that enables easy evaluation of motor control using permanent magnet synchronous motors (brushless DC motors)." jp="MCK-RA8T2は、永久磁石同期モータ(ブラシレスDCモータ)を用いたモータ制御を簡単に評価できる開発キットです。"/>
+		<Motor en="Brushless DC Motor (R42BLD30L3)" jp="ブラシレスDCモータ（R42BLD30L3）"/>
+		<HardwareInfo en="https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardHardwareInfo/en/MCK-RA8T2-HardwareInfo.html" jp="https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardHardwareInfo/jp/MCK-RA8T2-HardwareInfo.html" />
+		<Project>
+			<ProjectFolderName>RA8T2_MCILV1_2SPM_LESS_FOC_E2S_V101</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6421xx0131-ra-sensorless-foc-2motor.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA8T2_MCILV1_SPM_HALL_FOC_E2S_V101</ProjectFolderName>
+			<ProjectFolderName>RA8T2_MCILV1_SPM_HALL_FOC_TUNER_E2S_V101</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6466xx0131-ra-hall-foc.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA8T2_MCILV1_SPM_LESS_FOC_1SHUNT_E2S_V101</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6840xx0121-ra-sensorless-foc-1shunt.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA8T2_MCILV1_SPM_ENCD_FOC_E2S_V101</ProjectFolderName>
+			<ProjectFolderName>RA8T2_MCILV1_SPM_ENCD_FOC_TUNER_E2S_V101</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6841xx0122-ra-encoder-foc.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA8T2_MCILV1_SPM_LESS_120_E2S_V100</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6844xx0121-ra-sensorless-120.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA8T2_MCILV1_SPM_LESS_FOC_E2S_V101</ProjectFolderName>
+			<ProjectFolderName>RA8T2_MCILV1_SPM_LESS_FOC_TUNER_E2S_V101</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6839xx0121-ra-sensorless-foc.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA8T2_MCILV1_SPM_HALL_120_E2S_V100</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6843xx0121-ra-hall-120.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RA8T2_MCILV1_SPM_IS_FOC_E2S_V100</ProjectFolderName>
+			<ProjectFolderName>RA8T2_MCILV1_SPM_IS_FOC_TUNER_E2S_V100</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6842xx0121-ra-inductive-foc.xml</ProjectUrl>
+		</Project>
+	</Kit>
+	<Kit>
+		<KitName en="RL78/G1F CPU Card and 24V inverter board(RTK0EM0001B00012BJ)" jp="RL78/G1F CPUカード ＋ 24V系インバータボード(RTK0EM0001B00012BJ)" />
+		<DeviceName>RL78/G1F</DeviceName>
+		<KitImageUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardPictures/RSSK-RL78G1F.png</KitImageUrl>
+		<Keyword>RSSK-RL78</Keyword>
+		<KitDescription 
+		en="
+		A low-voltage (24V) permanent magnet synchronous motor (brushless DC motor) solution for easy evaluation. Use the RL78/G1F CPU card with the inverter board included in the Renesas Solution Starter Kit 24V Motor Control Evaluation System for RX23T"
+		jp="
+		RL78/G1Fを使用した低電圧(24V)永久磁石同期モータ(ブラシレスDCモータ)のソリューションを容易に評価することができるキットです。RL78/G1F CPUカードとRenesas Solution Starter Kit 24V Motor Control Evaluation System for RX23T同梱のインバータボードを組み合わせて使用します。"/>
+		<Motor en="Brushless DC Mortor (TG-55L-KA 24V)" jp="ブラシレスDCモータ（TG-55L-KA 24V）"/>
+		<HardwareInfo en="https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardHardwareInfo/en/RSSK-RL78G1F-HardwareInfo.html" jp="https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardHardwareInfo/jp/RSSK-RL78G1F-HardwareInfo.html" />
+		<Project>
+			<ProjectFolderName>RL78G1F_MRSSK_SPM_DETECT_INIT_POSI_E2S_CC_V110</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/an-r01an3596xx0110-motor.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RL78G1F_MRSSK_120_E2S_CC_V200</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an5114xx0200-rl78g1f-motor.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RL78G1F_RSSK_120_IPD_E2S_CC_V200</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an4502xx0200-rl78g1f-motor.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RL78G1F_MRSSK_LESS_FOC_E2S_CC_V200</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an3991xx0200-motor.xml</ProjectUrl>
+		</Project>
+	</Kit>
+	<Kit>
+		<KitName en="GB01 Inverter for Evaluation" jp="評価用インバータ GB01" />
+		<DeviceName>RL78/G1F</DeviceName>
+		<KitImageUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardPictures/GB01-RL78G1F.png</KitImageUrl>
+		<Keyword>GB-RL78</Keyword>
+		<KitDescription en="The Evaluation System for BLDC Motor provided by Renesas is a low-voltage permanent magnet synchronous motor (brushless DC motor) solution that allows anyone to easily evaluate the motor." jp="ルネサスが提供するBLDCモータ評価システムは、誰でも簡単にモータを評価できる低電圧永久磁石同期モータ(ブラシレスDCモータ)ソリューションです。"/>
+		<Motor en="Brushless DC Mortor (TG-55L)" jp="ブラシレスDCモータ（TG-55L）"/>
+		<HardwareInfo en="https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardHardwareInfo/en/GB01-RL78G1F-HardwareInfo.html" jp="https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardHardwareInfo/jp/GB01-RL78G1F-HardwareInfo.html" />
+		<Project>
+			<ProjectFolderName>RL78G1F_GB_SPM_120HS_E2S_CC_V100</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an5630xx0100-rl78g1f-motor.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RL78G1F_GB01_1S_LESS_FOC_E2S_CC_V220</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an3992xx0220-rl78g1f-motor.xml</ProjectUrl>
+		</Project>
+	</Kit>
+	<Kit>
+		<KitName en="Trial series “T1003” 200W 300VA Inverter Unit" jp="Trial series “T1003” 200W 300VA Inverter Unit" />
+		<DeviceName>RL78/G1F</DeviceName>
+		<KitImageUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardPictures/T1003-RL78G1F.png</KitImageUrl>
+		<Keyword>T1003-RL78</Keyword>
+		<KitDescription 
+		en="
+		Trial series “T1003” 200W 300VA Inverter Unit is a product of Desk Top Laboratories Inc."
+		jp="
+		Trial series “T1003” 200W 300VA Inverter Unitは株式会社デスクトップラボ社の製品です。"/>
+		<Motor en="Brushless DC Mortor (BXM6200-A)" jp="ブラシレスDCモータ（BXM6200-A）"/>
+		<HardwareInfo en="https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardHardwareInfo/en/T1003-RL78G1F-HardwareInfo.html" jp="https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardHardwareInfo/jp/T1003-RL78G1F-HardwareInfo.html" />
+		<Project>
+			<ProjectFolderName>RL78G1F_T1003_1S_LESS_FOC_E2S_CC_V220</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6419xx0220-rl78g1f-motor.xml</ProjectUrl>
+		</Project>
+	</Kit>
+	<Kit>
+		<KitName en="RL78/G24 Motor Control Evaluation Kit" jp="RL78/G24 Motor Control Evaluation Kit" />
+		<DeviceName>RL78/G24</DeviceName>
+		<KitImageUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardPictures/MCEK-RL78G24.png</KitImageUrl>
+		<Keyword>G24-RL78</Keyword>
+		<KitDescription 
+			en="The RL78/G24 Motor Control Evaluation Kit is a development kit that enables easy evaluation of motor control using permanent magnet synchronous motors (brushless DC motors).
+                With this product and the sample code that can be downloaded from the website, you can start evaluating motor control using the RL78/G24 right away." 
+			jp="RL78/G24 Motor Control Evaluation Kitは、RL78/G24マイコンを搭載し、モータ制御を簡単に評価できる永久磁石同期モータ (ブラシレス DC モータ)制御評価キットです。
+                ルネサスのウェブサイトからダウンロードできるサンプルソフトウェアを使用して、すぐにモータ制御の評価を開始できます。"/>
+		<Motor en="Brushless DC Mortor (TG-55L-KA)" jp="ブラシレスDCモータ (TG-55L-KA)"/>
+		<HardwareInfo en="https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardHardwareInfo/en/MCEK-RL78G24-HardwareInfo.html" jp="https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardHardwareInfo/jp/MCEK-RL78G24-HardwareInfo.html" />
+		<Project>
+			<ProjectFolderName>RL78G24_MCEK_1S_LESS_FOC_E2S_CC_V120</ProjectFolderName>
+			<ProjectFolderName>RL78G24_MCEK_3S_LESS_FOC_E2S_CC_V120</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an7036xx0120-rl78g24-motor.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RL78G24_FAA_MCEK_1S_LESS_FOC_E2S_CC_V120</ProjectFolderName>
+			<ProjectFolderName>RL78G24_FAA_MCEK_3S_LESS_FOC_E2S_CC_V120</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an7267xx0120-rl78g24-motor.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RL78G24_MCEK_120_E2S_CC_V100</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an7386xx0100-rl78g24-motor.xml</ProjectUrl>
+		</Project>
+	</Kit>
+	<Kit>
+		<KitName en="MCK-RX26T Renesas Flexible Motor Control Kit for RX26T MCU Group" jp="MCK-RX26T Renesas Flexible Motor Control Kit for RX26T MCU Group"/>
+		<DeviceName>RX26T</DeviceName>
+		<KitImageUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardPictures/MCK-RX26T.png</KitImageUrl>
+		<Keyword>RX26T</Keyword>
+		<KitDescription 
+			en="The MCK-RX26T is a development kit that enables easy evaluation of motor control using permanent magnet synchronous motors (brushless DC motors)."
+			jp="MCK-RX26Tは永久磁石同期モータ(ブラシレスDCモータ)を使ったモータ制御の評価を簡単に行うことができる開発キットです。本製品と、ウェブサイトからダウンロードできるサンプルコードやQE for Motorを使うことで、RX26Tを用いたモータ制御評価をすぐに始めることができます。"
+		/>
+		<Motor en="Brushless DC Motor (R42BLD30L3)" jp="ブラシレスDCモータ（R42BLD30L3）"/>
+		<HardwareInfo en="https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardHardwareInfo/en/MCK-RX26T-HardwareInfo.html" jp="https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardHardwareInfo/jp/MCK-RX26T-HardwareInfo.html" />
+		<Project>
+			<ProjectFolderName>RX26T_MCBA2_MCILV1_SPM_ENCD_FOC_E2S_V100</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6857xx0111-rx-encoderFOC.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RX26T_MCBA2_MCILV1_SPM_ENCD_FOC_TUNER_E2S_V100</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6857xx0111-rx-encoderFOC.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RX26T_MCBA_MCILV1_SPM_ENCD_FOC_E2S_V100</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6857xx0111-rx-encoderFOC.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RX26T_MCBA_MCILV1_SPM_ENCD_FOC_TUNER_E2S_V100</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6857xx0111-rx-encoderFOC.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RX26T_MCBC_MCILV1_SPM_ENCD_FOC_E2S_V100</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6857xx0111-rx-encoderFOC.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RX26T_MCBC_MCILV1_SPM_ENCD_FOC_TUNER_E2S_V100</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6857xx0111-rx-encoderFOC.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RX26T_MCBA2_MCILV1_SPM_LESS_FOC_E2S_V100</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6858xx0111-rx-sensorlessFOC.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RX26T_MCBA2_MCILV1_SPM_LESS_FOC_TUNER_E2S_V100</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6858xx0111-rx-sensorlessFOC.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RX26T_MCBA2_MCILV1_SPM_LESS_FOC_1SHUNT_E2S_V100</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6858xx0111-rx-sensorlessFOC.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RX26T_MCBA_MCILV1_SPM_LESS_FOC_E2S_V110</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6858xx0111-rx-sensorlessFOC.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RX26T_MCBA_MCILV1_SPM_LESS_FOC_TUNER_E2S_V110</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6858xx0111-rx-sensorlessFOC.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RX26T_MCBA_MCILV1_SPM_LESS_FOC_1SHUNT_E2S_V110</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6858xx0111-rx-sensorlessFOC.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RX26T_MCBC_MCILV1_SPM_LESS_FOC_E2S_V100</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6858xx0111-rx-sensorlessFOC.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RX26T_MCBC_MCILV1_SPM_LESS_FOC_TUNER_E2S_V100</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6858xx0111-rx-sensorlessFOC.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RX26T_MCBC_MCILV1_SPM_LESS_FOC_1SHUNT_E2S_V100</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6858xx0111-rx-sensorlessFOC.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RX26T_MCBA2_MCILV1_2SPM_LESS_FOC_E2S_V100</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an7331xx0101-rx-motor.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RX26T_MCBA_MCILV1_2SPM_LESS_FOC_E2S_V100</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an7331xx0101-rx-motor.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RX26T_MCBA2_MCILV1_SPM_HALL_FOC_E2S_V100</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an7422xx0101-motor-hall-foc-rx26t.xml</ProjectUrl>
+		</Project>
+		<Project>
+			<ProjectFolderName>RX26T_MCBA_MCILV1_SPM_HALL_FOC_E2S_V100</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an7422xx0101-motor-hall-foc-rx26t.xml</ProjectUrl>
+		</Project>
+	</Kit>
+</Kits>
