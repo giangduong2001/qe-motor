@@ -1,22 +1,11 @@
 {
   "deviceData": {
     "RA6T2": {
-      "motorControlModuleId": "module.middleware.motor_on_motor_control",
-      "motorTunerModuleId": "module.middleware.motor_tuner",
-      "sensorSelectInfo": {
-        "moduleId": "module.middleware.motor_on_motor_pm_foc",
-        "propertyId": "module.middleware.motor_algorithm.sensor_select",
-        "interfaceKeyword": "module.middleware.motor_algorithm.requires"
-      },
-      "shuntSelectInfo": {
-        "moduleId": "module.middleware.motor_on_motor_hal_driver",
-        "propertyId": "module.middleware.motor_hal_driver.shunt"
-      },
+      "stackModuleId": "module.middleware.motor_on_motor_control",
       "deviceSensorTypes": [
         {
-          "sensorTypeId": "Sensorless Vector Control",
-          "sensorModuleId": "module.middleware.motor_sensor_on_motor_bemf",
-          "moduleConfigs": [
+          "sensorTypeId": "Sensor-less Vector Control",
+          "modules": [
             {
               "moduleId": "module.middleware.motor_sensor_on_motor_bemf",
               "parentModuleId": "module.middleware.motor_on_motor_pm_foc",
@@ -35,9 +24,10 @@
           ]
         },
         {
-          "sensorTypeId": "Vector Control with hall sensors",
-          "sensorModuleId": "module.middleware.motor_sensor_on_motor_hall",
-          "moduleConfigs": [
+          "sensorTypeId": "Hall Sensor Vector Control",
+          "parentModuleId": "module.middleware.motor_on_motor_pm_foc",
+          "interfaceId": "module.middleware.motor_algorithm.requires.sensor1",
+          "modules": [
             {
               "moduleId": "module.middleware.motor_sensor_on_motor_hall",
               "parentModuleId": "module.middleware.motor_on_motor_pm_foc",
@@ -59,8 +49,7 @@
       "devicesShuntTypes": [
         {
           "shuntTypeId": "1-Shunt",
-          "propertyValue": "module.middleware.motor_hal_driver.shunt.1_shunt",
-          "moduleConfigs": [
+          "modules": [
             {
               "moduleId": "module.middleware.motor_on_motor_hal_driver",
               "properties": [
@@ -192,8 +181,7 @@
         },
         {
           "shuntTypeId": "2-Shunt",
-          "propertyValue": "module.middleware.motor_hal_driver.shunt.2_shunt",
-          "moduleConfigs": [
+          "modules": [
             {
               "moduleId": "module.middleware.motor_on_motor_hal_driver",
               "properties": [
@@ -327,8 +315,7 @@
         },
         {
           "shuntTypeId": "3-Shunt",
-          "propertyValue": "module.middleware.motor_hal_driver.shunt.3_shunt",
-          "moduleConfigs": [
+          "modules": [
             {
               "moduleId": "module.middleware.motor_on_motor_hal_driver",
               "properties": [
