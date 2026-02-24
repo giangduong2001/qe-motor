@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RampPropertyCatalog>
+    <Info>
+        <InfoVersion>6.2.0</InfoVersion>
+        <Url>https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/rampPropertyInfo_v6.2.0.json</Url>
+    </Info>
+    <Info>
+        <InfoVersion>6.3.0</InfoVersion>
+        <Url>https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/rampPropertyInfo_v6.3.0.json</Url>
+    </Info>
+    <Info>
+        <InfoVersion>6.4.0</InfoVersion>
+        <Url>https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/rampPropertyInfo_v6.4.0.json</Url>
+    </Info>
+</RampPropertyCatalog>
+
+
