@@ -10,9 +10,10 @@
     </Info>
     <Info>
         <SupportedFspVersion>6.4.0</SupportedFspVersion>
-        <Url>https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/rampPropertyInfo_fsp6.4.0_v0.0.0.json</Url>
+        <Url>https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/rampPropertyInfo_fsp6.4.0_v0.0.1.json</Url>
     </Info>
 </RampPropertyCatalog>
+
 
 
 
