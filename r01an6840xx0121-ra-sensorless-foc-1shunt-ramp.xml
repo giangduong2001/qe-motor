@@ -11,7 +11,7 @@
 	<SampleProject>
 		<DeviceName>RA6T2</DeviceName>
 		<FspVersion>6.2.0</FspVersion>
-		<ProjectFolderName>RA6T2_MCB2_MCILV1_SPM_LESS_FOC_1SHUNT_RAMP_E2S_V100</ProjectFolderName>
+		<ProjectFolderName>RA6T2_MCB2_MCILV1_SPM_HALL_120_E2S_V100</ProjectFolderName>
 		<ProjectName 
 		en="Sensorless Vector Control for RAMP with one shunt for Permanent Magnet Synchronous Motor" 
 		jp="永久磁石同期モータの1シャントセンサレスベクトル制御" />
@@ -97,4 +97,5 @@ RA6T2マイクロコントローラ(MCU)を使用し、永久磁石同期モー�
 		/>
 	</SampleProject>
 </ZipFile>
+
 
