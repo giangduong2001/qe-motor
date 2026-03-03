@@ -3,7 +3,7 @@
 	<Category en="Sensorless feedback" jp="センサレスフィードバック" />
 	<Category en="Vector control" jp="ベクトル制御" />
 	<Category en="1-shunt current detection method" jp="1シャント抵抗電流検出方式" />
-	<Category en="RAMP" jp="" />
+	<Category en="RAMP" jp="1シャント抵抗電流検出方式" />
 	<SensorType en="Sensorless feedback" jp="センサレスフィードバック" />
 	<ControlType en="Vector control" jp="ベクトル制御" />
 	<ZipDownloadUrl>/document/scd/sensorless-vector-control-one-shunt-permanent-magnet-synchronous-motor-mckmcb-ra-family-sample-code/r01an6840xx0121-ra-sensorless-foc-1shunt.zip</ZipDownloadUrl>
@@ -99,4 +99,5 @@ RA6T2マイクロコントローラ(MCU)を使用し、永久磁石同期モー�
 	</SampleProject>
 	
 </ZipFile>
+
 
