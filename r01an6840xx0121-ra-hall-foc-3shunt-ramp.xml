@@ -13,7 +13,7 @@
 		<FspVersion>6.4.0</FspVersion>
 		<ProjectFolderName>RA6T2_MCB2_MCILV1_AMM_E2S_V100</ProjectFolderName>
 		<ProjectName 
-		en="RAMP Vector control for magnetic synchronous motor with hall sensors - 1shunt current detection" 
+		en="RAMP Vector control for magnetic synchronous motor with hall sensors - 3shunt current detection" 
 		jp="永久磁石同期モータのホールベクトル制御 - 1シャント電流検出方式" />
 		<ApplicationNoteUrl>/document/apn/vector-control-magnetic-synchronous-motor-hall-sensors-1shunt-current-detection-motor-flexible/</ApplicationNoteUrl>
 		<ProjectDescription en="This project is the software of RAMP vector control for permanent magnetic synchronous motor with hall sensors by using functions of RA6T2 microcontroller."
@@ -23,7 +23,7 @@
 	        <Features>
 	            	<Feature en="Hall sensor feedback" jp="ホールセンサフィードバック"/>
 	            	<Feature en="Vector control" jp="ベクトル制御"/>
-					<Feature en="1-shunt current detection method" jp="1シャント抵抗電流検出方式"/>
+					<Feature en="3-shunt current detection method" jp="3シャント抵抗電流検出方式"/>
 					<Feature en="RAMP" jp="RAMP"/>
 	        </Features>
 	       	<Setups>
@@ -45,7 +45,7 @@ This project is the software of vector control for permanent magnetic synchronou
 [Features, Target System]&#10;
  -Hall sensor feedback&#10;
  -Vector control&#10;
- -1-shunt current detection method&#10;
+ -3-shunt current detection method&#10;
 &#10;
 [Hardware Setup]&#10;
  -CPU board : RA6T2(R7FA6T2BD3CFP) CPU board (RTK0EMA270C00000BJ)&#10;
@@ -68,7 +68,7 @@ RA6T2マイクロコントローラを使用し、ホールセンサを用いて
 [機能、対象システム]&#10;
  -ホールセンサフィードバック&#10;
  -ベクトル制御&#10;
- -1シャント抵抗電流検出方式&#10;
+ -3シャント抵抗電流検出方式&#10;
 &#10;
 [対象ハードウェア構成]&#10;
  -CPUボード : RA6T2(R7FA6T2BD3CFP) CPUボード (RTK0EMA270C00000BJ)&#10;
@@ -87,3 +87,4 @@ RA6T2マイクロコントローラを使用し、ホールセンサを用いて
 		/>
 	</SampleProject>
 </ZipFile>
+
