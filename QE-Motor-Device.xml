@@ -46,7 +46,7 @@
 				<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6839xx0121-ra-sensorless-foc.xml</ProjectUrl>
 				<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6843xx0121-ra-hall-120.xml</ProjectUrl>
 				<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6842xx0121-ra-inductive-foc.xml</ProjectUrl>
-				<ProjectUrl>https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/r01an6840xx0121-ra-sensorless-foc-1shunt-ramp.xml</ProjectUrl>
+				<ProjectUrl>https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/r01an6840xx0121-ra-hall-foc-3shunt-ramp.xml</ProjectUrl>
 			</Device>
 			<Device>
 				<DeviceName>RA6T3</DeviceName>
@@ -121,3 +121,4 @@
 		</DeviceSeries>
 	</DeviceFamily>
 </DeviceFamilies>
+
