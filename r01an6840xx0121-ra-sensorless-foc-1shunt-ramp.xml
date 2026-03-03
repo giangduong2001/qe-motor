@@ -29,6 +29,7 @@
 	            <Feature en="Sensorless feedback" jp="センサレスフィードバック"/>
 	            <Feature en="Vector control" jp="ベクトル制御"/>
 	            <Feature en="1-shunt current detection method" jp="1シャント抵抗電流検出方式"/>
+				<Feature en="RAMP" jp="RAMP"/>
 	        </Features>
 	        <Setups>
 	            <Setup en="CPU board : MCB-RA6T2 RA6T2(R7FA6T2BD3CFP) CPU board Version 2(RTK0EMA270C00002BJ)" jp="CPUボード : MCB-RA6T2 RA6T2(R7FA6T2BD3CFP) CPUボード Version 2(RTK0EMA270C00002BJ)"/>
@@ -99,5 +100,6 @@ RA6T2マイクロコントローラ(MCU)を使用し、永久磁石同期モー�
 	</SampleProject>
 	
 </ZipFile>
+
 
 
