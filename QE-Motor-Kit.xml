@@ -132,10 +132,14 @@
 			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6843xx0121-ra-hall-120.xml</ProjectUrl>
 		</Project>
 		<Project>
+			<ProjectFolderName>RA6T2_MCB2_MCILV1_SPM_LESS_FOC_1SHUNT_E2S_V100_RAMP</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/r01an6840xx0121-ra-sensorless-foc-1shunt-ramp.xml</ProjectUrl>
+		</Project>
+		<Project>
 			<ProjectFolderName>RA6T2_MCB2_MCILV1_SPM_IS_FOC_E2S_V100</ProjectFolderName>
 			<ProjectFolderName>RA6T2_MCB2_MCILV1_SPM_IS_FOC_TUNER_E2S_V100</ProjectFolderName>
 			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6842xx0121-ra-inductive-foc.xml</ProjectUrl>
-		</Project>-->
+		</Project>
 	</Kit>
 	<Kit>
 		<KitName en="MCK-RA6T2 Renesas Flexible Motor Control Kit for RA6T2 MCU Group" jp="MCK-RA6T2 Renesas Flexible Motor Control Kit for RA6T2 MCU Group"/>
@@ -500,3 +504,4 @@
 		</Project>
 	</Kit>
 </Kits>
+
