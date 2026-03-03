@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ZipFile>
+	<Category en="Hall sensor feedback" jp="ホールセンサフィードバック" />
+	<Category en="Vector control" jp="ベクトル制御" />
+	<Category en="3-shunt current detection method" jp="3シャント抵抗電流検出方式" />
+	<Category en="RAMP" jp="RAMP" />
+	<SensorType en="Hall sensor feedback" jp="ホールセンサフィードバック" />
+	<ControlType en="Vector control" jp="ベクトル制御" />
+	<ZipDownloadUrl>/document/scd/vector-control-magnetic-synchronous-motor-hall-sensors-1shunt-current-detection-motor-flexible/r01an6979xx0100-ra-motor.zip</ZipDownloadUrl>
+	<Date>2023-08-04</Date>
+	<SampleProject>
+		<DeviceName>RA6T2</DeviceName>
+		<FspVersion>6.4.0</FspVersion>
+		<ProjectFolderName>RA6T2_MCB2_MCILV1_AMM_E2S_V100</ProjectFolderName>
+		<ProjectName 
+		en="RAMP Vector control for magnetic synchronous motor with hall sensors - 1shunt current detection" 
+		jp="永久磁石同期モータのホールベクトル制御 - 1シャント電流検出方式" />
+		<ApplicationNoteUrl>/document/apn/vector-control-magnetic-synchronous-motor-hall-sensors-1shunt-current-detection-motor-flexible/</ApplicationNoteUrl>
+		<ProjectDescription en="This project is the software of RAMP vector control for permanent magnetic synchronous motor with hall sensors by using functions of RA6T2 microcontroller."
+		jp="RA6T2マイクロコントローラを使用し、ホールセンサを用いて永久磁石同期モータ(PMSM)をベクトル制御で駆動するサンプルプログラムです。"/>
+		<Note en="The tuning function is not supported for this sample project even though the tuning function on the Workflow view of QE for Motor is enable when selecting this project as a target project." 
+		jp="QE for Motorのワークフロービューでは本プロジェクト選択時にチューニング機能が有効になりますが、本サンプルプログラムはチューニング機能に対応していません。"/>
+	        <Features>
+	            	<Feature en="Hall sensor feedback" jp="ホールセンサフィードバック"/>
+	            	<Feature en="Vector control" jp="ベクトル制御"/>
+					<Feature en="1-shunt current detection method" jp="1シャント抵抗電流検出方式"/>
+					<Feature en="RAMP" jp="RAMP"/>
+	        </Features>
+	       	<Setups>
+	            	<Setup en="CPU board : RA6T2(R7FA6T2BD3CFP) CPU board (RTK0EMA270C00000BJ)" jp="CPUボード : RA6T2(R7FA6T2BD3CFP) CPUボード (RTK0EMA270C00000BJ)"/>
+	            	<Setup en="Inverter board : MCI-LV-1" jp="インバータボード : MCI-LV-1"/>
+		    	<Setup en="Communication board : MC-COM" jp="通信ボード : MC-COM"/>
+			<Setup en="Motor : R42BLD30L3" jp="永久磁石同期モーター : R42BLD30L3"/>
+	        </Setups>
+	        <Functions>
+	        	<Function en="SW configuration" jp="SW configuration"/>
+		    	<Function en="Analyzer" jp="Analyzer"/>
+	        </Functions>
+	        <DocumentNumber en="R01AN6979EJ0100" jp="R01AN6979JJ0100"/>
+		<Description 
+		en="
+[Description]&#10;
+This project is the software of vector control for permanent magnetic synchronous motor with hall sensors by using functions of RA6T2 microcontroller.&#10;
+&#10;
+[Features, Target System]&#10;
+ -Hall sensor feedback&#10;
+ -Vector control&#10;
+ -1-shunt current detection method&#10;
+&#10;
+[Hardware Setup]&#10;
+ -CPU board : RA6T2(R7FA6T2BD3CFP) CPU board (RTK0EMA270C00000BJ)&#10;
+ -Inverter board : MCI-LV-1&#10;
+ -Communication board : MC-COM&#10;
+ -Motor : R42BLD30L3&#10;
+&#10;
+[Supported QE function(s)]&#10;
+ -SW configuration&#10;
+ -Analyzer&#10;
+ Note : The tuning function is not supported for this sample project even though the tuning function on the Workflow view of QE for Motor is enable when selecting this project as a target project.&#10;
+&#10;
+[Document Number]&#10;
+ R01AN6979EJ0100
+"
+		jp="
+[概要]&#10;
+RA6T2マイクロコントローラを使用し、ホールセンサを用いて永久磁石同期モータ(PMSM)をベクトル制御で駆動するサンプルプログラムです。&#10;
+&#10;
+[機能、対象システム]&#10;
+ -ホールセンサフィードバック&#10;
+ -ベクトル制御&#10;
+ -1シャント抵抗電流検出方式&#10;
+&#10;
+[対象ハードウェア構成]&#10;
+ -CPUボード : RA6T2(R7FA6T2BD3CFP) CPUボード (RTK0EMA270C00000BJ)&#10;
+ -インバータボード : MCI-LV-1&#10;
+ -通信ボード : MC-COM&#10;
+ -永久磁石同期モーター : R42BLD30L3&#10;
+&#10;
+[サポートするQE機能]&#10;
+ -SW configuration&#10;
+ -Analyzer&#10;
+ 注意 : QE for Motorのワークフロービューでは本プロジェクト選択時にチューニング機能が有効になりますが、本サンプルプログラムはチューニング機能に対応していません。&#10;
+&#10;
+[ドキュメント番号]&#10;
+ R01AN6979JJ0100
+"
+		/>
+	</SampleProject>
+</ZipFile>
