@@ -132,8 +132,8 @@
 			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6843xx0121-ra-hall-120.xml</ProjectUrl>
 		</Project>
 		<Project>
-			<ProjectFolderName>RA6T2_MCB2_MCILV1_SPM_LESS_FOC_1SHUNT_E2S_V100_RAMP</ProjectFolderName>
-			<ProjectUrl>https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/r01an6840xx0121-ra-sensorless-foc-1shunt-ramp.xml</ProjectUrl>
+			<ProjectFolderName>RA6T2_MCB2_MCILV1_AMM_E2S_V100</ProjectFolderName>
+			<ProjectUrl>https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/r01an6840xx0121-ra-hall-foc-3shunt-ramp.xml</ProjectUrl>
 		</Project>
 		<Project>
 			<ProjectFolderName>RA6T2_MCB2_MCILV1_SPM_IS_FOC_E2S_V100</ProjectFolderName>
@@ -504,4 +504,5 @@
 		</Project>
 	</Kit>
 </Kits>
+
 
