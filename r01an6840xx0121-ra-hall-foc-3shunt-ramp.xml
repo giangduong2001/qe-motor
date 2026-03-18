@@ -6,7 +6,7 @@
 	<Category en="RAMP" jp="RAMP" />
 	<SensorType en="Hall sensor feedback" jp="ホールセンサフィードバック" />
 	<ControlType en="Vector control" jp="ベクトル制御" />
-	<ZipDownloadUrl>/document/scd/vector-control-magnetic-synchronous-motor-hall-sensors-1shunt-current-detection-motor-flexible/r01an6979xx0100-ra-motor.zip</ZipDownloadUrl>
+	<ZipDownloadUrl>https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/RA6T2_MCB2_MCILV1_AMM_E2S_V100.zip</ZipDownloadUrl>
 	<Date>2023-08-04</Date>
 	<SampleProject>
 		<DeviceName>RA6T2</DeviceName>
