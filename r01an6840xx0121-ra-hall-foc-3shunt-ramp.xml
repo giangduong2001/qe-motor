@@ -15,7 +15,7 @@
 		<ProjectName 
 		en="RAMP Vector control for magnetic synchronous motor with hall sensors - 3shunt current detection" 
 		jp="永久磁石同期モータのホールベクトル制御 - 1シャント電流検出方式" />
-		<ApplicationNoteUrl>/document/apn/vector-control-magnetic-synchronous-motor-hall-sensors-1shunt-current-detection-motor-flexible/</ApplicationNoteUrl>
+		
 		<ProjectDescription en="This project is the software of RAMP vector control for permanent magnetic synchronous motor with hall sensors by using functions of RA6T2 microcontroller."
 		jp="RA6T2マイクロコントローラを使用し、ホールセンサを用いて永久磁石同期モータ(PMSM)をベクトル制御で駆動するサンプルプログラムです。"/>
 		<Note en="The tuning function is not supported for this sample project even though the tuning function on the Workflow view of QE for Motor is enable when selecting this project as a target project." 
