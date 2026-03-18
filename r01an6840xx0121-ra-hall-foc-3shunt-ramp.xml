@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ZipFile>
 	<Category en="Hall sensor feedback" jp="ホールセンサフィードバック" />
+	<Category en="Sensorless feedback" jp="センサレスフィードバック" />
 	<Category en="Vector control" jp="ベクトル制御" />
 	<Category en="3-shunt current detection method" jp="3シャント抵抗電流検出方式" />
 	<Category en="RAMP" jp="RAMP" />
 	<SensorType en="Hall sensor feedback" jp="ホールセンサフィードバック" />
+	<SensorType en="Sensorless feedback" jp="センサレスフィードバック" />
 	<ControlType en="Vector control" jp="ベクトル制御" />
 	<ZipDownloadUrl>https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/RA6T2_MCB2_MCILV1_AMM_E2S_V100.zip</ZipDownloadUrl>
 	<Date>2023-08-04</Date>
