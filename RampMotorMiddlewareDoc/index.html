@@ -4,6 +4,9 @@
 <meta name="color-scheme" content="light only">
 <title>Documentation Navigation</title>
 <style>
+  :root {
+    color-scheme: light only;
+  }
   /* --- Layout --- */
   html, body {
     height: 100%;
@@ -12,11 +15,13 @@
   }
   body {
     display: flex;
+    min-height: 100vh;
   }
 
   /* --- Left Navigation --- */
   #nav {
     width: 400px;
+    min-height: 100vh;
     background: #f3f3f3 !important;
     border-right: 1px solid #ccc !important;
     padding: 20px;
@@ -35,6 +40,8 @@
     flex: 1;
     border: none;
     width: 100%;
+    min-height: 100vh;
+    background-color: #ffffff !important;
   }
 
     body {
