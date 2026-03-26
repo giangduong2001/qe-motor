@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Algorithm_Sensor_HallFOC</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+  type="text/javascript"></script>
+</head>
+<body>
+<h1 id="hall-sensor-vector-control-function">Hall Sensor Vector Control
+Function</h1>
+<h2 id="overview">Overview</h2>
+<p>From the signal of the Hall sensor, six pulses can be detected in one
+rotation of the electrical angle. Normally, six pulses per rotation is a
+low resolution, so when vector control is performed, angular
+complementing is required to output arbitrary torque. When a
+low-resolution encoder such as a Hall sensor is used for vector control,
+multiple methods are proposed as complementary processing. This sample
+program uses a simple and easy-to-implement calculus method. In the
+rotating state, the speed is detected by differentiating the amount of
+change in the angle of the pulse. Also, assuming that the motor is
+rotating at the detected speed, the angle can be obtained by integrating
+the speed by each sampling cycle. This detection method uses software to
+detect pulses without using hardware and includes the detection error
+for the sampling cycle in the speed. Therefore, a parameter is provided
+so that you can select the method of correction by using a moving
+average based on the results of multiple detections in the past.<br />
+One of the unique starting characteristics of Hall sensor vector control
+is the phenomenon of sudden speed change at start-up. Since no speed
+signal can be obtained for a certain period of time between a standstill
+and the first input of Hall sensor output pulse, the integrator of the
+speed regulator may be saturated, and the speed may fluctuate due to
+excessive torque current commands.<br />
+To reduce speed fluctuations, use the static friction compensation
+described later and make adjustments according to the motor and load.
+Please note that even if it is compensated, it will be difficult in
+principle to eliminate speed fluctuations completely.</p>
+<figure>
+<img src="./media/image_hallfoc_startup.png"
+alt="Hall Sensor Vector Control Startup Diagram" />
+<figcaption aria-hidden="true">Hall Sensor Vector Control Startup
+Diagram</figcaption>
+</figure>
+<div data-align="center">
+Figure 1 Speed fluctuation during startup
+</div>
+<h2 id="hall-sensor-signals-and-hall-pattern-numbers">Hall Sensor
+Signals and Hall Pattern Numbers</h2>
+<p>The Hall sensor consists of three sensors as shown in Figure 2, and
+they are placed every 120 degrees to correspond to the UVW windings.
+These Hall sensors are defined as HU, HV, and HW, respectively.<br />
+The Hall sensor signals consist of three signals: HU, HV, and HW. By
+using the difference between High/Low of these signals, one rotation of
+360 degrees can be represented by the six magnetic pole positions. In
+other words, it can be regarded as an encoder with six pulses in one
+rotation of the electric angle.</p>
+<figure>
+<img src="./media/image_hallfoc_hallpattern.png"
+alt="Hall Sensor Vector Control Startup Diagram" />
+<figcaption aria-hidden="true">Hall Sensor Vector Control Startup
+Diagram</figcaption>
+</figure>
+<div data-align="center">
+Figure 2 Hall Sensor Placement and Hall Sensor Signal
+</div>
+<p><br></p>
+<p>The unique Hall signal value is expressed from the 1-bit signal of
+HU, HV, and HW by the equation as follows.</p>
+<p><strong>Hall signal value</strong> =
+<code>HW + 2*HV + 4*HU</code></p>
+The relation between HU, HV, and HW signals and the Hall signal values
+is shown in the table as follows.
+<div data-align="center">
+<p>Table 1 Relationship of Hall Sensor Signal Values</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">HU</th>
+<th style="text-align: center;">HV</th>
+<th style="text-align: center;">HW</th>
+<th style="text-align: center;">Hall signal value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">5</td>
+</tr>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">4</td>
+</tr>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">6</td>
+</tr>
+<tr>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">2</td>
+</tr>
+<tr>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">3</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The following table shows the relation between the above signal
+values and the Hall pattern numbers expressing 360 degrees as 1 to
+6.</p>
+<div data-align="center">
+<p>Table 2 Relationship Between Hall Sensor Signal and Pattern
+Number</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Hall pattern number</th>
+<th style="text-align: center;">Hall signal value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">5</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">4</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">6</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">2</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">3</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Based on the Hall pattern numbers, speed detection and angle
+detection processing are performed.</p>
+<h2 id="speed-detection-method">Speed Detection Method</h2>
+<p>The rotation speed is detected by checking the change in Hall sensor
+signals at a current control interval via GPIO, counting the number of
+the cycles during the change in the Hall sensor signal, and measuring
+the period T60deg for an electrical angle of 2π/6 [rad] (one interval of
+Hall signal change). When the current control interval (50 μs) is Ts,
+T60deg can be expressed by the following equation.</p>
+<p>T_60deg = Number of current control cycle k × T_s</p>
+<p>Thereby, the electric angular speed ωe [rad / s] can be obtained from
+the following equation.</p>
+<p>ω_e = (2π / 6) × (1 / T_60deg)</p>
+<p>However, when estimating with one period of Hall sensor signal
+change, the effect of error due to jitter in the current control
+interval (50us) is included. In addition, the installation error of the
+three Hall sensors may appear as a disturbance in the detection speed.
+Therefore, you can also calculate based on the moving average to reduce
+the effect of jitter. In this sample program, you can select three
+detection methods: the past one period, the last six periods (one
+rotation), and auto-switching. For example, if using a moving average of
+the last 6 periods, the electric angular speed ωe6, which is the average
+of six periods, can be obtained by the following equation.</p>
+<p>ω_e6 = (2π / 6) × (6 / T_360deg) = 2π / T_360deg</p>
+<p>To simplify the angle calculation in the software implementation, the
+following equation is used for the equivalent calculation.</p>
+<p>Electrical angle change in 1 carrier cycle [rad] = 2π[rad] ÷ number
+of carrier interrupts (2πperiod)</p>
+<p>Electrical angular speed [rad/sec] = electrical angle change in 1
+carrier cycle [rad] x carrier frequency [Hz]</p>
+<figure>
+<img src="./media/image_hallfoc_speed_estimation_diagram.png"
+alt="Conceptual diagram of speed estimation" />
+<figcaption aria-hidden="true">Conceptual diagram of speed
+estimation</figcaption>
+</figure>
+<div data-align="center">
+Figure 3 Conceptual diagram of speed estimation
+</div>
+<h2 id="angle-detection-methods">Angle Detection Methods</h2>
+<p>In angle detection, the electric angle is estimated from two pieces
+of information: the direction of rotation and the estimated rotation
+speed. The direction of rotation is detected by the Hall sensor signal
+pattern. The Hall sensor signal pattern is determined by the motor used,
+therefore, when the signal changes, the direction of rotation can be
+detected by comparison between the current and last Hall signal
+pattern.</p>
+<figure>
+<img src="./media/image_hallfoc_electrical_angle_estimation_cw.png"
+alt="Electrical angle estimation (CW rotation)" />
+<figcaption aria-hidden="true">Electrical angle estimation (CW
+rotation)</figcaption>
+</figure>
+<div data-align="center">
+Figure 4 Electrical angle estimation (CW rotation)
+</div>
+<p><br></p>
+<figure>
+<img src="./media/image_hallfoc_electrical_angle_estimation_ccw.png"
+alt="Electrical angle estimation (CCW rotation)" />
+<figcaption aria-hidden="true">Electrical angle estimation (CCW
+rotation)</figcaption>
+</figure>
+<div data-align="center">
+Figure 5 Electrical angle estimation (CCW rotation)
+</div>
+<p><br> At point A in Figure 5, the Hall signal changes from 1 to 5.
+Therefore, the direction of rotation of the motor can be judged as
+clockwise. At this point A, the electric angle is set as below.</p>
+<p>Point A (at clockwise rotation) Electrical angle [rad] = 2π[rad] x
+reference angle adjustment value (1/6) + internal angle in same Hall
+signal [rad] + offset value [rad]</p>
+<p>At the boundary of the Hall signal change, the electric angle is
+estimated with the reference angle 2π/6 [rad]. The reference angle
+adjustment value is set depending on the Hall signal as shown in the
+following Table.</p>
+<div data-align="center">
+<p>Table 3 Reference Angle Adjustment Values List</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Hall Signal</th>
+<th style="text-align: center;">Reference angle adjustment value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0 (0/6)</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">1/6</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">2/6</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">3/6</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">4/6</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">5/6</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>At point A in Figure 4, the Hall signal changes from 1 to 5, so the
+reference angle adjustment value is set to 1/6, which corresponds to the
+Hall signal 5.</p>
+<figure>
+<img src="./media/image_hallfoc_internal_angle_estimation.png"
+alt="Conceptual diagram of Hall sensor internal angle estimation (at CW rotation)" />
+<figcaption aria-hidden="true">Conceptual diagram of Hall sensor
+internal angle estimation (at CW rotation)</figcaption>
+</figure>
+<div data-align="center">
+Figure 6 Conceptual diagram of Hall sensor internal angle estimation (at
+CW rotation)
+</div>
+<p><br> At the boundary of Hall signal change, the internal angle is set
+to -2π/12 [rad] at clockwise rotation and 2π/12 [rad] at
+counterclockwise rotation as the initial value. At each carrier
+interrupt, the difference is added based on the estimated speed
+information. However, the difference is limited between -2π/12 and 2π/12
+[rad] with consideration about signal errors and speed fluctuations. Any
+calculated angle is rounded if it exceeds the range of -2π/12 to
+2π/12.</p>
+<div data-align="center">
+<p>Table 4 Calculation formula for directional angles within the Hall
+signal</p>
+<table>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 82%" />
+</colgroup>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Internal angle in Hall signal [rad]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Clockwise</td>
+<td>Initial value (-2π/12) + [estimated speed (rad/s) × Ts × number of
+carrier interrupts]</td>
+</tr>
+<tr>
+<td></td>
+<td>or</td>
+</tr>
+<tr>
+<td></td>
+<td>Initial value (-2π/12) + electrical angle change in one carrier
+cycle [rad]</td>
+</tr>
+<tr>
+<td>Counterclockwise</td>
+<td>Initial value (2π/12) - [estimated speed (rad/s) × Ts × number of
+carrier interrupts]</td>
+</tr>
+<tr>
+<td></td>
+<td>or</td>
+</tr>
+<tr>
+<td></td>
+<td>Initial value (2π/12) - electrical angle change in one carrier cycle
+[rad]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="friction-compensation">Friction Compensation</h2>
+<p>To accelerate smoothly from a standstill at start-up, it is important
+to detect signals of the speed and position sensors in a short time.
+However, low-resolution Hall sensors have a characteristic that the
+sensor signal changes in long intervals, making it difficult to increase
+the sensitivity of speed detection for control at high sampling cycle,
+and the speed regulator may not be able to output an appropriate torque,
+resulting in excessive torque output and sudden changes in speed.<br />
+Therefore, this sample program provides a function to preset parameters
+related to static friction when accelerating at start-up according to
+the characteristics of the load and motor and to provide feed-forward
+compensation to the q-axis current command value so as not to generate
+excessive torque at start-up. Note that if it is a load or motor with
+excessive static friction, or if the load changes rapidly, it may not be
+possible to suppress the sudden change in speed to the desired
+level.<br />
+An example of friction compensation is shown in Figure 7, where the
+horizontal axis is the speed ω[rad/s], and the vertical axis is the
+compensation current value Icomp[A]. This compensation is configured
+with four parameters: the static friction velocity threshold value Vs
+[rad/s], the static friction compensation value Fs [A], the viscous
+friction coefficient Fv [A], and the Coulomb friction compensation value
+Fc [A]. The unit of compensation value is amperes and is used to
+compensate for the speed regulator.<br />
+The static friction velocity threshold Vs is a parameter that determines
+up to which speed the compensation value Fs is applied when the motor
+starts to rotate from a standstill. Static friction compensation presets
+the current for the static friction required to start rotation.<br />
+The viscous friction coefficient Fv is a parameter that compensates for
+the friction that increases according to speed. If you are unsure, set
+it to 0. If 0 is set, the integrator of the speed regulator performs
+control instead of this parameter. The Coulomb friction compensation
+value is a parameter that compensates for the friction that is always
+applied to the axis of the motor during rotation. For example, it
+compensates for frictions caused by bearings or some contact
+objects.<br />
+If the direction of rotation is reversed, the software automatically
+processes these compensations by reversing positive and negative.</p>
+<figure>
+<img src="./media/image_hallfoc_friction_compensation.png"
+alt="Conceptual diagram of friction compensation" />
+<figcaption aria-hidden="true">Conceptual diagram of friction
+compensation</figcaption>
+</figure>
+<div data-align="center">
+Figure 7 Conceptual diagram of friction compensation
+</div>
+<p><br></p>
+<p>The compensation current value Icomp that is output by the friction
+compensation process can be expressed as follows. The input is the speed
+command value ωref[rad/s] and the speed detection value ω [rad/s], and
+the output is the current compensation value [A].</p>
+<p><span class="math display">\[
+I_{\mathrm{comp}}(\omega, \omega_{\mathrm{ref}})=
+\begin{cases}
+0,
+&amp; |\omega_{\mathrm{ref}}| &lt; V_s
+\\[6pt]
+\operatorname{sgn}(\omega)\, F_s,
+&amp; |\omega_{\mathrm{ref}}| \ge V_s,\ |\omega| &lt; V_s
+\\[6pt]
+\operatorname{sgn}(\omega)\, F_C + F_V\,\omega,
+&amp; \text{else}
+\end{cases}
+\]</span></p>
+<p>The following is a list of parameters described above, a guide on how
+to set them, and setting examples. Since it is assumed that they are
+applied to the environment where theoretical calculation is difficult,
+they are methods for parameter calculation assumed to be calculated by
+experiments using actual equipment.</p>
+<div data-align="center">
+<p>Table 5 Calculation Method for Friction Compensation Parameters</p>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 66%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Setting Guide</th>
+<th>Setting Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Static friction compensation Fs</td>
+<td>When starting without compensation, set Fs to approximately 80% of
+the torque command (q-axis current).</td>
+<td>Fs = 0.8 × Iq_ref</td>
+</tr>
+<tr>
+<td>Coulomb friction compensation Fc</td>
+<td>Set Fc to the Iq command value at 40% of rated speed in actual
+operating conditions.</td>
+<td>Fc = Iq_ref</td>
+</tr>
+<tr>
+<td>Viscous friction coefficient Fv</td>
+<td>Set Fv to 0 for gradual load changes, dominant PI speed control, or
+unknown conditions.</td>
+<td>Fv = 0</td>
+</tr>
+<tr>
+<td>Static friction velocity Vs</td>
+<td>Set Vs as the threshold for static friction. Typically, choose a
+small value (e.g. 1.0 [rad/s]) considering speed detection accuracy at
+standstill.</td>
+<td>Vs = 1.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</body>
+</html>

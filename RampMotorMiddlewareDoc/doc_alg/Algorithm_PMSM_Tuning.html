@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Algorithm_PMSM_Tuning</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+  type="text/javascript"></script>
+</head>
+<body>
+<h1 id="pm-motor-tuning">PM Motor Tuning</h1>
+<h2 id="pm-motor-parameters">1. PM Motor Parameters</h2>
+<p>To control a PM motor, the following parameters (motor constants) are
+required:</p>
+<table>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 8%" />
+<col style="width: 7%" />
+<col style="width: 53%" />
+</colgroup>
+<thead>
+<tr>
+<th>PM Motor Parameter</th>
+<th>Symbol</th>
+<th>Unit</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Resistance</td>
+<td>Ra (R)</td>
+<td>Ω</td>
+<td>Winding resistance</td>
+</tr>
+<tr>
+<td>d-axis inductance</td>
+<td>Ld</td>
+<td>H</td>
+<td>Ease of current flow between winding and magnet (d-axis)</td>
+</tr>
+<tr>
+<td>q-axis inductance</td>
+<td>Lq</td>
+<td>H</td>
+<td>Ease of current flow between winding and magnet (q-axis)</td>
+</tr>
+<tr>
+<td>Flux linkage / Back-EMF constant</td>
+<td>Ke, Ψ(Φf)</td>
+<td>Wb</td>
+<td>Magnitude of induced voltage due to magnet rotation</td>
+</tr>
+<tr>
+<td>Moment of inertia</td>
+<td>J</td>
+<td>kg·m²</td>
+<td>Mechanical inertia</td>
+</tr>
+<tr>
+<td>Viscous friction coefficient</td>
+<td>D</td>
+<td>Nm·s/rad</td>
+<td>Mechanical friction</td>
+</tr>
+</tbody>
+</table>
+<h2 id="methods-to-obtain-parameters">2. Methods to Obtain
+Parameters</h2>
+<table>
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 51%" />
+<col style="width: 10%" />
+</colgroup>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+<th>RMW Support</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Consult motor manufacturer</td>
+<td>Most reliable and accurate</td>
+<td>—</td>
+</tr>
+<tr>
+<td>LCR meter / Oscilloscope</td>
+<td>Electrical measurements (mechanical parameters not measurable)</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>RMW Tuner</strong></td>
+<td>Using RMW tuner feature</td>
+<td><strong>Supported</strong></td>
+</tr>
+<tr>
+<td>Measurement devices with parameter estimation</td>
+<td>Specialized equipment such as HIOKI power meters</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Motor self-design</td>
+<td>Electromagnetic and mechanical design</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tuning-methods">3. Tuning Methods</h2>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 65%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+<th>RMW Support</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LCR meter / Oscilloscope</td>
+<td>Electrical measurement</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>Offline tuning</strong></td>
+<td>Parameter measurement with motor stationary</td>
+<td><strong>RMW</strong></td>
+</tr>
+<tr>
+<td><strong>Rotational tuning</strong></td>
+<td>Mechanical parameter measurement during rotation</td>
+<td><strong>RMW</strong></td>
+</tr>
+<tr>
+<td>Online tuning</td>
+<td>Estimation during actual operation (not covered in this
+document)</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<h2 id="measurement-using-electrical-instruments">4. Measurement Using
+Electrical Instruments</h2>
+<h3 id="measuring-r-ld-lq-with-an-lcr-meter">4.1 Measuring R, Ld, Lq
+with an LCR Meter</h3>
+<ul>
+<li>Use a calibrated LCR meter and perform open/short adjustments</li>
+<li>Measure Rs (series resistance) and Ls (series inductance)</li>
+<li>Measurement frequency: <strong>around 100 Hz</strong> (near the
+motor’s fundamental operating frequency)</li>
+</ul>
+<p><strong>Procedure:</strong></p>
+<ol type="1">
+<li>Place probes across U–V (also V–W, W–U)</li>
+<li>Read Rs and divide by <strong>1/2</strong> → yields motor resistance
+<strong>Ra</strong></li>
+<li>Slowly rotate rotor and record minimum inductance (Ls-min) and
+maximum inductance (Ls-max):
+<ul>
+<li>Ls-min = 2Ld → <strong>Ld = Ls-min / 2</strong></li>
+<li>Ls-max = 2Lq → <strong>Lq = Ls-max / 2</strong></li>
+</ul></li>
+<li>Confirm across other phases as well</li>
+</ol>
+<h3 id="measuring-flux-linkage-ψ-φf-using-an-oscilloscope">4.2 Measuring
+Flux Linkage Ψ (Φf) Using an Oscilloscope</h3>
+<ul>
+<li>Rotate motor at a constant speed using a power tool, etc., and
+observe induced voltage</li>
+<li>Measure frequency <em>f</em> and peak voltage <em>Vp</em></li>
+<li><strong>Note</strong>: Line-to-line voltage is √3 times larger and
+phase-shifted by 30°</li>
+</ul>
+<p><span class="math display">\[\Phi_f = \frac{V_p}{\sqrt{2} \cdot
+\omega} = \frac{V_p}{\sqrt{2} \cdot 2\pi f}\]</span></p>
+<p>Set the measured Ψ into the PMFOC motor parameter “magnetic flux” in
+FSP properties.</p>
+<h3 id="calculating-inertia-j">4.3 Calculating Inertia J</h3>
+<ul>
+<li>Often listed in the motor datasheet/UM (otherwise contact
+manufacturer)</li>
+<li>If a load is connected, sum the following:
+<ul>
+<li>Motor inertia</li>
+<li>Coupling</li>
+<li>Shaft (non-motor components)</li>
+<li>Load-side inertia</li>
+</ul></li>
+</ul>
+<h2 id="parameter-acquisition-algorithms-and-flow">5. Parameter
+Acquisition Algorithms and Flow</h2>
+<h3 id="overview">5.1 Overview</h3>
+<table>
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 36%" />
+<col style="width: 55%" />
+</colgroup>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Algorithm</th>
+<th>Measurement Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R</td>
+<td>Two-point difference / RLS / Fourier integral</td>
+<td>DC voltage injection → estimate from current</td>
+</tr>
+<tr>
+<td>Ld, Lq</td>
+<td>RLS / Fourier integral</td>
+<td>200 Hz AC voltage injection → estimate from current</td>
+</tr>
+<tr>
+<td>Ψ (Emf, Ke)</td>
+<td>Back-EMF observer</td>
+<td>Accelerate up to 25% supply voltage → remeasure at 50% speed</td>
+</tr>
+<tr>
+<td>J, D</td>
+<td>RLS / Fourier integral</td>
+<td>Estimate from torque during ±15% speed variation around 50% max
+speed</td>
+</tr>
+</tbody>
+</table>
+<h3 id="measurement-flow">5.2 Measurement Flow</h3>
+<ol type="1">
+<li>Inject DC voltage → measure current → <strong>estimate
+R</strong></li>
+<li>Inject AC voltage → measure current → <strong>estimate
+Ld</strong></li>
+<li>Inject AC voltage → measure current → <strong>estimate
+Lq</strong></li>
+<li>Motor drive → Back-EMF observer → <strong>estimate Ψ
+(Ke)</strong></li>
+<li>Motor drive with speed variation → measure current →
+<strong>estimate J, D</strong></li>
+</ol>
+<h2 id="pmsm-parameter-identification-algorithm">6. PMSM Parameter
+Identification Algorithm</h2>
+<h3 id="dq-axis-equivalent-circuits-fig.-1">6.1 dq-axis Equivalent
+Circuits (Fig. 1)</h3>
+<p><strong>(a) d-axis equivalent circuit:</strong></p>
+<pre><code>vd → [Ra] → [Ld] → (current source: ωLqIq) → id</code></pre>
+<p><strong>(b) q-axis equivalent circuit:</strong></p>
+<pre><code>vq → [Ra] → [Lq] → (voltage source: ωLdId + Φf) → iq</code></pre>
+<h3 id="mechanical-output-equivalent-model-fig.-2">6.2 Mechanical Output
+Equivalent Model (Fig. 2)</h3>
+<pre><code>τ (torque) → [1/(JS+D)] → ωm → [1/s] → θm
+         ↑ TL (load torque)</code></pre>
+<p>Mechanical equation:</p>
+<p><span class="math display">\[J\frac{d\omega_m}{dt} + D\omega_m = T_e
+- T_L\]</span></p>
+<h2
+id="measurement-of-ra-ld-lq-using-the-fourier-integral-method-static-method">7.
+Measurement of Ra, Ld, Lq Using the Fourier Integral Method (Static
+Method)</h2>
+<h3 id="principle">7.1 Principle</h3>
+<p>Fix the rotor d‑axis to the U‑phase axis (ω = 0), then apply an AC
+voltage to the d‑axis:</p>
+<p><span class="math display">\[V_{dref} = E\sin\omega t \quad \cdots
+(1)\]</span></p>
+<p>Under these conditions, the equivalent circuit becomes a simple RL
+series (no induced EMF), and the current is:</p>
+<p><span class="math display">\[i(t) = \frac{E}{\sqrt{R_a^2 + (\omega
+L_d)^2}} \left\{ \sin(\omega t - \varphi) + e^{-\frac{R_a}{L_d}t}
+\sin\varphi \right\} \quad \cdots (2)\]</span></p>
+<p>where<br />
+<span class="math display">\[\varphi = \tan^{-1}\dfrac{\omega
+L_d}{R_a}\]</span></p>
+<h3 id="fourier-integral-expansion">7.2 Fourier Integral Expansion</h3>
+<h4 id="expansion-of-i-cdot-sinomega-t">Expansion of <span
+class="math display">\[i \cdot \sin\omega t\]</span>:</h4>
+<p><span class="math display">\[i \cdot \sin\omega t =
+\frac{E}{2\sqrt{R_a^2+(\omega L_d)^2}}\{-\cos(2\omega
+t-\varphi)+\cos\varphi\}\]</span><br />
+<span class="math display">\[+ \frac{E}{2\sqrt{R_a^2+(\omega L_d)^2}}
+e^{-\frac{R_a}{L_d}t}\{-\cos(\omega t+\varphi)+\cos(\omega t-\varphi)\}
+\quad \cdots (3)\]</span></p>
+<h4 id="expansion-of-i-cdot-cosomega-t">Expansion of <span
+class="math display">\[i \cdot \cos\omega t\]</span>:</h4>
+<p><span class="math display">\[i \cdot \cos\omega t =
+\frac{E}{2\sqrt{R_a^2+(\omega L_d)^2}}\{\sin(2\omega
+t-\varphi)-\sin\varphi\}\]</span><br />
+<span class="math display">\[+ \frac{E}{2\sqrt{R_a^2+(\omega L_d)^2}}
+e^{-\frac{R_a}{L_d}t}\{\sin(\omega t+\varphi)-\sin(\omega
+t-\varphi)\}\]</span></p>
+<h3 id="extraction-of-dc-components-by-integral-averaging">7.3
+Extraction of DC Components by Integral Averaging</h3>
+<p>After sufficient time (transient term = 0), integrate over several
+cycles of frequency ω; the AC terms cancel, leaving only DC
+components:</p>
+<p><span class="math display">\[A_{sin} = \frac{E R_a / 2}{R_a^2 +
+(\omega L_d)^2} \quad \cdots (4)\]</span></p>
+<p><span class="math display">\[A_{cos} = \frac{-E \omega L_d / 2}{R_a^2
++ (\omega L_d)^2} \quad \cdots (6)\]</span></p>
+<h3 id="calculating-ra-and-ld">7.4 Calculating Ra and Ld</h3>
+<p><span class="math display">\[R_a = \frac{E A_{sin}}{2(A_{sin}^2 +
+A_{cos}^2)}\]</span></p>
+<p><span class="math display">\[L_d = \frac{E A_{cos}}{2(A_{sin}^2 +
+A_{cos}^2)}\]</span></p>
+<p>Lq is obtained in the same way by applying AC voltage to the
+q‑axis.</p>
+<h2 id="measurement-of-ra-ld-lq-using-recursive-least-squares-rls">8.
+Measurement of Ra, Ld, Lq Using Recursive Least Squares (RLS)</h2>
+<h3 id="difference-equation-derivation">8.1 Difference Equation
+Derivation</h3>
+<p>For the d‑axis RL series:</p>
+<p><span class="math display">\[i_d = \frac{1}{L_d S + R_a} v_d \quad
+\cdots (1)\]</span></p>
+<p>Discretizing the derivative:</p>
+<p><span class="math display">\[i_d(k) = \frac{L_d/T_s}{L_d/T_s + R_a}
+i_d(k-1) + \frac{1}{L_d/T_s + R_a} v_d(k-1) \quad \cdots
+(2)\]</span></p>
+<p>Thus:</p>
+<p><span class="math display">\[i_d(k) = A\, i_d(k-1) + B\, v_d(k-1)
+\quad \cdots (3)\]</span></p>
+<p>Matrix form:</p>
+<p><span class="math display">\[i_d(k) = [A, B] \begin{bmatrix} i_d(k-1)
+\\ v_d(k-1) \end{bmatrix} \quad \cdots (4)\]</span></p>
+<h3 id="least-squares-model">8.2 Least Squares Model</h3>
+<p><span class="math display">\[Y(k) = \theta^T \varphi(k)\]</span></p>
+<ul>
+<li><span class="math display">\[Y(k) = i_d(k)\]</span></li>
+<li><span class="math display">\[\theta^T = [A, B]\]</span></li>
+<li><span class="math display">\[\varphi(k) = [i_d(k-1),
+v_d(k-1)]^T\]</span></li>
+</ul>
+<p>Prediction error:</p>
+<p><span class="math display">\[\varepsilon(k,\theta) = Y(k) -
+\theta^T\varphi(k)\]</span></p>
+<h3 id="cost-function-and-minimization">8.3 Cost Function and
+Minimization</h3>
+<p><span class="math display">\[J_N(\theta) = \frac{1}{N}\sum_{k=1}^{N}
+\{Y(k)-\theta^T\varphi(k)\}^2\]</span></p>
+<p>Expanding:</p>
+<p><span class="math display">\[J_N(\theta) = \theta^T R(N)\theta -
+2\theta^T f(N) + C(N)\]</span></p>
+<p>Where:</p>
+<p><span class="math display">\[R(N) =
+\frac{1}{N}\sum_{k=1}^{N}\varphi(k)\varphi^T(k)\]</span> <span
+class="math display">\[f(N) =
+\frac{1}{N}\sum_{k=1}^{N}\varphi(k)Y(k)\]</span> <span
+class="math display">\[C(N) =
+\frac{1}{N}\sum_{k=1}^{N}Y^2(k)\]</span></p>
+<p>Setting derivative = 0:</p>
+<p><span class="math display">\[\hat{\theta}(N) = R(N)^{-1}
+f(N)\]</span></p>
+<h3 id="recursive-form-rls">8.4 Recursive Form (RLS)</h3>
+<p>Applying matrix inversion lemma:</p>
+<p><span class="math display">\[P(N) = P(N-1) -
+\frac{P(N-1)\varphi(N)\varphi^T(N)P(N-1)}{1 +
+\varphi^T(N)P(N-1)\varphi(N)}\]</span></p>
+<p>Parameter update:</p>
+<p><span class="math display">\[\hat{\theta}(N) = \hat{\theta}(N-1) +
+\frac{P(N-1)\varphi(N)}{1+\varphi^T(N)P(N-1)\varphi(N)}\varepsilon(N)\]</span></p>
+<p>Initial values:</p>
+<p><span
+class="math display">\[\hat{\theta}(0)=\begin{bmatrix}0\\0\end{bmatrix},\quad
+P(0)=\begin{bmatrix}\gamma &amp; 0 \\ 0 &amp; \gamma \end{bmatrix},\
+\gamma &gt; 1000\sim10000\]</span></p>
+<h3 id="rls-with-forgetting-factor-for-time-varying-systems">8.5 RLS
+with Forgetting Factor (for Time-Varying Systems)</h3>
+<p>Cost function:</p>
+<p><span
+class="math display">\[I_N(\theta)=\sum_{k=1}^{N}\lambda^{N-k}\varepsilon^2(k),\quad
+\lambda=0.97\sim0.995\]</span></p>
+<p>Updates:</p>
+<p><span
+class="math display">\[\hat{\theta}(N)=\hat{\theta}(N-1)+\frac{P(N-1)\varphi(N)}{\lambda+\varphi^T(N)P(N-1)\varphi(N)}\varepsilon(N)\]</span></p>
+<p><span
+class="math display">\[P(N)=\frac{1}{\lambda}\left\{P(N-1)-\frac{P(N-1)\varphi(N)\varphi^T(N)P(N-1)}{\lambda+\varphi^T(N)P(N-1)\varphi(N)}\right\}\]</span></p>
+<h3 id="recovering-ra-and-ld">8.6 Recovering Ra and Ld</h3>
+<p>From RLS‑estimated A and B:</p>
+<p><span class="math display">\[L_d = \frac{A}{B}T_s,\quad R_a =
+\frac{1-A}{B}\]</span></p>
+<p>q‑axis:</p>
+<p><span class="math display">\[L_q = \frac{C}{D}T_s,\quad R_a =
+\frac{1-C}{D}\]</span></p>
+<h2 id="measurement-of-flux-linkage-ψ-φf-using-the-backemf-observer">9.
+Measurement of Flux Linkage Ψ (Φf) Using the Back‑EMF Observer</h2>
+<h3 id="backemf-observer-block-diagram">9.1 Back‑EMF Observer Block
+Diagram</h3>
+<h4 id="daxis-observer">d‑axis observer:</h4>
+<ul>
+<li>Input: <span class="math display">\[v_d^*\]</span></li>
+<li>Model: <span class="math display">\[\frac{1}{L_d s}\]</span> →
+estimated current <span class="math display">\[\hat{i}_d\]</span></li>
+<li>Feedback: R, <span class="math display">\[L_d K_{Ed1}\]</span></li>
+<li>Integrator → disturbance estimate:<br />
+<span class="math display">\[\hat{d}_d = \omega^* L_q i_q -
+e_d\]</span></li>
+</ul>
+<h4 id="qaxis-observer">q‑axis observer:</h4>
+<ul>
+<li>Input: <span class="math display">\[v_q^*\]</span></li>
+<li>Model: <span class="math display">\[\frac{1}{L_q s}\]</span></li>
+<li>Integrator → disturbance estimate:<br />
+<span class="math display">\[\hat{d}_q = -\omega^* L_d i_d +
+e_q\]</span></li>
+</ul>
+<h3 id="computing-induced-voltage">9.2 Computing Induced Voltage</h3>
+<p><span class="math display">\[E_d = -\hat{d}_d + \omega L_q i_q \cong
+\omega\Phi_f\sin\Delta\theta\]</span></p>
+<p><span class="math display">\[E_q = -\hat{d}_q - \omega L_d i_d \cong
+\omega\Phi_f\cos\Delta\theta\]</span></p>
+<h3 id="computing-flux-linkage-backemf-constant">9.3 Computing Flux
+Linkage (Back‑EMF Constant)</h3>
+<p><span class="math display">\[\Phi_f = \frac{E}{\omega} =
+\frac{\sqrt{E_d^2 + E_q^2}}{\omega}\]</span></p>
+<h2 id="measurement-of-j-and-d-rls-rotational-method">10. Measurement of
+J and D (RLS / Rotational Method)</h2>
+<h3 id="mechanical-difference-equation">10.1 Mechanical Difference
+Equation</h3>
+<p>For no‑load (TL = 0):</p>
+<p><span class="math display">\[\omega_m(k) = [E, F]
+\begin{bmatrix}\omega_m(k-1)\\P_n\Phi_f
+i_q(k-1)\end{bmatrix}\]</span></p>
+<p>Expanded:</p>
+<p><span class="math display">\[\omega_m(k)=\frac{J/T_s}{J/T_s +
+D}\omega_m(k-1)+\frac{1}{J/T_s + D}P_n\Phi_f i_q(k-1)\]</span></p>
+<h3 id="recovering-j-and-d">10.2 Recovering J and D</h3>
+<p>After estimating E and F via RLS:</p>
+<p><span class="math display">\[J = \frac{E}{F}T_s P_n\Phi_f,\quad D =
+\frac{1-E}{F}P_n\Phi_f\]</span></p>
+<h2 id="control-system-block-diagrams">11. Control System Block
+Diagrams</h2>
+<h3 id="measuring-ra-ld">11.1 Measuring Ra, Ld</h3>
+<pre><code>Sinusoidal Excitation → dq Transform → PWM → Motor
+                            ↑
+                      DFT or RLS → Ra_est, Ld_est
+(Vq_ref = 0 fixed)</code></pre>
+<h3 id="measuring-lq">11.2 Measuring Lq</h3>
+<pre><code>Sinusoidal Excitation (Vd_ref = V0_REF) → dq Transform → PWM → Motor
+                                             ↑
+                                       DFT or RLS → Lq_est</code></pre>
+<h3 id="simplified-φf-measurement">11.3 Simplified Φf Measurement</h3>
+<pre><code>Id_ref = ID_REF,  Iq_ref = 0
+→ ACR × 2 → dq Transform → PWM → Motor
+                ↑             ↓
+          BEMF OBSERVER → Speed Estimator (PI)
+                          → 1/(Pn × OMEGA_REF) → Φf_est</code></pre>
+<h3 id="φf-j-d-measurement">11.4 Φf, J, D Measurement</h3>
+<pre><code>OMEGA_REF → ASR → Iq_ref → ACR × 2 → dq Transform → PWM → Motor
+Id_ref = ID_REF ↗                                    ↓
+                    BEMF OBSERVER ← dq Transform ←───┘
+                         ↓
+                       Speed Estimator (PI) → ω_est
+                    RLS Method → J_est, D_est</code></pre>
+</body>
+</html>

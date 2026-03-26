@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Algorithm_1shunt</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+  type="text/javascript"></script>
+</head>
+<body>
+<h1 id="one-shunt-current-detection">One-Shunt Current Detection</h1>
+<h2 id="overview">Overview</h2>
+<p>There are two current detection methods for vector control: the
+in-line method, which uses current transformers (CT) or ΔΣ modulators to
+detect three-phase output currents, and the low-side method, which
+places shunt resistors at the lower arms of the inverter to detect
+currents. The major method used in home appliances is that using shunt
+resistors with the aim of simplified, low-cost, and small circuits. In
+some cases, the 1-shunt current detection method is used, in which only
+one shunt resistor is used to detect the phase of the current flowing
+through the inverter bus according to the PWM signal pattern and three
+phase currents are reconstructed from the detected inverter bus current.
+This section describes the algorithm of the 1-shunt current detection
+method implemented by this sample program.</p>
+<h2 id="principles-of-detection">Principles of Detection</h2>
+<p>Motor-driving systems controlled by MCUs generally use the carrier
+comparison method in applying phase voltage command values, which are
+results of vector control calculation, to motors. This method generates
+gate signals for the upper and lower arms corresponding to the
+individual phases of the inverter according to the relationship between
+the carrier wave (usually a triangle-wave) output from a timer that is
+provided as a peripheral module in the MCU and the compare-match values
+calculated from the phase voltage command values. The power elements in
+the inverter are switched by these gate signals and PWM waveforms are
+applied to the motor.<br> Figure 1 shows the changes in the gate signals
+for the individual phases and the timing of current detection with the
+carrier comparison method. In this figure, <span
+class="math inline">\(C_u\)</span>, <span
+class="math inline">\(C_v\)</span>, and <span
+class="math inline">\(C_w\)</span> indicate the compare-match values for
+the respective phases, <span class="math inline">\(G_{up}\)</span>,
+<span class="math inline">\(G_{vp}\)</span>, and <span
+class="math inline">\(G_{wp}\)</span> indicate the gate signals for the
+upper arms for the respective phases, and <span
+class="math inline">\(S_0\)</span> to <span
+class="math inline">\(S_7\)</span> indicate the patterns for switching
+the elements (voltage vectors). For the lower arms, the logical inverses
+of <span class="math inline">\(G_{up}\)</span>, <span
+class="math inline">\(G_{vp}\)</span>, and <span
+class="math inline">\(G_{wp}\)</span> are applied as gate signals with
+the dead time taken into account. Table 1 lists the switching patterns.
+Desired voltages are output to the motor according to the switching
+patterns and the durations of the individual patterns in each carrier
+cycle. Figure 3 shows an example of the output of phase voltage command
+values according to the patterns <span
+class="math inline">\(S_0\)</span>, <span
+class="math inline">\(S_1\)</span>, <span
+class="math inline">\(S_2\)</span>, and <span
+class="math inline">\(S_7\)</span> and the durations in the individual
+patterns. The switching patterns and their durations depend on the
+relationship between the voltage command values for the individual
+phases. With the 3-shunt current detection method (low-side method),
+currents are detected in the <span class="math inline">\(S_0\)</span>
+period in which the lower arms of the three phases are all turned on
+(<span class="math inline">\(G_{up}\)</span>, <span
+class="math inline">\(G_{vp}\)</span>, and <span
+class="math inline">\(G_{wp}\)</span> are not applied) as shown in
+Figure 1 because shunt resistors are placed under the legs of the
+individual phases in the inverter. With the 1-shunt current detection
+method on the other hand, currents cannot be detected in the <span
+class="math inline">\(S_0\)</span> and <span
+class="math inline">\(S_7\)</span> periods in which the upper arms or
+lower arms of the three phases are all turned on (hereafter referred to
+as the zero voltage vectors) because no current flows through the
+inverter bus. Therefore, with the 1-shunt current detection method,
+currents are detected in the <span class="math inline">\(S_1\)</span> to
+<span class="math inline">\(S_6\)</span> periods (hereafter referred to
+as the non-zero voltage vectors) in which a current flows through the
+inverter bus. Figure 2 shows the inverter bus current flowing in the
+<span class="math inline">\(S_1\)</span> period. In this period, only
+the U-phase upper arm is turned on, so the U-phase current can be
+obtained by detecting the inverter bus current. The last row in Table 1
+shows the phase current that can be obtained by detecting the inverter
+bus current in the respective parts of the switching patterns. When
+there are two different non-zero voltage vectors (two among <span
+class="math inline">\(S_1\)</span> to <span
+class="math inline">\(S_6\)</span>) within one carrier cycle, currents
+of two phases should be detected at appropriate times and the remaining
+one phase current can be obtained from the Kirchhoff's current law.</p>
+<div data-align="center">
+<p>Table 1 Inverter Switching Patterns and Phase Currents Detected from
+the Inverter Bus Current<br />
+(1 = On and 0 = Off, Only Shown for the Upper Arms) | Pattern | <span
+class="math inline">\(S_0\)</span> | <span
+class="math inline">\(S_1\)</span> | <span
+class="math inline">\(S_2\)</span> | <span
+class="math inline">\(S_3\)</span> | <span
+class="math inline">\(S_4\)</span> | <span
+class="math inline">\(S_5\)</span> | <span
+class="math inline">\(S_6\)</span> | <span
+class="math inline">\(S_7\)</span> | |——-|—|—|—|—|—|—|—|—| | U+ | 0 | 1
+| 1 | 0 | 0 | 0 | 1 | 1 | | V+ | 0 | 0 | 1 | 1 | 1 | 0 | 0 | 1 | | W+ |
+0 | 0 | 0 | 0 | 1 | 1 | 1 | 1 | | <span
+class="math inline">\(i_{bus}\)</span> | – | <span
+class="math inline">\(-i_u\)</span> | <span
+class="math inline">\(i_w\)</span> | <span
+class="math inline">\(-i_v\)</span> | <span
+class="math inline">\(i_u\)</span> | <span
+class="math inline">\(-i_w\)</span> | <span
+class="math inline">\(i_v\)</span> | – |</p>
+</div>
+<p><br></p>
+<p><img src="media/1shunt_image5.png" /></p>
+<div style="text-align: center;">
+Figure 1 Carrier Comparison Method and Timing of Current Detection with
+the 1-Shunt and 3-Shunt Methods
+</div>
+<p><img src="media/pmsm_inv_motor.png" /></p>
+<div style="text-align: center;">
+Figure 2 Inverter Bus Current in the <span
+class="math inline">\(S_1\)</span> Period
+</div>
+<h2 id="pulse-shift-control">Pulse-Shift Control</h2>
+<p>With the 1-shunt current detection method, currents are detected in
+periods of two different non-zero voltage vectors (<span
+class="math inline">\(S_1\)</span> to <span
+class="math inline">\(S_6\)</span>) within a carrier cycle. Therefore,
+the period of each non-zero voltage vector has to continue for a
+sufficient time to allow complete A/D conversion of the current; that
+is, this method has a fundamental problem in that currents are not
+correctly detected if securing sufficient periods of non-zero voltage
+vectors is not possible. Such situations of periods of non-zero voltage
+vectors being insufficient occur when the voltage command
+(compare-match) values for two phases are too close to each other. To
+avoid such situations, this sample program uses the pulse-shift control
+that is generally applied with the 1-shunt current detection method.</p>
+<p>This method of control involves correcting the differences between
+the 3-phase compare-match values calculated from the voltage command
+values in the first half of a carrier cycle (during counting up) so that
+non-zero vector periods are extended and sufficient time for A/D
+conversion is secured. In the second half of the carrier cycle (during
+counting down), the compare-match values are corrected again to
+compensate for the correction applied in the first half of the cycle.
+Thus, the timing of A/D conversion can be secured while the desired
+voltage command values (voltage vectors) are being output. The
+difference between the compare-match values for two phases that is
+required to secure sufficient time for A/D conversion is called the
+minimum pulse width, Δ, and defined as follows in this document.</p>
+<p><span class="math display">\[
+\Delta = \bigl(\text{current rise time} + \text{ringing time}\bigr)
++ \bigl(\text{A/D conversion delay} + \text{sampling time}\bigr) +
+\text{dead time}
+\]</span></p>
+<p>Figure 3 shows an example of correcting a compare-match value with
+the pulse-shift control method. Before pulse-shift control is applied
+(gate signals <span class="math inline">\(G_{up}\)</span>, <span
+class="math inline">\(G_{vp}\)</span>, and <span
+class="math inline">\(G_{wp}\)</span>), the difference between the U and
+V compare-match values is smaller than the minimum pulse width Δ. The
+non-zero voltage vector period <span class="math inline">\(S_1\)</span>
+shown in the figure is small and the current cannot be correctly
+detected. Therefore, the compare-match value is corrected in the first
+half of the carrier cycle so that the difference between U and V is
+corrected to be equal to the minimum pulse width Δ and the <span
+class="math inline">\(S_1\)</span> period is extended (the resultant
+gate signals are <span class="math inline">\(G_{up}\)</span>, <span
+class="math inline">\(G_{vp}\)</span>, and <span
+class="math inline">\(G_{wp}\)</span>). This satisfies the condition for
+the minimum pulse width Δ, so the current can be correctly detected in
+the <span class="math inline">\(S_1\)</span> period. In the second half
+of the carrier cycle, the gate signals are generated with the
+compare-match value being corrected again to compensate for the
+correction applied in the first half so that the average voltage is kept
+at a desired value.</p>
+<p><img src="media/1shunt_image7.png" /></p>
+<div style="text-align: center;">
+Figure 3 Example of Pulse-Shift Control
+</div>
+<h2 id="procedures-for-1-shunt-current-detection">Procedures for 1-Shunt
+Current Detection</h2>
+<p>This section describes the procedures for 1-shunt current detection
+with pulse-shift control that is implemented in the sample software. The
+procedures are divided into pulse-shift control, which involves
+calculating the A/D conversion trigger times and corrected compare-match
+values, and the reconfiguration of phase currents, which involves
+reconstructing the phase currents from the inverter bus current.</p>
+<h3 id="execution---pulse-shift-control">Execution - Pulse-Shift
+Control</h3>
+<p>Figure 4 shows the procedure for pulse-shift control that is
+implemented in this sample software. The compare-match values for the
+individual phases are compared. The phase of the largest value is
+referred to as the maximum phase, that of the middle value the middle
+phase, and that of the smallest value the minimum phase.</p>
+<p><img src="media/1shunt_image8.png" /></p>
+<div style="text-align: center;">
+Figure 4 Procedure for Pulse-Shift Control
+</div>
+<h3
+id="calculating-temporary-compare-match-values-for-the-individual-phases">1.
+Calculating temporary compare-match values for the individual
+phases</h3>
+<p>The compare-match values to be used with the carrier comparison
+method are calculated from the duty cycles (<span
+class="math inline">\(M_u\)</span>, <span
+class="math inline">\(M_v\)</span>, and <span
+class="math inline">\(M_w\)</span>), which are the results of
+current-control calculation, by using the following equation.</p>
+<p><span class="math display">\[
+C_{u,v,w} = C_{peak} \times \left( 1.0 - M_{u,v,w} \right) + 0.5 \times
+\left(C_{dead} \right)
+\]</span></p>
+<p><span class="math inline">\(C_{u,v,w}\)</span>: Compare-match values
+for the individual phases,<br />
+<span class="math inline">\(C_{peak}\)</span>: Peak value of counting in
+a triangle-wave,<br />
+<span class="math inline">\(C_{dead}\)</span>: Value to count for dead
+time</p>
+<h3 id="determining-the-maximum-middle-and-minimum-phases">2.
+Determining the maximum, middle, and minimum phases</h3>
+<p>The calculated compare-match values for the individual phases are
+compared and the maximum, middle, and minimum phases are determined.</p>
+<h3
+id="correcting-the-difference-between-the-minimum-and-middle-phases">3.
+Correcting the difference between the minimum and middle phases</h3>
+<p>The pulse width (difference in compare-match values) between the
+minimum and middle phases is obtained. If the width is smaller than the
+minimum pulse width, correction is applied to the minimum phase. <span
+class="math inline">\(C_{min1}\)</span> is the compare-match value
+corrected in the first half of the carrier cycle and <span
+class="math inline">\(C_{min2}\)</span> is that in the second half of
+the cycle. Figure 5 shows the correction applied to the minimum phase.
+If the obtained width is not smaller than the minimum pulse width, that
+is, a sufficient voltage vector period for current detection is secured,
+<span class="math inline">\(C_{min}\)</span> is assigned to <span
+class="math inline">\(C_{min1}\)</span> and <span
+class="math inline">\(C_{min2}\)</span>.</p>
+<p><img src="media/1shunt_image9.png" /></p>
+<div style="text-align: center;">
+Figure 5 Correcting the Difference between the Minimum and Middle Phases
+</div>
+<h3
+id="correcting-the-difference-between-the-middle-and-maximum-phases">4.
+Correcting the difference between the middle and maximum phases</h3>
+<p>The pulse width (difference in compare-match values) between the
+middle and maximum phases is obtained. If the width is smaller than the
+minimum pulse width, correction is applied to the maximum phase. <span
+class="math inline">\(C_{max1}\)</span> is the compare-match value
+corrected in the first half of the carrier cycle and <span
+class="math inline">\(C_{max2}\)</span> is that in the second half of
+the cycle. Figure 6 shows correction applied to the maximum phase. If
+the obtained width is not smaller than the minimum pulse width, that is,
+a sufficient voltage vector period for current detection is secured,
+<span class="math inline">\(C_{max}\)</span> is assigned to <span
+class="math inline">\(C_{max1}\)</span> and <span
+class="math inline">\(C_{max2}\)</span>.</p>
+<p><img src="media/1shunt_image10.png" /></p>
+<div style="text-align: center;">
+Figure 6 Correcting the Difference between the Middle and Maximum Phases
+</div>
+<h3 id="assigning-to-phases">5. Assigning to phases</h3>
+<p>Information on phases is required to specify compare-match values in
+the MCU. The U, V, and W phases are assigned to the corrected
+compare-match values for the maximum, middle, and minimum phases.</p>
+<h3 id="calculating-ad-conversion-trigger-times">6. Calculating A/D
+conversion trigger times</h3>
+<p>With the 1-shunt current detection method, A/D conversion is
+performed in the periods of two different non-zero voltage vectors in
+which phase currents can be detected. A request for starting A/D
+conversion can be generated by a compare match between the value of
+triangle-wave counting and an A/D conversion trigger value. Therefore,
+the times of A/D conversion triggers should be specified such that they
+are appropriate for detected currents. Note that the periods of each two
+different non-zero voltage vectors have been set so that their widths
+are no smaller than the minimum pulse width in the first half of the
+carrier cycle by the operations in steps (3) and (4).</p>
+<p>An appropriate time at which currents can be detected is the state
+where operation is in a non-zero voltage vector period and the following
+conditions are satisfied.</p>
+<ol type="a">
+<li><p>The currents have risen and ringing in the signal has settled
+after switching.</p></li>
+<li><p>The currents are stable after the start of A/D conversion until
+and during sampling.<br />
+→ A/D conversion begins at least the length of the sampling time earlier
+than the start of the dead time.</p></li>
+<li><p>Operation is not in the dead-time period.</p></li>
+</ol>
+<p>Figure 7 shows the behavior of the gate signals, inverter bus
+current, and A/D conversion with the carrier comparison method. In this
+maximum, middle, and minimum phases, <span
+class="math inline">\(G_{maxp}\)</span>, <span
+class="math inline">\(G_{midp}\)</span>, and <span
+class="math inline">\(G_{minp}\)</span> are figure, <span
+class="math inline">\(C_{max}\)</span>, <span
+class="math inline">\(C_{mid}\)</span>, and <span
+class="math inline">\(C_{min}\)</span> are the compare-match values for
+the upper arm, <span class="math inline">\(G_{midn}\)</span> is the
+logical inverse of the <span class="math inline">\(G_{midp}\)</span>
+signal with the dead time taken into account, and <span
+class="math inline">\(i_{bus}\)</span> is the inverter bus current. the
+gate signals for the maximum, middle, and minimum phases in the carrier
+cycle and <span class="math inline">\(C_{AD\_B}\)</span> is the next A/D
+conversion trigger, that is, <span
+class="math inline">\(C_{AD\_A}\)</span> &lt; <span
+class="math inline">\(C_{AD\_B}\)</span>. As the inverter bus current
+changes when the <span class="math inline">\(C_{AD\_A}\)</span> is the
+first A/D conversion trigger in the first half of the switching pattern
+changes, appropriate A/D conversion trigger times that satisfy the above
+conditions (a) to (c) should be specified. Here, desirable because
+Kirchhoff's current law, which is used to calculate setting the two
+times for current detection close to each other is the third-phase
+current that cannot be directly detected, applies to the currents
+flowing at the same time. Therefore, A/D conversion triggers should be
+specified with reference to the middle phase as shown in Figure 7 so
+that two currents are detected at the closest possible times. The
+following shows the equations for calculating the times of A/D
+conversion as compare-match values. Note that the current rise time and
+ringing time depend on circuits and other conditions. Determine the
+value of <span class="math inline">\(C_{adjust}\)</span> to secure
+sufficient time to wait for the current to rise and become stable after
+ringing. <span class="math inline">\(C_{adjust}\)</span> can be modified
+through the DRIVER_CFG_AD_TRIGGER_DELAY_TIME macro, which defines the
+time for adjusting the delay until the start of A/D conversion (μs).</p>
+<p><span class="math display">\[
+\begin{aligned}
+C_{AD_A} &amp;= C_{mid} - \left( C_{ADsample} + C_{dead} \right) \\
+         &amp;= C_{mid} - \left( \Delta - C_{adjust} \right) \\
+C_{AD_B} &amp;= C_{mid} + C_{adjust}
+\end{aligned}
+\]</span></p>
+<p><span class="math inline">\(C_{AD\_ A,B}\)</span>: A/D conversion
+start triggers, <span class="math inline">\(C_{mid}\)</span>: Value to
+count for the middle phase,<br />
+<span class="math inline">\(C_{ADsample}\)</span>: Value of counting
+corresponding to the A/D conversion sampling time<br />
+and the delay until the start of A/D conversion,<br />
+<span class="math inline">\(C_{adjust}\)</span>: Value of counting
+corresponding to a sufficient time to wait for the current rise
+time<br />
+and ringing time,<br />
+<span class="math inline">\(C_{dead}\)</span>: Value to count for dead
+time</p>
+<p><img src="media/1shunt_image11.png" /></p>
+<div style="text-align: center;">
+Figure 7 Setting Timing of A/D Conversion
+</div>
+<h3 id="setting-compare-match-values">7. Setting compare-match
+values</h3>
+<p>The compare-match values for the individual phases that are corrected
+for use in the first and second halves of the carrier cycle are
+specified in the registers of the MCU. Use a PWM timer among the
+peripheral functions of the MCU in which compare-match values can be
+updated in the first and second halves of a carrier cycle.</p>
+<h3 id="setting-ad-conversion-triggers">8. Setting A/D conversion
+triggers</h3>
+<p>The values for the A/D conversion triggers are specified in registers
+of the MCU. Use an A/D converter and a PWM timer among the peripheral
+functions of the MCU in which two A/D conversion triggers can be
+specified and the results of the individual A/D conversions can
+separately be obtained.</p>
+<h3 id="execution---reconfiguration-of-phase-currents">Execution -
+Reconfiguration of Phase Currents</h3>
+<p>With the 1-shunt current detection method, the phase currents are
+reconstructed from the obtained inverter bus currents. As this sample
+software detects a current during counting up for producing the first
+part of the triangle-wave, a current control interrupt is generated at
+each crest of the triangle-wave so that current detection and current
+control are done at the closest possible times. Therefore, the times of
+A/D conversion triggers calculated in response to the current control
+cycle interrupt become valid at the next trough of the triangle-wave.
+The phase currents can be calculated from the switching patterns and
+inverter bus currents based on the compare-match values obtained in
+response to the current control cycle interrupt in the previous carrier
+cycle. From reading Table 1, we can see that the phase currents in the
+minimum phase can be detected at the time of the match with <span
+class="math inline">\(C_{AD\_A}\)</span> and those in the maximum phase
+can be detected at the time of the match with <span
+class="math inline">\(C_{AD\_B}\)</span>. Accordingly, this sample
+software reconstructs the phase currents from the information on the
+maximum and minimum phases obtained in response to the current control
+cycle interrupt in the previous carrier cycle.</p>
+<p><span class="math display">\[
+{i\left\lbrack ph_{\min} \right\rbrack = - i_{busA}}\\
+{i\left\lbrack ph_{\max} \right\rbrack = i_{busB}}\]</span></p>
+<p><span class="math inline">\(i\lbrack \text{phase}\rbrack\)</span>:
+Phase current (phase indicates the U, V, or W phase),<br />
+<span class="math inline">\({ph}_{\min}\)</span>: Minimum phase, <span
+class="math inline">\({ph}_{\max}\)</span>: Maximum phase<br />
+<span class="math inline">\(i_{busA}\)</span>: Inverter bus current
+detected in response to A/D conversion trigger A<br />
+<span class="math inline">\(i_{busB}\)</span>: Inverter bus current
+detected in response to A/D conversion trigger B</p>
+<h2 id="settings-of-peripheral-functions">Settings of Peripheral
+Functions</h2>
+<ul>
+<li>A/D conversion triggers</li>
+</ul>
+<p>With the 1-shunt current detection method, the timing of conversion
+by the A/D converter requires control according to the compare-match
+values calculated from the duty cycles for the individual phases. This
+control is implemented in the sample program through the use of the
+following peripheral function.</p>
+<table>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 47%" />
+<col style="width: 36%" />
+</colgroup>
+<thead>
+<tr>
+<th><strong>MCU</strong></th>
+<th><strong>Peripheral Function</strong></th>
+<th><strong>Implementation</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RA6T2</td>
+<td>GPT</td>
+<td>This handles the A/D conversion start request function in response
+to matches in comparison between the GTADTRA or GTADTRB register and the
+GTCNT counter in the GPT module.</td>
+</tr>
+<tr>
+<td>RX26T</td>
+<td>GPT</td>
+<td>This handles the A/D conversion start request function in response
+to matches in comparison between the GTADTRA or GTADTRB register and the
+GTCNT counter in the GPT module.</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Results of A/D conversion</li>
+</ul>
+<p>With the 1-shunt current detection method, a single A/D converter is
+used to obtain A/D conversion results with two times. This control is
+implemented in the sample program through the use of the following
+peripheral functions.</p>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 46%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr>
+<th><strong>MCU</strong></th>
+<th><strong>Peripheral Function</strong></th>
+<th><strong>Implementation</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RA6T2</td>
+<td>ADC</td>
+<td>The FIFO function is used. The FIFO works as a ring buffer and
+stores multiple results of A/D conversion.</td>
+</tr>
+<tr>
+<td>RX26T</td>
+<td>S12ADHa</td>
+<td>The extended double-trigger mode is used. In this mode, the result
+of the first A/D conversion through the selected channel is s stored in
+the ADDBLDRA and ADDBLDRB registers.</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Updating of the compare-match values in the first and second halves
+of a carrier cycle</li>
+</ul>
+<p>With the 1-shunt current detection method, compare-match values are
+corrected in the first and second halves of a carrier cycle. This
+control is implemented in the sample program through the use of the
+following peripheral function.</p>
+<table>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 46%" />
+<col style="width: 38%" />
+</colgroup>
+<thead>
+<tr>
+<th><strong>MCU</strong></th>
+<th><strong>Peripheral Function</strong></th>
+<th><strong>Implementation</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RA6T2</td>
+<td>GPT</td>
+<td>Triangle-wave PWM mode 3 in the GPT module is used. In this mode,
+the values of the GTCCRA and GTCCRB registers can be updated from
+temporary registers at the crests or troughs of a triangle-wave.<br>*
+The values output from pins change in response to matches in comparison
+between the GTCCRA or GTCCRB register and the GTCNT register.</td>
+</tr>
+<tr>
+<td>RX26T</td>
+<td>GPT</td>
+<td>Triangle-wave PWM mode 3 in the GPT module is used. In this mode,
+the values of the GTCCRA and GTCCRB registers can be updated from
+temporary registers at the crests or troughs of a triangle-wave.<br>*
+The values output from pins change in response to matches in comparison
+between the GTCCRA or GTCCRB register and the GTCNT register.</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
