@@ -45,6 +45,13 @@
   #nav a:hover {
     background: #dcdcdc !important;
   }
+
+  #nav a.active {
+    background-color: #C2EBFF !important;
+    font-weight: bold;
+    border-left: 3px solid #0078D3;
+    padding-left: 8px;
+  }
   
   #content {
     flex: 1;
@@ -122,5 +129,14 @@
 </ul>
 </nav>
   <iframe id="content" name="contentFrame" src="https://renesas.github.io/qe-tools/qe_motor/RampMotorMiddlewareDoc/doc_alg/Algorithm_1shunt.html"></iframe>
+<script>
+  document.querySelectorAll('#nav a').forEach(link => {
+    link.addEventListener('click', function() {
+      document.querySelectorAll('#nav a').forEach(a => a.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+  document.querySelector('#nav a').classList.add('active');
+</script>
 </body>
 </html>
