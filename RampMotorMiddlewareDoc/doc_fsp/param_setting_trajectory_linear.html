@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>param_setting_trajectory_linear</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+<h1 id="list-of-trajectory-module">List of Trajectory Module</h1>
+<p>Several profile types are available in the trajectory layer. The
+choice of profile type depends on the desired application. The profile
+types are:</p>
+<ul>
+<li>Linear</li>
+<li>Trapezoidal</li>
+<li>Sinusodal</li>
+<li>Position</li>
+<li>S-curve</li>
+<li>Homing</li>
+</ul>
+<h2 id="list-of-linear-motor-trajectory-module-parameters">List of
+Linear motor trajectory module parameters</h2>
+<p>The changeable parameters that are used in linear motor trajectory
+module and their initial values are listed below.</p>
+<p><strong>Table 1 Configuration Options
+(rm_motor_trajectory_linear)</strong></p>
+<table>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 19%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Options</th>
+<th></th>
+<th>Descriptions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>General</td>
+<td>Customer wants to use their own Trajectory</td>
+<td>Customised trajectory profile</td>
+</tr>
+<tr>
+<td>General</td>
+<td>Bypass Mode</td>
+<td>Enable or disable for special trajectories to be managed by the
+algorithm</td>
+</tr>
+<tr>
+<td>General</td>
+<td>Force alignment</td>
+<td>Enable or disable to force reference values to align values</td>
+</tr>
+<tr>
+<td>General</td>
+<td>Outer control period [sec]</td>
+<td>Outer loop control period</td>
+</tr>
+<tr>
+<td>interrupt</td>
+<td>Callback</td>
+<td>User callback function. If NULL is given, callback is disabled.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Table 2 Configuration Options initial value
+(rm_motor_trajectory_linear)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Options</th>
+<th></th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>General</td>
+<td>Customer wants to use their own Trajectory</td>
+<td>false</td>
+</tr>
+<tr>
+<td>General</td>
+<td>Bypass Mode</td>
+<td>false</td>
+</tr>
+<tr>
+<td>General</td>
+<td>Force alignment</td>
+<td>false</td>
+</tr>
+<tr>
+<td>General</td>
+<td>Outer control period [sec]</td>
+<td>0.0005</td>
+</tr>
+<tr>
+<td>interrupt</td>
+<td>Callback</td>
+<td>NULL</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h2 id="list-of-trapezoidal-motor-trajectory-module-parameters-tbd">List
+of Trapezoidal motor trajectory module parameters (tbd)</h2>
+<p>The changeable parameters that are used in trapezoidal motor
+trajectory module and their initial values are listed below.</p>
+<p><strong>Table 3 Configuration Options
+(rm_motor_trajectory_xxx)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Options</th>
+<th></th>
+<th>Descriptions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>General</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>General</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>General</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>General</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Table 4 Configuration Options initial value
+(rm_motor_trajectory_xxx)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Options</th>
+<th></th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>General</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>General</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>General</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>General</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h2 id="list-of-sinusoidal-motor-trajectory-module-parameters-tbd">List
+of Sinusoidal motor trajectory module parameters (tbd)</h2>
+<p>The changeable parameters that are used in sinusoidal motor
+trajectory module and their initial values are listed below.</p>
+<p><strong>Table 5 Configuration Options
+(rm_motor_trajectory_xxx)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Options</th>
+<th></th>
+<th>Descriptions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>General</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>General</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>General</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>General</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Table 6 Configuration Options initial value
+(rm_motor_trajectory_xxx)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Options</th>
+<th></th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>General</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>General</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>General</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>General</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h2 id="list-of-position-motor-trajectory-module-parameters-tbd">List of
+Position motor trajectory module parameters (tbd)</h2>
+<p>The changeable parameters that are used in position motor trajectory
+module and their initial values are listed below.</p>
+<p><strong>Table 7 Configuration Options
+(rm_motor_trajectory_xxx)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Options</th>
+<th></th>
+<th>Descriptions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>General</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>General</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>General</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>General</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Table 8 Configuration Options initial value
+(rm_motor_trajectory_xxx)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Options</th>
+<th></th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>General</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>General</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>General</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>General</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h2 id="list-of-s-curve-motor-trajectory-module-parameters-tbd">List of
+S-curve motor trajectory module parameters (tbd)</h2>
+<p>The changeable parameters that are used in S-curve motor trajectory
+module and their initial values are listed below.</p>
+<p><strong>Table 9 Configuration Options
+(rm_motor_trajectory_xxx)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Options</th>
+<th></th>
+<th>Descriptions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>General</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>General</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>General</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>General</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Table 10 Configuration Options initial value
+(rm_motor_trajectory_xxx)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Options</th>
+<th></th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>General</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>General</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>General</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>General</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h2 id="list-of-homing-motor-trajectory-module-parameters-tbd">List of
+Homing motor trajectory module parameters (tbd)</h2>
+<p>The changeable parameters that are used in S-curve motor trajectory
+module and their initial values are listed below.</p>
+<p><strong>Table 11 Configuration Options
+(rm_motor_trajectory_xxx)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Options</th>
+<th></th>
+<th>Descriptions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>General</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>General</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>General</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>General</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Table 12 Configuration Options initial value
+(rm_motor_trajectory_xxx)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Options</th>
+<th></th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>General</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>General</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>General</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>General</td>
+<td>xxx</td>
+<td>xxx</td>
+</tr>
+</tbody>
+</table>
+<h2 id="detail-of-inverter-parameters">Detail of Inverter
+Parameters</h2>
+<h3 id="customer-wants-to-use-their-own-trajectory">Customer wants to
+use their own Trajectory</h3>
+<p>To enable the trajectory feature, you need to set this flag to true
+after adding the module. The default is false. To prevent malfunctions
+when the power is turned on, the speed of the target params in the app
+sample is set to 0. You will also need to correct the speed in order for
+it to work.</p>
+<h3 id="bypass-mode">Bypass Mode</h3>
+<p>set bypass mode when some special trajectories are managed directly
+by the algorithm (example: motor startup of a specific Sensorless
+control)</p>
+<h3 id="force-alignment">Force alignment</h3>
+<p>When true, forces reference to align_value. These can be forced by
+setting the align_value and force_align flag through the Target Set
+API.</p>
+<h3 id="outer-control-period">Outer control period</h3>
+<p>Set the loop period of the speed control period. This value is set
+automatically. Setting is required when the control period is special,
+such as for single-shunt operation. The default setting is fine.</p>
+<h3 id="interrupt">interrupt</h3>
+<p>Set callback function. The callback function called by the algorithm
+layer to get the next reference value.</p>
+<p><em>-end of document-</em></p>
+</body>
+</html>

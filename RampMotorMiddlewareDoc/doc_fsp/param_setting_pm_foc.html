@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>param_setting_pm_foc</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+<h1 id="list-of-pm-foc-module">List of PM FOC Module</h1>
+<p>The changeable parameters that are used in PM FOC module control and
+their initial values are listed below.</p>
+<p><strong>Table 1 Configuration Options (rm_motor_pm_foc)</strong></p>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 19%" />
+<col style="width: 53%" />
+</colgroup>
+<thead>
+<tr>
+<th>options</th>
+<th></th>
+<th>Descriptions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Inverter Parameters</td>
+<td>PWM Carrier Period [microsecond]</td>
+<td>Inverter Carrier period</td>
+</tr>
+<tr>
+<td>Inverter Parameters</td>
+<td>Dead Time [microsecond]</td>
+<td>PWM dead time</td>
+</tr>
+<tr>
+<td>Design Parameter</td>
+<td>Current PI loop Natural Frequency [Hz]</td>
+<td>Current PI control loop natural frequency</td>
+</tr>
+<tr>
+<td>Design Parameter</td>
+<td>Current PI loop Damping Ratio</td>
+<td>Current PI loop damping ratio</td>
+</tr>
+<tr>
+<td>Design Parameter</td>
+<td>Speed PI loop Natural Frequency [Hz]</td>
+<td>Speed PI Control loop natural frequency</td>
+</tr>
+<tr>
+<td>Design Parameter</td>
+<td>Speed PI loop Damping Ratio</td>
+<td>Speed PI loop damping ratio</td>
+</tr>
+<tr>
+<td>Design Parameter</td>
+<td>Speed Observer Natural Frequency [Hz]</td>
+<td>Speed observer loop natural frequency</td>
+</tr>
+<tr>
+<td>Design Parameter</td>
+<td>Speed Observer Damping Ratio</td>
+<td>Speed observer loop damping ratio</td>
+</tr>
+<tr>
+<td>Design Parameter</td>
+<td>Speed LPF Natural Frequency [Hz]</td>
+<td>Design natural frequency for speed Low Pass Filter</td>
+</tr>
+<tr>
+<td>Design Parameter</td>
+<td>Disturbance Speed Observer Natural Frequency [Hz]</td>
+<td>Natural frequency for disturbance speed observer</td>
+</tr>
+<tr>
+<td>Motor Sensor</td>
+<td>Selected Slot For Control</td>
+<td>Select the sensor slot used for control</td>
+</tr>
+<tr>
+<td>General</td>
+<td>Speed Control Period [sec]</td>
+<td>Period of speed control function</td>
+</tr>
+<tr>
+<td>General</td>
+<td>Acceleration To Target SPeed [rpm/s]</td>
+<td>The rate of acceleration to reach the target motor speed</td>
+</tr>
+<tr>
+<td>General</td>
+<td>Current PI Output Limit [V]</td>
+<td>Current PI output limit</td>
+</tr>
+<tr>
+<td>General</td>
+<td>Limit of Q-axis Current [A]</td>
+<td>Limit of q-axis current</td>
+</tr>
+<tr>
+<td>Protection</td>
+<td>Maximum Speed [rpm]</td>
+<td>Controllable maximum speed</td>
+</tr>
+<tr>
+<td>Protection</td>
+<td>Limit of Over Current [A]</td>
+<td>Limit of overcurrent (Detection threshold, instantaneous value)</td>
+</tr>
+<tr>
+<td>Protection</td>
+<td>Limit of Over Voltage [V]</td>
+<td>Limit of overvoltage for DC Bus (Detection threshold)</td>
+</tr>
+<tr>
+<td>Protection</td>
+<td>Limit of Over Speed [rpm]</td>
+<td>Limit of over speed (Detection threshold)</td>
+</tr>
+<tr>
+<td>Protection</td>
+<td>Limit of Low Voltage [V]</td>
+<td>Limit of low voltage for DC Bus (Detection threshold)</td>
+</tr>
+<tr>
+<td>Sample Delay Compensation</td>
+<td>Status</td>
+<td>Enable or disable sample delay compensation</td>
+</tr>
+<tr>
+<td>Sample Delay Compensation</td>
+<td>Period Magnification Value</td>
+<td>Period magnification value for sampling delay compensation</td>
+</tr>
+<tr>
+<td>Voltage Error Compensation</td>
+<td>Status</td>
+<td>Enable or disable voltage error compensation</td>
+</tr>
+<tr>
+<td>Voltage Error Compensation</td>
+<td>Reference Voltage [V]</td>
+<td>Reference voltage for compensation table</td>
+</tr>
+<tr>
+<td>Voltage Error Compensation</td>
+<td>Table of Voltage 1 [V]</td>
+<td>Voltage error compensation table of voltage</td>
+</tr>
+<tr>
+<td>Voltage Error Compensation</td>
+<td>Table of Voltage 2 [V]</td>
+<td>Voltage error compensation table of voltage</td>
+</tr>
+<tr>
+<td>Voltage Error Compensation</td>
+<td>Table of Voltage 3 [V]</td>
+<td>Voltage error compensation table of voltage</td>
+</tr>
+<tr>
+<td>Voltage Error Compensation</td>
+<td>Table of Voltage 4 [V]</td>
+<td>Voltage error compensation table of voltage</td>
+</tr>
+<tr>
+<td>Voltage Error Compensation</td>
+<td>Table of Voltage 5 [V]</td>
+<td>Voltage error compensation table of voltage</td>
+</tr>
+<tr>
+<td>Voltage Error Compensation</td>
+<td>Table of Current 1 [A]</td>
+<td>Voltage error compensation table of current</td>
+</tr>
+<tr>
+<td>Voltage Error Compensation</td>
+<td>Table of Current 2 [A]</td>
+<td>Voltage error compensation table of current</td>
+</tr>
+<tr>
+<td>Voltage Error Compensation</td>
+<td>Table of Current 3 [A]</td>
+<td>Voltage error compensation table of current</td>
+</tr>
+<tr>
+<td>Voltage Error Compensation</td>
+<td>Table of Current 4 [A]</td>
+<td>Voltage error compensation table of current</td>
+</tr>
+<tr>
+<td>Voltage Error Compensation</td>
+<td>Table of Current 5 [A]</td>
+<td>Voltage error compensation table of current</td>
+</tr>
+<tr>
+<td>Motor Parameter</td>
+<td>Pole Pairs</td>
+<td>Pole pairs</td>
+</tr>
+<tr>
+<td>Motor Parameter</td>
+<td>Resistance [ohm]</td>
+<td>Resistance</td>
+</tr>
+<tr>
+<td>Motor Parameter</td>
+<td>Inductance of D-axis [H]</td>
+<td>Inductance of d-axis</td>
+</tr>
+<tr>
+<td>Motor Parameter</td>
+<td>Inductance of Q-axis [H]</td>
+<td>Inductance of q-axis</td>
+</tr>
+<tr>
+<td>Motor Parameter</td>
+<td>Permanent Magnetic Flux [Wb]</td>
+<td>Permanent magnetic flux</td>
+</tr>
+<tr>
+<td>Motor Parameter</td>
+<td>Rotor Inertia [kgm<sup>2</sup>]</td>
+<td>Rotor inertia</td>
+</tr>
+<tr>
+<td>Motor Parameter</td>
+<td>Rated Current [A]</td>
+<td>Rated current</td>
+</tr>
+<tr>
+<td>Extended Function</td>
+<td>MTPA</td>
+<td>Select MTPA function</td>
+</tr>
+<tr>
+<td>Extended Function</td>
+<td>Flux-Weakening</td>
+<td>Select flux weakening function</td>
+</tr>
+<tr>
+<td>Extended Function</td>
+<td>Speed Feedback Process</td>
+<td>Select speed feedback process</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Table 2 Configuration Options initial value
+(rm_motor_pm_foc)</strong></p>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 19%" />
+<col style="width: 53%" />
+</colgroup>
+<thead>
+<tr>
+<th>options</th>
+<th></th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Inverter Parameters</td>
+<td>PWM Carrier Period [microsecond]</td>
+<td>50</td>
+</tr>
+<tr>
+<td>Inverter Parameters</td>
+<td>Dead Time [microsecond]</td>
+<td>2.0</td>
+</tr>
+<tr>
+<td>Design Parameter</td>
+<td>Current PI loop Natural Frequency [Hz]</td>
+<td>300.0F</td>
+</tr>
+<tr>
+<td>Design Parameter</td>
+<td>Current PI loop Damping Ratio</td>
+<td>1.0F</td>
+</tr>
+<tr>
+<td>Design Parameter</td>
+<td>Speed PI loop Natural Frequency [Hz]</td>
+<td>12.0F</td>
+</tr>
+<tr>
+<td>Design Parameter</td>
+<td>Speed PI loop Damping Ratio</td>
+<td>1.0F</td>
+</tr>
+<tr>
+<td>Design Parameter</td>
+<td>Speed Observer Natural Frequency [Hz]</td>
+<td>200.0F</td>
+</tr>
+<tr>
+<td>Design Parameter</td>
+<td>Speed Observer Damping Ratio</td>
+<td>1.0F</td>
+</tr>
+<tr>
+<td>Design Parameter</td>
+<td>Speed LPF Natural Frequency [Hz]</td>
+<td>10.0F</td>
+</tr>
+<tr>
+<td>Design Parameter</td>
+<td>Disturbance Speed Observer Natural Frequency [Hz]</td>
+<td>100.0F</td>
+</tr>
+<tr>
+<td>Motor Sensor</td>
+<td>Selected Slot For Control</td>
+<td>MOTOR_INNER_SLOT_1_ENABLE</td>
+</tr>
+<tr>
+<td>General</td>
+<td>Speed Control Period [sec]</td>
+<td>0.0005F</td>
+</tr>
+<tr>
+<td>General</td>
+<td>Acceleration To Target SPeed [rpm/s]</td>
+<td>1000.0F</td>
+</tr>
+<tr>
+<td>General</td>
+<td>Current PI Output Limit [V]</td>
+<td>24.0F</td>
+</tr>
+<tr>
+<td>General</td>
+<td>Limit of Q-axis Current [A]</td>
+<td>0.42F</td>
+</tr>
+<tr>
+<td>Protection</td>
+<td>Maximum Speed [rpm]</td>
+<td>2650.0F</td>
+</tr>
+<tr>
+<td>Protection</td>
+<td>Limit of Over Current [A]</td>
+<td>3.54F</td>
+</tr>
+<tr>
+<td>Protection</td>
+<td>Limit of Over Voltage [V]</td>
+<td>28.0F</td>
+</tr>
+<tr>
+<td>Protection</td>
+<td>Limit of Over Speed [rpm]</td>
+<td>3000.0F</td>
+</tr>
+<tr>
+<td>Protection</td>
+<td>Limit of Low Voltage [V]</td>
+<td>14.0F</td>
+</tr>
+<tr>
+<td>Sample Delay Compensation</td>
+<td>Status</td>
+<td>Enable</td>
+</tr>
+<tr>
+<td>Sample Delay Compensation</td>
+<td>Period Magnification Value</td>
+<td>1.5</td>
+</tr>
+<tr>
+<td>Voltage Error Compensation</td>
+<td>Status</td>
+<td>Enable</td>
+</tr>
+<tr>
+<td>Voltage Error Compensation</td>
+<td>Reference Voltage [V]</td>
+<td>24.0F</td>
+</tr>
+<tr>
+<td>Voltage Error Compensation</td>
+<td>Table of Voltage 1 [V]</td>
+<td>0.672F</td>
+</tr>
+<tr>
+<td>Voltage Error Compensation</td>
+<td>Table of Voltage 2 [V]</td>
+<td>0.945F</td>
+</tr>
+<tr>
+<td>Voltage Error Compensation</td>
+<td>Table of Voltage 3 [V]</td>
+<td>1.054F</td>
+</tr>
+<tr>
+<td>Voltage Error Compensation</td>
+<td>Table of Voltage 4 [V]</td>
+<td>1.109F</td>
+</tr>
+<tr>
+<td>Voltage Error Compensation</td>
+<td>Table of Voltage 5 [V]</td>
+<td>1.192F</td>
+</tr>
+<tr>
+<td>Voltage Error Compensation</td>
+<td>Table of Current 1 [A]</td>
+<td>0.013F</td>
+</tr>
+<tr>
+<td>Voltage Error Compensation</td>
+<td>Table of Current 2 [A]</td>
+<td>0.049F</td>
+</tr>
+<tr>
+<td>Voltage Error Compensation</td>
+<td>Table of Current 3 [A]</td>
+<td>0.080F</td>
+</tr>
+<tr>
+<td>Voltage Error Compensation</td>
+<td>Table of Current 4 [A]</td>
+<td>0.184F</td>
+</tr>
+<tr>
+<td>Voltage Error Compensation</td>
+<td>Table of Current 5 [A]</td>
+<td>0.751F</td>
+</tr>
+<tr>
+<td>Motor Parameter</td>
+<td>Pole Pairs</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Motor Parameter</td>
+<td>Resistance [ohm]</td>
+<td>1.3F</td>
+</tr>
+<tr>
+<td>Motor Parameter</td>
+<td>Inductance of D-axis [H]</td>
+<td>0.0013F</td>
+</tr>
+<tr>
+<td>Motor Parameter</td>
+<td>Inductance of Q-axis [H]</td>
+<td>0.0013F</td>
+</tr>
+<tr>
+<td>Motor Parameter</td>
+<td>Permanent Magnetic Flux [Wb]</td>
+<td>0.01119F</td>
+</tr>
+<tr>
+<td>Motor Parameter</td>
+<td>Rotor Inertia [kgm<sup>2</sup>]</td>
+<td>0.000003666F</td>
+</tr>
+<tr>
+<td>Motor Parameter</td>
+<td>Rated Current [A]</td>
+<td>1.67F</td>
+</tr>
+<tr>
+<td>Extended Function</td>
+<td>MTPA</td>
+<td>Disabled</td>
+</tr>
+<tr>
+<td>Extended Function</td>
+<td>Flux-Weakening</td>
+<td>Enabled</td>
+</tr>
+<tr>
+<td>Extended Function</td>
+<td>Speed Feedback Process</td>
+<td>Direct</td>
+</tr>
+</tbody>
+</table>
+<h2 id="detail-of-inverter-parameters">Detail of Inverter
+Parameters</h2>
+<h3 id="pwm-carrier-period-microsecond">PWM Carrier Period
+[microsecond]</h3>
+<p>The PWM carrier period indicates the frequency of the PWM output by
+the inverter. This frequency is limited by the inverter’s
+specifications. For low-voltage 24V Si-MOSFET inverters, settings up to
+20kHz (50 microseconds) are possible. For high-voltage AC200V IGBT
+inverters, settings up to approximately 10kHz (100 microseconds) are
+possible.</p>
+<p>Please verify the specifications of the inverter being used and set
+the value accordingly.</p>
+<h3 id="dead-time-microsecond">Dead Time [microsecond]</h3>
+<p>Specify the dead time in us (microseconds) that is described in the
+inverter specifications and design document. For the MCI-HV-1 inverter,
+2.0 us is specified. MCI-LV-1 should be 0.5 us.</p>
+<p>This parameter is depending on the power device (IGBT, MOS-FET)
+characteristics.</p>
+<h2 id="detail-of-design-parameter">Detail of Design Parameter</h2>
+<h3 id="current-pi-loop-natural-frequency-hz-and-damping-ratio">Current
+PI loop Natural Frequency [Hz] and Damping Ratio</h3>
+<p>The control gain is adjusted by tuning the natural frequency and
+Damping Ratio for the current control system. Set the natural frequency
+for the current control system to be proportional to the frequency of
+current control. The natural frequency can be set to up to about 1/10 of
+the current control frequency (PWM carrier frequency). However, in many
+cases, a lower value may be set to leave a margin in consideration of
+noise during position detection and current detection. For example, if
+the current control frequency is 20 kHz (current control operates at
+50-µs intervals), the natural frequency for the current control system
+can be set to 2 kHz because it can be set to a value up to 1/10 of the
+current control frequency. In practice, however, control at a high
+natural frequency may be too sensitive due to the electrical constants
+of the motor parameters and the frequency will often be set below 2 kHz
+(for example, in the range from 500 Hz to 1 kHz). For the Damping Ratio
+for the current control system, a value in the range from 0.7 to 1.0 is
+usually set. Setting a value nearer to 1.0 makes response more stable
+and moderate.</p>
+<h3 id="speed-pi-loop-natural-frequency-hz">Speed PI loop Natural
+Frequency [Hz]</h3>
+<p>In the speed control module, the control gain is adjusted by tuning
+the natural frequency and attenuation coefficient for the speed control
+system. Increasing the natural frequency for the speed control system
+improves the responsiveness and the capability of the speed to follow
+the requests of the speed commands. The maximum natural frequency for
+speed control should be no more than 1/3 of the maximum natural
+frequency for current control to prevent interference with current
+control. If the natural frequency for the current control system is 500
+Hz, the natural frequency for speed control is 500 Hz/3 = 166 Hz.</p>
+<p>However, the program estimates the speed without using an encoder, so
+set a frequency lower than the natural frequency set by PLL Natural
+Frequency of the sensor module. The default value specifies a frequency
+with relatively low capability of following the requests of the speed
+commands to provide a margin. For example, if an interfering oscillation
+is at a frequency above the natural frequency, increasing the value of
+the natural frequency to match that of the interference may improve the
+capability of following the latter oscillation and driving of the motor
+may be more stable than with the default setting in some cases.</p>
+<h3 id="speed-pi-loop-damping-ratio">Speed PI loop Damping Ratio</h3>
+<p>For the Damping Ratio for the speed control system, a value in the
+range from 0.7 to 1.0 is usually set. Setting a value nearer to 1.0
+makes response more stable and moderate. Make adjustment while checking
+the speed responsiveness.</p>
+<h3 id="speed-observer-natural-frequency-hz">Speed Observer Natural
+Frequency [Hz]</h3>
+<p>Set the frequency [Hz] of the PI included in the speed observer. This
+parameter is used when selecting the speed observer in the Speed
+Feedback Process.</p>
+<h3 id="speed-observer-damping-ratio">Speed Observer Damping Ratio</h3>
+<p>Set the Damping Ratio (0.0-1.0) of the PI included in the speed
+observer. This parameter is used when selecting the speed observer in
+the Speed Feedback Process.</p>
+<h3 id="speed-lpf-natural-frequency-hz">Speed LPF Natural Frequency
+[Hz]</h3>
+<p>This parameter is available when selected LPF mode. A filter is set
+for the estimated speed to suppress fluctuations. If the value is too
+small, the speed responsiveness deteriorates and the motor will not be
+able to follow a sudden change in speed.</p>
+<h3 id="disturbance-speed-observer-natural-frequency-hz">Disturbance
+Speed Observer Natural Frequency [Hz]</h3>
+<h2 id="detail-of-motor-sensor">Detail of Motor Sensor</h2>
+<h3 id="selected-slot-for-control">Selected Slot For Control</h3>
+<p>You can select the sensor slot to use for control. As a rule, place
+the main sensor module in sensor slot 1. Sensor slot 2 is for auxiliary
+use.</p>
+<h2 id="detail-of-general">Detail of General</h2>
+<h3 id="speed-control-period-sec">Speed Control Period [sec]</h3>
+<p>Set to 0.0005 s (0.5 ms). If this setting needs to be changed, the
+AGT0 timer setting of 11.7 must also be changed to specify a new speed
+control interval.</p>
+<h3 id="acceleration-to-target-speed-rpms">Acceleration To Target Speed
+[rpm/s]</h3>
+<p>Set the rate at which the speed increases (acceleration rate) when a
+speed command value is set. The higher the value, the faster the speed
+will increase. When 100 is specified, the speed is increased by 100 rpm
+per second. In this case, the speed will reach 2000 rpm from the
+standstill state in 20 seconds.</p>
+<h3 id="current-pi-output-limit-v">Current PI Output Limit [V]</h3>
+<p>This parameter sets the limit value for the voltage command output by
+the current PI controller. Typically, it is set to the same value as the
+reference bus voltage. Adjust this parameter when you wish to control
+behaviour in situations such as when the current control system
+saturates during high-speed operation or under heavy load.</p>
+<p>If set below the bus voltage, acceleration may not reach the speed at
+which normal operation is possible.</p>
+<h3 id="limit-of-q-axis-current-a">Limit of Q-axis Current [A]</h3>
+<p>This parameter limits the q-axis current. It is used when
+intentionally restricting torque, such as when issuing commands to the
+current control system. Normally, set this to either the rated current
+or the maximum current.</p>
+<h2 id="detail-of-protection">Detail of Protection</h2>
+<h3 id="maximum-speed-rpm">Maximum Speed [rpm]</h3>
+<p>When actually running the motor, please set the maximum speed [rpm]
+within the control range. If this value is set to be identical to the
+Limit of Over Speed, speed fluctuations may prevent control at this
+speed.</p>
+<h3 id="limit-of-over-current-a">Limit of Over Current [A]</h3>
+<p>Set the current value with a safety margin from the maximum current
+value that can be output by the inverter.</p>
+<h3 id="limit-of-over-voltage-v">Limit of Over Voltage [V]</h3>
+<p>Set the voltage at which the overvoltage protection is activated. If
+the inverter bus voltage exceeds the set voltage, an error occurs and
+the motor stops operating. Set an appropriate value according to the
+power supply environment used.</p>
+<h3 id="limit-of-over-speed-rpm">Limit of Over Speed [rpm]</h3>
+<p>Set the maximum speed [rpm] at which operation will halt as an error.
+Set the maximum permissible speed that must not be exceeded. Set this
+with a margin relative to the actual operating speed range.</p>
+<h3 id="limit-of-low-voltage-v">Limit of Low Voltage [V]</h3>
+<p>Set the voltage at which the low-voltage protection is activated. If
+the inverter bus voltage falls below the set voltage, an error occurs
+and the motor stops operating. Set an appropriate value according to the
+power supply environment used.</p>
+<h2 id="detail-of-sample-delay-compensation">Detail of Sample Delay
+Compensation</h2>
+<h3 id="period-magnification-value">Period Magnification Value</h3>
+<p>This is the compensation value for advancing the angle to the actual
+timing of PWM output based on the timing of current detection. In this
+sample program and inverter configuration, the PWM output timing can be
+adjusted through advancement by any number of samples.</p>
+<table>
+<thead>
+<tr>
+<th>current sensor type</th>
+<th>Period Magnification Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3 shunt</td>
+<td>0.5</td>
+</tr>
+<tr>
+<td>1 shunt</td>
+<td>0.0</td>
+</tr>
+</tbody>
+</table>
+<h2 id="detail-of-voltage-error-compensation">Detail of Voltage Error
+Compensation</h2>
+<h3 id="reference-voltage-v">Reference Voltage [V]</h3>
+<p>Set the reference voltage used when creating the table. As busbar
+voltage fluctuates during actual operation, this voltage is used to
+correct the table values.</p>
+<h3 id="table-of-voltage-1-5-v">Table of Voltage 1-5 [V]</h3>
+<p>Set the voltage points in the voltage error compensation table.
+Specifically, configure the curve around the zero-crossing point of the
+current using the table to correct voltage errors caused by dead
+time.</p>
+<p>This table can be calculated theoretically from the PWM carrier
+frequency, dead time, and inverter rated current, or determined by
+applying a test voltage to an actual inverter.</p>
+<h3 id="table-of-current-1-5-a">Table of Current 1-5 [A]</h3>
+<p>Set the current point on the voltage error compensation table. This
+must be measured simultaneously with the above voltage point.</p>
+<h2 id="detail-of-motor-parameter">Detail of Motor Parameter</h2>
+<h3 id="pole-pairs">Pole Pairs</h3>
+<p>Set the number of pole pairs of the PM motor. The number of pole
+pairs is 1/2 the number of poles. Refer to the PM motor
+specifications.</p>
+<h3 id="resistance-ohm">Resistance [ohm]</h3>
+<p>For the wiring for measurement with an LCR meter, select two among
+the motor’s three-phase output lines U, V, and W and connect the probes
+to them. To measure the resistance, use the DC resistance (DCR) mode.
+The resistance value thus obtained is the composite resistance of the
+two phases, so the resistance value of the motor for one phase can be
+obtained by halving the composite value. Set the obtained resistance R
+as MOTOR_CFG_RESISTANCE in r_motor_targetmotor_cfg.h. The unit is .</p>
+<h3 id="inductance-of-d-axis-h-and-q-axis-h">Inductance of D-axis [H]
+and Q-axis [H]</h3>
+<p>For the wiring for measurement with an LCR meter, select two among
+the motor’s three-phase output lines U, V, and W and connect the probes
+to them. Use the series equivalent circuit mode (Ls) as the measurement
+mode. For detailed measurement methods, refer to the LCR meter’s
+instruction manual. Turn the shaft slowly and write down the maximum and
+minimum inductance values that are displayed. Here, 1/2 of the maximum
+value is Lq and 1/2 of the minimum value is Ld. Set the obtained Ld and
+Lq as MOTOR_CFG_D_INDUCTANCE and MOTOR_CFG_Q_INDUCTANCE in
+r_motor_targetmotor_cfg.h. The unit is H (henry).</p>
+<h3 id="permanent-magnetic-flux-wb">Permanent Magnetic Flux [Wb]</h3>
+<p>Permanent magnets are used in the rotor of PM motors. The strength of
+these permanent magnets in the rotor constitutes the magnet flux. As
+rotational speed increases, the product of this magnet flux and the
+speed generates an induced voltage.</p>
+<h3 id="rotor-inertia-kgm²">Rotor Inertia [kgm²]</h3>
+<p>Specify the moment of inertia of the motor’s rotor and shaft. The
+unit is kgm2. Usually, you can find the value in the documentation
+provided with the motor. If a load is installed, the inertia of the load
+should be added to the setting.</p>
+<h3 id="rated-current-a">Rated Current [A]</h3>
+<p>Specify the rated current (RMS) of the motor. The unit is ampere. It
+is indicated on the nameplate of the motor or in the accompanying
+documentation.</p>
+<h2 id="detail-of-extended-function">Detail of Extended Function</h2>
+<h3 id="mtpa">MTPA</h3>
+<p>Maximum torque per current control is an algorithm used to adjust the
+output torque of a PM motor that has saliency (a PM motor satisfying Lq
+&gt; Ld) to be the maximum possible value. This function can be enabled
+or disabled by this setting. In general, enable it. However, when the Ld
+and Lq values of the PM motor are the same or almost the same, this
+function cannot be used. In such cases, be sure to disable it (specify
+disable).</p>
+<h3 id="flux-weakening">Flux-Weakening</h3>
+<p>The only parameter provided for flux weakening control is for
+enabling or disabling it; no other control parameters are used. The
+operating conditions such as the bus voltage and speed are monitored and
+control automatically begins when the necessary conditions are
+satisfied.</p>
+<h3 id="speed-feedback-process">Speed Feedback Process</h3>
+<p>Configure processing for filtering or compensation of the speed
+feedback (speed detection) results. Normally, set this to Direct. If you
+wish to counter cogging torque, or if the speed detection value contains
+significant noise making control difficult, select LPF or SpeedObserver
+only after fully understanding the control algorithm. Unnecessary
+configuration may lead to unstable control.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Speed Feedback Process</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Direct</td>
+<td>The detected speed is passed directly to the speed control system.
+This process should normally be selected.</td>
+</tr>
+<tr>
+<td>LPF</td>
+<td>Apply a low-pass filter to the detected speed. This is used when
+ripple or similar disturbances are superimposed. Note that selecting the
+LPF may reduce speed response and may cause the system to malfunction
+during sudden load changes.</td>
+</tr>
+<tr>
+<td>Speed Observer</td>
+<td>This is an improved version of the LPF, employing a motor model to
+perform estimation and interpolate speed detection, thereby reducing
+adverse effects on the speed control system.</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

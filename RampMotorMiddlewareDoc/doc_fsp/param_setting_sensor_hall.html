@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>param_setting_sensor_hall</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+<h1 id="list-of-sensor-hall-module">List of Sensor Hall Module</h1>
+<p>The changeable parameters that are used in Hall Sensor module control
+and their initial values are listed below.</p>
+<p><strong>Table 1 Configuration Options
+(rm_motor_sensor_hall)</strong></p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 18%" />
+<col style="width: 15%" />
+<col style="width: 39%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">Category</th>
+<th style="text-align: center;">Sub-Category</th>
+<th style="text-align: left;">Item</th>
+<th style="text-align: left;">Descriptions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Sensor configuration</td>
+<td style="text-align: center;">Port</td>
+<td style="text-align: left;">U phase input port</td>
+<td style="text-align: left;">Hall sensor Port U</td>
+</tr>
+<tr>
+<td style="text-align: center;">Sensor configuration</td>
+<td style="text-align: center;">Port</td>
+<td style="text-align: left;">V phase input port</td>
+<td style="text-align: left;">Hall sensor Port V</td>
+</tr>
+<tr>
+<td style="text-align: center;">Sensor configuration</td>
+<td style="text-align: center;">Port</td>
+<td style="text-align: left;">W phase input port</td>
+<td style="text-align: left;">Hall sensor Port W</td>
+</tr>
+<tr>
+<td style="text-align: center;">Sensor configuration</td>
+<td style="text-align: center;">Hall sensor pattern</td>
+<td style="text-align: left;">Pattern #1</td>
+<td style="text-align: left;">The order of Hall sensor pattern</td>
+</tr>
+<tr>
+<td style="text-align: center;">Sensor configuration</td>
+<td style="text-align: center;">Hall sensor pattern</td>
+<td style="text-align: left;">Pattern #2</td>
+<td style="text-align: left;">The order of Hall sensor pattern</td>
+</tr>
+<tr>
+<td style="text-align: center;">Sensor configuration</td>
+<td style="text-align: center;">Hall sensor pattern</td>
+<td style="text-align: left;">Pattern #3</td>
+<td style="text-align: left;">The order of Hall sensor pattern</td>
+</tr>
+<tr>
+<td style="text-align: center;">Sensor configuration</td>
+<td style="text-align: center;">Hall sensor pattern</td>
+<td style="text-align: left;">Pattern #4</td>
+<td style="text-align: left;">The order of Hall sensor pattern</td>
+</tr>
+<tr>
+<td style="text-align: center;">Sensor configuration</td>
+<td style="text-align: center;">Hall sensor pattern</td>
+<td style="text-align: left;">Pattern #5</td>
+<td style="text-align: left;">The order of Hall sensor pattern</td>
+</tr>
+<tr>
+<td style="text-align: center;">Sensor configuration</td>
+<td style="text-align: center;">Hall sensor pattern</td>
+<td style="text-align: left;">Pattern #6</td>
+<td style="text-align: left;">The order of Hall sensor pattern</td>
+</tr>
+<tr>
+<td style="text-align: center;">Estimator configuration</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">Compensation angle [rad]</td>
+<td style="text-align: left;">Parameter for rotor angle
+compensation</td>
+</tr>
+<tr>
+<td style="text-align: center;">Estimator configuration</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">Default counts</td>
+<td style="text-align: left;">Default counts set to period of Hall
+signal</td>
+</tr>
+<tr>
+<td style="text-align: center;">Estimator configuration</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">Maximum counts</td>
+<td style="text-align: left;">Maximum count of Hall signal period</td>
+</tr>
+<tr>
+<td style="text-align: center;">Speed calculation</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">Speed calculation method</td>
+<td style="text-align: left;">Method used for calculating speed</td>
+</tr>
+<tr>
+<td style="text-align: center;">Speed calculation</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">Speed mixing deviation threshold</td>
+<td style="text-align: left;">Speed mixing deviation threshold (0~1), if
+the deviation ratio is above this value, the weight of faster speed
+estimation will be increased. Used when speed calculation method is
+Auto</td>
+</tr>
+<tr>
+<td style="text-align: center;">Speed calculation</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">Speed mixing threshold [rad/s]</td>
+<td style="text-align: left;">Speed mixing switching threshold, the
+weight of more precise speed estimation will increase very fast above
+this value. Used when speed calculation method is Auto</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Table 2 Configuration Options initial value
+(rm_motor_sensor_hall)</strong></p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 18%" />
+<col style="width: 15%" />
+<col style="width: 39%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">Category</th>
+<th style="text-align: center;">Sub-Category</th>
+<th style="text-align: left;">Item</th>
+<th style="text-align: left;">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Sensor configuration</td>
+<td style="text-align: center;">Port</td>
+<td style="text-align: left;">U phase input port</td>
+<td style="text-align: left;">BSP_IO_PORT_11_PIN_02</td>
+</tr>
+<tr>
+<td style="text-align: center;">Sensor configuration</td>
+<td style="text-align: center;">Port</td>
+<td style="text-align: left;">V phase input port</td>
+<td style="text-align: left;">BSP_IO_PORT_12_PIN_00</td>
+</tr>
+<tr>
+<td style="text-align: center;">Sensor configuration</td>
+<td style="text-align: center;">Port</td>
+<td style="text-align: left;">W phase input port</td>
+<td style="text-align: left;">BSP_IO_PORT_11_PIN_10</td>
+</tr>
+<tr>
+<td style="text-align: center;">Sensor configuration</td>
+<td style="text-align: center;">Hall sensor pattern</td>
+<td style="text-align: left;">Pattern #1</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr>
+<td style="text-align: center;">Sensor configuration</td>
+<td style="text-align: center;">Hall sensor pattern</td>
+<td style="text-align: left;">Pattern #2</td>
+<td style="text-align: left;">5</td>
+</tr>
+<tr>
+<td style="text-align: center;">Sensor configuration</td>
+<td style="text-align: center;">Hall sensor pattern</td>
+<td style="text-align: left;">Pattern #3</td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr>
+<td style="text-align: center;">Sensor configuration</td>
+<td style="text-align: center;">Hall sensor pattern</td>
+<td style="text-align: left;">Pattern #4</td>
+<td style="text-align: left;">6</td>
+</tr>
+<tr>
+<td style="text-align: center;">Sensor configuration</td>
+<td style="text-align: center;">Hall sensor pattern</td>
+<td style="text-align: left;">Pattern #5</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr>
+<td style="text-align: center;">Sensor configuration</td>
+<td style="text-align: center;">Hall sensor pattern</td>
+<td style="text-align: left;">Pattern #6</td>
+<td style="text-align: left;">3</td>
+</tr>
+<tr>
+<td style="text-align: center;">Estimator configuration</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">Compensation angle [rad]</td>
+<td style="text-align: left;">0.0F</td>
+</tr>
+<tr>
+<td style="text-align: center;">Estimator configuration</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">Default counts</td>
+<td style="text-align: left;">300U</td>
+</tr>
+<tr>
+<td style="text-align: center;">Estimator configuration</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">Maximum counts</td>
+<td style="text-align: left;">500U</td>
+</tr>
+<tr>
+<td style="text-align: center;">Speed calculation</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">Speed calculation method</td>
+<td style="text-align: left;">Select Auto</td>
+</tr>
+<tr>
+<td style="text-align: center;">Speed calculation</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">Speed mixing deviation threshold</td>
+<td style="text-align: left;">0.1</td>
+</tr>
+<tr>
+<td style="text-align: center;">Speed calculation</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">Speed mixing threshold [rad/s]</td>
+<td style="text-align: left;">100.0</td>
+</tr>
+</tbody>
+</table>
+<h2 id="setting-parameters">Setting Parameters</h2>
+<p>From the “Sensor configuration”, you can change the settings related
+to H/W environment. There are three methods to calculate speed using
+Hall sensor signals, and you can select it from the “Speed calculation
+method” In the “Estimator configuration”, you can set parameters related
+to speed estimation.</p>
+<h3 id="sensor-configuration">Sensor configuration</h3>
+<p>Those parameters are intial setups that are uniquely determined due
+to H/W environment.</p>
+<h4 id="port-uvw-phase-input-port">Port U/V/W phase input port</h4>
+<p>Set GPIO port for hall signal input.</p>
+<h4 id="hall-sensor-pattern-pattern-1---6">Hall sensor pattern: Pattern
+#1 - #6</h4>
+<p>Set the pattern number of the Hall sensor. Set these based on the
+definition of High and Low of the detection circuit and the arrangement
+of the Hall sensor signal and the electrical angle.</p>
+<h3 id="estimator-configuration">Estimator configuration</h3>
+<p>Parameters settings for estimating speed from hall signal.</p>
+<h4 id="compensation-angle-rad">Compensation angle [rad]</h4>
+<p>An angle offset value to compensate the mounting position (mechanical
+offset) of the Hall sensors.</p>
+<h4 id="default-counts">Default counts</h4>
+<p>Set a value of 80% to 100% of the “Maximum counts”.</p>
+<h4 id="maximum-counts">Maximum counts</h4>
+<p>The number of counts to judge the speed as 0 (stopped). It depends on
+the frequency of counting, Set the number of counts equivalent to 0.25
+seconds.</p>
+<h3 id="speed-calculation">Speed calculation</h3>
+<p>You can choose speed calculation method from three options. The
+“Speed mixing deviation threshold” and “Speed mixing threshold” are
+parameters used in “Select Auto” in speed calculation method.</p>
+<h4 id="speed-calculation-method">Speed calculation method</h4>
+<ul>
+<li>Select Auto : Calculate two speed estimates from the methods below,
+and then blends them with a dynamic weight</li>
+<li>Moving Average : Calculate speed with moving average, using the
+latest 6 Hall edge intervals<br />
+</li>
+<li>Last Pulse : Calculate speed using the latest Hall edge
+interval</li>
+</ul>
+<h4 id="speed-mixing-deviation-threshold">Speed mixing deviation
+threshold</h4>
+<p>The ripple ratio that is allowed at auto-switching of Hall sensor
+speed detection (range: 0.0 to 1.0). Adjust this parameter starting from
+0 referring to the speed ripple ratio at the rated speed.</p>
+<h4 id="speed-mixing-threshold-rads">Speed mixing threshold [rad/s]</h4>
+<p>The speed threshold at which the speed is switched to the speed with
+high accuracy in the auto-switching mode. Set a value so that the actual
+sampling rate at this speed should separated from the bandwidth of speed
+control.</p>
+</body>
+</html>
