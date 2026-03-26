@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>hw_env_04_configuring_hw_environment</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+<h1 id="configuring-a-hardware-environment">Configuring a Hardware
+Environment</h1>
+<h2 id="overview-of-hardware-environment">Overview of Hardware
+Environment</h2>
+<p>This section describes the hardware environment in which a PM motor
+is operated by using this sample program. Figure below shows an example
+of the hardware configuration.</p>
+<figure>
+<img src="media/image_hw_configuration.png"
+alt="image_hw_configuration.png" />
+<figcaption aria-hidden="true">image_hw_configuration.png</figcaption>
+</figure>
+<p>In the following paragraphs, the power supply, the motor and load
+system and the inverter, are described in detail. The CPU board is
+described in another section.</p>
+<h2 id="preparing-a-power-supply">Preparing a Power Supply</h2>
+<p>In this sample program, DC stabilized power supply/AC adapter/a
+control power supply (capable of output of 24V, 2.5A or more) is used to
+supply a voltage of 24 VDC to the 3-phase inverter MCI-LV-1.</p>
+<p>The voltage supplied to the inverter varies depending on the
+inductive voltage, rating conditions, maximum load conditions of the
+motor to be used. Please select an appropriate type of power supply
+based on your experimental environment and restrictions and conditions
+of AC power supply to be used.</p>
+<p>The inverter introduced here has an output current of 10A max. Please
+note that if the motor is changed, the rated operation may not be
+possible due to the rating of the new motor.</p>
+<h2 id="preparing-a-motor">Preparing a Motor</h2>
+<p>Before connecting the inverter to a motor, obtain the parameters and
+constants of the PM motor that are required to drive the motor with
+sensorless vector control by using a measuring instrument such as an LCR
+meter. In addition, contact the manufacturer of the PM motor to obtain
+the parameter information as required.</p>
+<p>If motor parameters are changed, the following parameters for the
+current regulator, speed regulator, and sensorless control should be
+changed accordingly.</p>
+<ul>
+<li><p>Rated values (current, voltage, speed, and number of pole
+pairs)</p></li>
+<li><p>Ld, Lq, and resistance values</p></li>
+<li><p>Inductive voltage and magnetic flux linkage</p></li>
+<li><p>Moment of inertia of the motor and the load system connected to
+the motor shaft</p></li>
+</ul>
+<p>Table below shows the parameters of the R42BLD30L3 motor from MOONS’,
+which we investigated. Some of the parameters are based on our own
+measurements and may vary between individual motors and depending on the
+measurement conditions. The accuracy of these parameters or performance
+of the motor is not guaranteed. Note that the magnetic saturation caused
+by the load current may change the motor parameter values during
+operation, thus affecting the position estimation accuracy or
+operational performance.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 66%" />
+</colgroup>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Value (unit)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Primary resistance R</td>
+<td>1.3 Ω</td>
+</tr>
+<tr>
+<td>d-axis inductance</td>
+<td>1.3 mH</td>
+</tr>
+<tr>
+<td>q-axis inductance</td>
+<td>1.3 mH</td>
+</tr>
+<tr>
+<td>Moment of inertia</td>
+<td>0.000003666 kgm<sup>2</sup></td>
+</tr>
+<tr>
+<td>Magnetic flux linkage Ψ</td>
+<td>0.01119 Wb (rms)</td>
+</tr>
+<tr>
+<td>Number of pole pairs</td>
+<td>4 (8 poles)</td>
+</tr>
+<tr>
+<td>Rated speed</td>
+<td>4000 rpm</td>
+</tr>
+<tr>
+<td>Maximum speed</td>
+<td>4500 rpm</td>
+</tr>
+<tr>
+<td>Rated torque and maximum torque</td>
+<td>0.08 Nm and 0.16 Nm</td>
+</tr>
+<tr>
+<td>Rated frequency</td>
+<td>266.67 Hz (electrical angle) <br/>66.67 Hz (mechanical angle)</td>
+</tr>
+<tr>
+<td>Rated voltage</td>
+<td>36 V</td>
+</tr>
+<tr>
+<td>Rated current</td>
+<td>1.67 Arms</td>
+</tr>
+<tr>
+<td>Rated output power</td>
+<td>30 W</td>
+</tr>
+</tbody>
+</table>
+<h2 id="preparing-a-load-system">Preparing a Load System</h2>
+<p>Evaluation of the control of the inverter and motor requires
+acquisition of the output characteristics and a load system is required.
+The user should prepare the load system. Select a load system that can
+be connected to the target motor for evaluation and couple it to the
+motor. In addition, connect a torque and speed meter that can measure
+the torque and speed between the load system and motor so that accurate
+torque and speed characteristics can be obtained.</p>
+<p>For continuous testing, using a regenerative load tester is
+recommended to enable feedback to the inverter under testing. Before
+using a load tester that uses a particle brake or a hysteresis brake,
+check the restrictions on continuous operation.</p>
+<h2 id="preparing-an-inverter">Preparing an Inverter</h2>
+<p>Note the following information when preparing an inverter. This
+sample program is configured for the MCI-LV-1 inverter board and must be
+changed if you use another inverter.</p>
+<p>In sensorless vector control, the magnetic pole position is estimated
+by using the current detection value input from the current sensor.
+Therefore, the control performance is greatly influenced by the
+performance of the sensor itself and the accuracy and variations of the
+circuits that serve as paths for the signals output from the sensor.
+When selecting an inverter, careful consideration must be given to the
+design of the inverter:</p>
+<ul>
+<li><p>Rated capacity (kVA)</p></li>
+<li><p>Dead time value (μs)</p></li>
+<li><p>Type, characteristics, and signal specifications of the current
+sensor</p></li>
+<li><p>Characteristics data of the current sensor including gain and
+offset values, relationship between the current and voltage, and
+linearity of the signals</p></li>
+<li><p>Characteristics data of the voltage sensor including gain and
+offset values and linearity of the signals</p></li>
+</ul>
+<p>In addition, MCI-LV-1 has a board user interface (board UI) that
+allows the user to operate motor control commands. Table below shows the
+list of components and functions of the board UI.</p>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 15%" />
+<col style="width: 64%" />
+</colgroup>
+<thead>
+<tr>
+<th>Item</th>
+<th>Interface components</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Rotational position/ speed</td>
+<td>Volume (VR1)</td>
+<td>Rotation speed command value input (analog value)</td>
+</tr>
+<tr>
+<td>START / STOP</td>
+<td>Toggle switch (SW1)</td>
+<td>Motor rotation start/ stop command</td>
+</tr>
+<tr>
+<td>ERROR RESET</td>
+<td>Puch switch (SW2)</td>
+<td>Command to recover from an error status (when an error occurs)</td>
+</tr>
+<tr>
+<td>LED1</td>
+<td>Orange LED</td>
+<td></td>
+</tr>
+<tr>
+<td>LED2</td>
+<td>Orange LED</td>
+<td></td>
+</tr>
+<tr>
+<td>RESET</td>
+<td>Push switch (RESET1)</td>
+<td>System reset</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
