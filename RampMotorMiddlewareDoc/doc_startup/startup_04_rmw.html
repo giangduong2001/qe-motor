@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>startup_04_rmw</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+<h1 id="rmw-startup-guide">RMW startup guide</h1>
+<h2 id="overview">Overview</h2>
+<p>Use the Renesas Motor Workbench (RMW), a motor control development
+support tool, as a user interface for issuing the rotation start or stop
+command, rotation speed command, and other commands. The RMW can be
+downloaded from our website.</p>
+<h2 id="install-rmw">Install RMW</h2>
+<p>User can download RMW as the following URL.</p>
+<p>Renesas Motor Workbench website:
+https://www.renesas.com/en/software-tool/renesas-motor-workbench</p>
+<h2 id="updating-registration-of-the-map-file">Updating Registration of
+the Map File</h2>
+<p>If a part of the sample program has been modified and the sample
+program has then been rebuilt by the user, information such as the
+addresses of variables may have changed. Registration of the Map file to
+include the changed information requires updating. If the sample program
+has not been modified, registration of the Map file does not require
+updating.</p>
+<h2 id="settings-of-communications-in-the-rmw">Settings of
+Communications in the RMW</h2>
+<p>This sample program sets up the RMW communications as shown in
+following table. Even when the settings are correct, communications may
+not proceed as expected. This depends on the state of activation of the
+CPU board. In such cases, turning the power for controlling the CPU
+board or inverter off and then on may improve the state of
+communications.</p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Setting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Transfer rate</td>
+<td>921,600 bps</td>
+</tr>
+<tr>
+<td>Clock setting</td>
+<td>8,000,000 Hz</td>
+</tr>
+</tbody>
+</table>
+<h2 id="variables-used-for-operating-the-rmw">Variables Used for
+Operating the RMW</h2>
+<p>The RMW is used to control the motor in this sample program. Table 6
+3 lists the input variables that are used when the RMW UI is in use.
+Input values can only be reflected in the corresponding variables in the
+motor module for use in controlling the motor when the values are
+written with the com_u1_enable_write value being toggled between 0 and 1
+each time. Note, however, that the variables marked with an asterisk (*)
+in the table are written regardless of the state of toggling of the
+com_u1_enable_write variable. For the other parameters for controlling
+the motor, see Table 6 5. Note that the variable name prefix (for
+example, u1 and f4) is an abbreviation of the variable type. The RMW
+automatically recognizes the variable name prefix, automatically selects
+the type, and displays the numeric value of the variable in the Control
+Window.</p>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 7%" />
+<col style="width: 73%" />
+</colgroup>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>com_u1_system_mode (*)</td>
+<td>uint8_t</td>
+<td>Manages the inverter state. 0: Motor stop mode, 1: Motor driving
+mode, 3: Error reset</td>
+</tr>
+<tr>
+<td>com_f4_ref_speed_rpm (*)</td>
+<td>float</td>
+<td>Speed command value (mechanical angle) [rpm]</td>
+</tr>
+<tr>
+<td>com_u1_enable_write</td>
+<td>uint8_t</td>
+<td>Enables rewriting of user input variables. Input data is reflected
+only when toggled and matches g_u1_enable_write.</td>
+</tr>
+<tr>
+<td>g_u1_update_param_flag</td>
+<td>uint8_t</td>
+<td>Buffer transfer completion flag</td>
+</tr>
+<tr>
+<td>g_u1_system_mode</td>
+<td>uint8_t</td>
+<td>System mode: 0: Motor stop, 1: Motor driving, 2: Error</td>
+</tr>
+<tr>
+<td>g_u1_enable_write</td>
+<td>uint8_t</td>
+<td>Enables rewriting of variables</td>
+</tr>
+</tbody>
+</table>
+<h2 id="renesas-advanced-motor-control-platform-common">Renesas Advanced
+Motor control Platform common</h2>
+<p>This section lists the common monitor variables and com variables
+used in the Renesas Advanced Motor control Platform.</p>
+<h3
+id="monitor-variables-renesas-advanced-motor-control-platform-common">Monitor
+variables (Renesas Advanced Motor control Platform common)</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Unit</th>
+<th>Variable name</th>
+<th>Initial value</th>
+<th>Remarks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>float</td>
+<td>g_f4_id_ref_monitor</td>
+<td></td>
+<td>The reference d-axis current value [A]</td>
+</tr>
+<tr>
+<td>float</td>
+<td>g_f4_id_ad_monitor</td>
+<td></td>
+<td>The d-axis current value [A]</td>
+</tr>
+<tr>
+<td>float</td>
+<td>g_f4_iq_ref_monitor</td>
+<td></td>
+<td>The reference q-axis current value [A]</td>
+</tr>
+<tr>
+<td>float</td>
+<td>g_f4_iq_ad_monitor</td>
+<td></td>
+<td>The q-axis current value [A]</td>
+</tr>
+<tr>
+<td>float</td>
+<td>g_f4_iu_ad_monitor</td>
+<td></td>
+<td>U-phase current value [A]</td>
+</tr>
+<tr>
+<td>float</td>
+<td>g_f4_iv_ad_monitor</td>
+<td></td>
+<td>V-phase current value [A]</td>
+</tr>
+<tr>
+<td>float</td>
+<td>g_f4_iw_ad_monitor</td>
+<td></td>
+<td>W-phase current value [A]</td>
+</tr>
+<tr>
+<td>float</td>
+<td>g_f4_vdc_ad_monitor</td>
+<td></td>
+<td>Main Line Voltage[V]</td>
+</tr>
+<tr>
+<td>float</td>
+<td>g_f4_vd_ref_monitor</td>
+<td></td>
+<td>The reference d-axis voltage value [V]</td>
+</tr>
+<tr>
+<td>float</td>
+<td>g_f4_vq_ref_monitor</td>
+<td></td>
+<td>The reference q-axis voltage value [V]</td>
+</tr>
+<tr>
+<td>float</td>
+<td>g_f4_refu_monitor</td>
+<td></td>
+<td>U-phase reference voltage value [V]</td>
+</tr>
+<tr>
+<td>float</td>
+<td>g_f4_refv_monitor</td>
+<td></td>
+<td>V-phase reference voltage value [V]</td>
+</tr>
+<tr>
+<td>float</td>
+<td>g_f4_refw_monitor</td>
+<td></td>
+<td>W-phase reference voltage value [V]</td>
+</tr>
+<tr>
+<td>float</td>
+<td>g_f4_phase_err_monitor</td>
+<td></td>
+<td>Estimated phase error[rad] from actual rotor electrical angle</td>
+</tr>
+<tr>
+<td>float</td>
+<td>g_f4_angle_rad_monitor</td>
+<td></td>
+<td>Angle of rotor [rad]</td>
+</tr>
+<tr>
+<td>float</td>
+<td>g_f4_speed_est_monitor</td>
+<td></td>
+<td>speed value [rad/s]</td>
+</tr>
+<tr>
+<td>float</td>
+<td>g_f4_speed_ref_monitor</td>
+<td></td>
+<td>command speed value for speed PI control[rad/s]</td>
+</tr>
+<tr>
+<td>uint8_t</td>
+<td>g_u1_state_id_ref_monitor</td>
+<td></td>
+<td>The d-axis current command status</td>
+</tr>
+<tr>
+<td>uint8_t</td>
+<td>g_u1_state_iq_ref_monitor</td>
+<td></td>
+<td>The q-axis current command status</td>
+</tr>
+<tr>
+<td>uint8_t</td>
+<td>g_u1_state_speed_ref_monitor</td>
+<td></td>
+<td>The speed command status</td>
+</tr>
+<tr>
+<td>float</td>
+<td>g_f4_speed_kp_monitor</td>
+<td></td>
+<td>Kp for speed loop</td>
+</tr>
+<tr>
+<td>float</td>
+<td>g_f4_speed_ki_monitor</td>
+<td></td>
+<td>Ki for speed loop</td>
+</tr>
+<tr>
+<td>float</td>
+<td>g_f4_current_kp_d_monitor</td>
+<td></td>
+<td>Kp for d-axis current loop</td>
+</tr>
+<tr>
+<td>float</td>
+<td>g_f4_current_ki_d_monitor</td>
+<td></td>
+<td>Ki for d-axis current loop</td>
+</tr>
+<tr>
+<td>float</td>
+<td>g_f4_current_kp_q_monitor</td>
+<td></td>
+<td>Kp for q-axis current loop</td>
+</tr>
+<tr>
+<td>float</td>
+<td>g_f4_current_ki_q_monitor</td>
+<td></td>
+<td>Ki for q-axis current loop</td>
+</tr>
+<tr>
+<td>float</td>
+<td>g_f4_speed_rpm_monitor</td>
+<td></td>
+<td>Motor actual speed [rpm] (mechanical)</td>
+</tr>
+</tbody>
+</table>
+<h2
+id="com-variables-renesas-advanced-motor-control-platform-common">Com
+variables (Renesas Advanced Motor control Platform common)</h2>
+<table>
+<thead>
+<tr>
+<th>Unit</th>
+<th>Variable name</th>
+<th>Initial value</th>
+<th>Remarks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>float</td>
+<td>com_f4_ref_speed_rpm</td>
+<td>0</td>
+<td>Motor speed reference [rpm] (mechanical)</td>
+</tr>
+<tr>
+<td>uint16_t</td>
+<td>com_u2_mtr_pp</td>
+<td></td>
+<td>Pole pairs</td>
+</tr>
+<tr>
+<td>float</td>
+<td>com_f4_mtr_r</td>
+<td></td>
+<td>Resistance [ohm]</td>
+</tr>
+<tr>
+<td>float</td>
+<td>com_f4_mtr_ld</td>
+<td></td>
+<td>D-axis inductance [H]</td>
+</tr>
+<tr>
+<td>float</td>
+<td>com_f4_mtr_lq</td>
+<td></td>
+<td>Q-axis inductance [H]</td>
+</tr>
+<tr>
+<td>float</td>
+<td>com_f4_mtr_m</td>
+<td></td>
+<td>Permanent magnetic flux [Wb]</td>
+</tr>
+<tr>
+<td>float</td>
+<td>com_f4_mtr_j</td>
+<td></td>
+<td>Rotor inertia [kgm^2]</td>
+</tr>
+<tr>
+<td>float</td>
+<td>com_f4_current_omega</td>
+<td></td>
+<td>Natural frequency for current loop [Hz]</td>
+</tr>
+<tr>
+<td>float</td>
+<td>com_f4_current_zeta</td>
+<td></td>
+<td>Damping ratio for current loop</td>
+</tr>
+<tr>
+<td>float</td>
+<td>com_f4_speed_omega</td>
+<td></td>
+<td>Natural frequency for speed loop [Hz]</td>
+</tr>
+<tr>
+<td>float</td>
+<td>com_f4_speed_zeta</td>
+<td></td>
+<td>Damping ratio for speed loop</td>
+</tr>
+<tr>
+<td>float</td>
+<td>com_f4_max_speed_rpm</td>
+<td></td>
+<td>Maximum speed [rpm]</td>
+</tr>
+<tr>
+<td>float</td>
+<td>com_f4_overspeed_limit_rpm</td>
+<td></td>
+<td>Over speed limit [rpm]</td>
+</tr>
+<tr>
+<td>float</td>
+<td>com_f4_overcurrent_limit</td>
+<td></td>
+<td>Over current limit[A]</td>
+</tr>
+<tr>
+<td>float</td>
+<td>com_f4_iq_limit</td>
+<td></td>
+<td>Q-axis current limit[A]</td>
+</tr>
+<tr>
+<td>float</td>
+<td>com_f4_limit_speed_change</td>
+<td></td>
+<td>Limit of speed change</td>
+</tr>
+</tbody>
+</table>
+<h2 id="sensor-bemf-specified">Sensor BEMF specified</h2>
+<p>The available COM variables when using the Sensor BEMF module are
+listed below.</p>
+<h3 id="monitor-variables-sensor-bemf">Monitor variables (Sensor
+BEMF)</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Unit</th>
+<th>Variable name</th>
+<th>Initial value</th>
+<th>Remarks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>float</td>
+<td>g_f4_ed_monitor</td>
+<td></td>
+<td>Estimated d-axis component [V] of flux due to the permanent
+magnet</td>
+</tr>
+<tr>
+<td>float</td>
+<td>g_f4_eq_monitor</td>
+<td></td>
+<td>Estimated q-axis component [V] of flux due to the permanent
+magnet</td>
+</tr>
+<tr>
+<td>float</td>
+<td>g_f4_k_e_obs_1_d_monitor</td>
+<td></td>
+<td>BEMF observer gain 1 for d-axis</td>
+</tr>
+<tr>
+<td>float</td>
+<td>g_f4_k_e_obs_2_d_monitor</td>
+<td></td>
+<td>BEMF observer gain 2 for d-axis</td>
+</tr>
+<tr>
+<td>float</td>
+<td>g_f4_k_e_obs_1_q_monitor</td>
+<td></td>
+<td>BEMF observer gain 1 for q-axis</td>
+</tr>
+<tr>
+<td>float</td>
+<td>g_f4_k_e_obs_2_q_monitor</td>
+<td></td>
+<td>BEMF observer gain 2 for q-axis</td>
+</tr>
+<tr>
+<td>float</td>
+<td>g_f4_kp_est_speed_monitor</td>
+<td></td>
+<td>The proportional gain for PLL</td>
+</tr>
+<tr>
+<td>float</td>
+<td>g_f4_ki_est_speed_monitor</td>
+<td></td>
+<td>The integral gain for PLL</td>
+</tr>
+</tbody>
+</table>
+<h3 id="com-variables-sensor-bemf">Com variables (Sensor BEMF)</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Unit</th>
+<th>Variable name</th>
+<th>Initial value</th>
+<th>Remarks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>float</td>
+<td>com_f4_e_obs_omega</td>
+<td></td>
+<td>Natural frequency for BEMF observer [Hz]</td>
+</tr>
+<tr>
+<td>float</td>
+<td>com_f4_e_obs_zeta</td>
+<td></td>
+<td>Damping ratio for BEMF observer</td>
+</tr>
+<tr>
+<td>float</td>
+<td>com_f4_pll_est_omega</td>
+<td></td>
+<td>Natural frequency for rotor position Phase-Locked Loop [Hz]</td>
+</tr>
+<tr>
+<td>float</td>
+<td>com_f4_pll_est_zeta</td>
+<td></td>
+<td>Damping ratio for rotor position Phase-Locked Loop</td>
+</tr>
+<tr>
+<td>float</td>
+<td>com_f4_ref_id</td>
+<td></td>
+<td>Id reference when open loop [A]</td>
+</tr>
+<tr>
+<td>float</td>
+<td>com_f4_ol_id_up_step</td>
+<td></td>
+<td>The d-axis current reference ramping up rate</td>
+</tr>
+<tr>
+<td>float</td>
+<td>com_f4_ol_id_down_step</td>
+<td></td>
+<td>The d-axis current reference ramping down rate</td>
+</tr>
+<tr>
+<td>float</td>
+<td>com_f4_id_down_speed_rpm</td>
+<td></td>
+<td>The speed threshold to ramp down the d-axis current [rpm]</td>
+</tr>
+<tr>
+<td>float</td>
+<td>com_f4_id_up_speed_rpm</td>
+<td></td>
+<td>The speed threshold to ramp up the d-axis current [rpm]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tuner-pm-specified">Tuner PM specified</h2>
+<h3 id="com-variables">Com variables</h3>
+<p>The variables listed here are global variables used by the RMW when
+operating the tuner. Please note that they cannot be directly
+manipulated by the user.</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Unit</th>
+<th>Variable name</th>
+<th>Initial value</th>
+<th>Remarks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uint8_t</td>
+<td>gui_u1_use_init_r</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr>
+<td>uint8_t</td>
+<td>gui_u1_use_init_ld</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr>
+<td>uint8_t</td>
+<td>gui_u1_use_init_lq</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr>
+<td>uint8_t</td>
+<td>gui_u1_use_init_ke</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr>
+<td>uint8_t</td>
+<td>gui_u1_use_init_j</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr>
+<td>uint8_t</td>
+<td>gui_u1_only_clear_error</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr>
+<td>uint8_t</td>
+<td>gui_u1_params_applied</td>
+<td>FALSE</td>
+<td></td>
+</tr>
+<tr>
+<td>uint16_t</td>
+<td>gui_u2_tuner_status</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>float</td>
+<td>gui_f4_init_r</td>
+<td></td>
+<td>Initial motor parameter R</td>
+</tr>
+<tr>
+<td>float</td>
+<td>gui_f4_init_ld</td>
+<td></td>
+<td>Initial motor parameter Ld</td>
+</tr>
+<tr>
+<td>float</td>
+<td>gui_f4_init_lq</td>
+<td></td>
+<td>Initial motor parameter Lq</td>
+</tr>
+<tr>
+<td>float</td>
+<td>gui_f4_init_ke</td>
+<td></td>
+<td>Initial motor parameter flux</td>
+</tr>
+<tr>
+<td>float</td>
+<td>gui_f4_init_j</td>
+<td></td>
+<td>Initial motor parameter Inertia</td>
+</tr>
+<tr>
+<td>float</td>
+<td>gui_f4_r</td>
+<td></td>
+<td>Estimated R</td>
+</tr>
+<tr>
+<td>float</td>
+<td>gui_f4_ld</td>
+<td></td>
+<td>Estimated Ld</td>
+</tr>
+<tr>
+<td>float</td>
+<td>gui_f4_lq</td>
+<td></td>
+<td>Estimated Lq</td>
+</tr>
+<tr>
+<td>float</td>
+<td>gui_f4_ke</td>
+<td></td>
+<td>Estimated flux</td>
+</tr>
+<tr>
+<td>float</td>
+<td>gui_f4_j</td>
+<td></td>
+<td>Estimated Inertia</td>
+</tr>
+<tr>
+<td>float</td>
+<td>gui_f4_d</td>
+<td></td>
+<td>Estimated friction factor</td>
+</tr>
+<tr>
+<td>motor_tuner_volterr_lut_t</td>
+<td>gui_st_volterr_lut</td>
+<td></td>
+<td>Voltage error table</td>
+</tr>
+<tr>
+<td>float[5]</td>
+<td>gui_volterr_table_current</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>float[5]</td>
+<td>gui_volterr_table_volterr</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>uint16_t</td>
+<td>gui_u2_error_status</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>uint8_t</td>
+<td>gui_u1_tune_mode</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>uint16_t</td>
+<td>gui_u2_measure_progress</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>uint8_t</td>
+<td>gui_u1_flag_tune_result</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>uint8_t</td>
+<td>gui_u1_flg_reset</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>uint8_t</td>
+<td>gui_u1_para_setting</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>uint8_t</td>
+<td>gui_u1_flag_tune_mode</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>float</td>
+<td>gui_f4_slide_parameter</td>
+<td>50.0f</td>
+<td></td>
+</tr>
+<tr>
+<td>uint8_t</td>
+<td>gui_u1_active_gui</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>uint8_t</td>
+<td>gui_u1_flg_1para_init</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>float</td>
+<td>gui_f4_1para_speed_omega</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>float</td>
+<td>gui_f4_tune_current_setting</td>
+<td></td>
+<td>The rated current</td>
+</tr>
+<tr>
+<td>uint16_t</td>
+<td>gui_u2_tune_polepairs_setting</td>
+<td></td>
+<td>The number of pole pairs</td>
+</tr>
+<tr>
+<td>float</td>
+<td>gui_f4_tune_inertia_setting</td>
+<td></td>
+<td>The inertia identification range setting (0-1)</td>
+</tr>
+<tr>
+<td>uint16_t</td>
+<td>gui_u2_tune_volterr_setting</td>
+<td></td>
+<td>The current step of voltage error identification</td>
+</tr>
+<tr>
+<td>uint8_t</td>
+<td>gui_u1_volterr_is_enabled</td>
+<td></td>
+<td>Whether enable the voltage error identification</td>
+</tr>
+</tbody>
+</table>
+<h2 id="reflection-of-the-tuning-result">Reflection of the tuning
+result</h2>
+<h3 id="qe-for-motor">QE for Motor</h3>
+<p>By using QE for Motor, you can easily apply the RMW tuning results to
+the FSP properties. For more details, please refer to the QE for Motor
+user guide.</p>
+<h3 id="manual-configuration">Manual configuration</h3>
+<p>This method explains how to manually apply motor parameters estimated
+by the RMW to the FSP properties. This approach is useful when comparing
+the parameters with results provided by the motor manufacturer,
+measurements obtained using an LCR meter, or when determining parameters
+while considering variations among multiple motor units. Motor
+parameters may vary due to manufacturing tolerances and other factors,
+and therefore may not always have a single definitive value.</p>
+<h3 id="using-r_mtr_motor_parameter.h">Using
+r_mtr_motor_parameter.h</h3>
+<p>Here is an explanation of how to apply motor parameters to the sample
+program using only RMW. As it is, the motor parameters will not take
+effect because the default behavior is to use the motor parameters
+configured in the FSP properties.</p>
+<p>RMW can generate r_mtr_motor_parameter.h file which contains motor
+parameters from tuner result. Place it to src/application/main/ folder
+and overwrite.</p>
+<p>To enable the parameters obtained from the tuner, change the
+MTR_MOTOR_PARAMETER macro to 1. Once this is done, the values obtained
+from the tuner will be assigned to the com variables. By toggling Enable
+Write, the tuning results will be written and applied to the system
+parameters.</p>
+</body>
+</html>
