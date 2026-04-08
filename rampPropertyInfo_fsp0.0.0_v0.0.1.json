@@ -1,0 +1,828 @@
+{
+  "deviceData": {
+    "RA6T2": {
+      "motorControlModuleId": "module.middleware.motor_on_motor_control",
+      "motorTunerModuleId": "module.middleware.motor_tuner_on_motor_tuner_pm",
+      "sensorSelectInfo": {
+        "moduleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+        "propertyId": "module.middleware.motor_algorithm.sensor_select",
+        "interfaceKeyword": "module.middleware.motor_algorithm.requires"
+      },
+      "shuntSelectInfo": {
+        "moduleId": "module.middleware.motor_hal_driver_on_motor_hal_driver",
+        "propertyId": "module.middleware.motor_hal_driver.shunt"
+      },
+      "deviceSensorTypes": [
+        {
+          "sensorTypeId": "Sensorless Vector Control",
+          "sensorModuleId": "module.middleware.motor_sensor_on_motor_sensor_bemf",
+          "moduleConfigs": [
+            {
+              "moduleId": "module.middleware.motor_sensor_on_motor_sensor_bemf",
+              "parentModuleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "interfaceId": "module.middleware.motor_algorithm.requires.sensor1",
+              "properties": []
+            },
+            {
+              "moduleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_algorithm.sensor_select",
+                  "value": "module.middleware.motor_algorithm.sensor_select.slot1"
+                }
+              ]
+            }
+          ],
+          "macros": [
+            {
+              "macroDef": "MOTOR_SENSOR_1",
+              "macroValue": "MOTOR_SENSOR_BEMF"
+            }
+          ]
+        },
+        {
+          "sensorTypeId": "Vector Control with hall sensors",
+          "sensorModuleId": "module.middleware.motor_sensor_on_motor_sensor_hall",
+          "moduleConfigs": [
+            {
+              "moduleId": "module.middleware.motor_sensor_on_motor_sensor_hall",
+              "parentModuleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "interfaceId": "module.middleware.motor_algorithm.requires.sensor1",
+              "properties": []
+            },
+            {
+              "moduleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_algorithm.sensor_select",
+                  "value": "module.middleware.motor_algorithm.sensor_select.slot1"
+                }
+              ]
+            }
+          ],
+          "macros": [
+            {
+              "macroDef": "MOTOR_SENSOR_1",
+              "macroValue": "MOTOR_SENSOR_HALL"
+            }
+          ]
+        }
+      ],
+      "devicesShuntTypes": [
+        {
+          "shuntTypeId": "1-Shunt",
+          "propertyValue": "module.middleware.motor_hal_driver.shunt.1_shunt",
+          "moduleConfigs": [
+            {
+              "moduleId": "module.middleware.motor_sensor_on_motor_sensor_bemf",
+              "parentModuleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "interfaceId": "module.middleware.motor_algorithm.requires.sensor1",
+              "isSensorLess": "true",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_sensor.f4_id_down_speed_rpm",
+                  "value": "800"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.f4_id_up_speed_rpm",
+                  "value": "300"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.e_obs_omega",
+                  "value": "600.0"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_algorithm.pwm_carrier_period",
+                  "value": "100"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_speed_ctrl_period",
+                  "value": "0.001F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_over_current",
+                  "value": "1.67F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_v1",
+                  "value": "0.024F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_v2",
+                  "value": "0.048F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_v3",
+                  "value": "0.072F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_v4",
+                  "value": "0.096F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_v5",
+                  "value": "0.120F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_i1",
+                  "value": "0.070F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_i2",
+                  "value": "0.140F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_i3",
+                  "value": "0.220F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_i4",
+                  "value": "0.300F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_i5",
+                  "value": "0.500F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_ref_vdc",
+                  "value": "24.0F"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.middleware.motor_hal_driver_on_motor_hal_driver",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_hal_driver.shunt",
+                  "value": "module.middleware.motor_hal_driver.shunt.1_shunt"
+                },
+                {
+                  "propertyId": "module.middleware.motor_hal_driver.diff_min",
+                  "value": "900"
+                },
+                {
+                  "propertyId": "module.middleware.motor_hal_driver.adjust_adc_delay",
+                  "value": "600"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.adc_on_adc_b",
+              "properties": [
+                {
+                  "propertyId": "module.driver.adc.sampling_table_id_0",
+                  "value": "30"
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_end_ipl_group_0",
+                  "value": "_disabled"
+                },
+                {
+                  "propertyId": "module.driver.adc.sample_and_hold_enable_mask",
+                  "includeValue": [],
+                  "excludeValue": [
+                    "module.driver.adc.sample_and_hold_enable_mask.unit_0",
+                    "module.driver.adc.sample_and_hold_enable_mask.unit_1",
+                    "module.driver.adc.sample_and_hold_enable_mask.unit_2"
+                  ]
+                },
+                {
+                  "propertyId": "module.driver.adc.sample_and_hold_sampling_time_012",
+                  "value": "95"
+                },
+                {
+                  "propertyId": "module.driver.adc.sample_and_hold_hold_time_012",
+                  "value": "5"
+                },
+                {
+                  "propertyId": "module.driver.adc.virtual_channel_0_scan_group",
+                  "value": "module.driver.adc.virtual_channel_0_scan_group.none"
+                },
+                {
+                  "propertyId": "module.driver.adc.virtual_channel_1_scan_group",
+                  "value": "module.driver.adc.virtual_channel_1_scan_group.none"
+                },
+                {
+                  "propertyId": "module.driver.adc.virtual_channel_4_scan_group",
+                  "value": "module.driver.adc.virtual_channel_4_scan_group.scan_group_2"
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_0_gpt_trigger_enable_mask",
+                  "includeValue": [
+                    "module.driver.adc.scan_group_0_gpt_trigger_enable_mask.gpt_channel_4_request_b",
+                    "module.driver.adc.scan_group_0_gpt_trigger_enable_mask.gpt_channel_8_request_b"
+                  ],
+                  "excludeValue": []
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_0_scan_end_isr_enable",
+                  "value": "module.driver.adc.scan_group_0_scan_end_isr_enable.disable"
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_0_fifo_enable",
+                  "value": "module.driver.adc.scan_group_0_fifo_enable.enable"
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_1_gpt_trigger_enable_mask",
+                  "excludeValue": [
+                    "module.driver.adc.scan_group_1_gpt_trigger_enable_mask.gpt_channel_4_request_a"
+                  ],
+                  "includeValue": [
+                    "module.driver.adc.scan_group_1_gpt_trigger_enable_mask.gpt_channel_5_request_a"
+                  ]
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_2_gpt_trigger_enable_mask",
+                  "includeValue": [
+                    "module.driver.adc.scan_group_2_gpt_trigger_enable_mask.gpt_channel_5_request_a"
+                  ],
+                  "excludeValue": []
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_2_enable",
+                  "value": "module.driver.adc.scan_group_2_enable.enable"
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_2_scan_end_isr_enable",
+                  "value": "module.driver.adc.scan_group_2_scan_end_isr_enable.disable"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.three_phase_on_gpt_three_phase",
+              "properties": [
+                {
+                  "propertyId": "module.driver.three_phase.mode",
+                  "value": "module.driver.three_phase.mode.mode_asymmetric_pwm_mode3"
+                },
+                {
+                  "propertyId": "module.driver.three_phase.buffer_mode",
+                  "value": "module.driver.three_phase.buffer_mode.double"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.timer_on_gpt",
+              "parentModuleId": "module.driver.three_phase_on_gpt_three_phase",
+              "interfaceId": "module.driver.three_phase.requires.gpt_u",
+              "properties": [
+                {
+                  "propertyId": "module.driver.timer.ipl",
+                  "value": "board.icu.common.irq.priority8"
+                },
+                {
+                  "propertyId": "module.driver.timer.adc_trigger",
+                  "excludeValue": [
+                    "module.driver.timer.adc_trigger.adc_trigger_down_count_start_adc_a"
+                  ],
+                  "includeValue": [
+                    "module.driver.timer.adc_trigger.adc_trigger_up_count_start_adc_a",
+                    "module.driver.timer.adc_trigger.adc_trigger_up_count_start_adc_b"
+                  ]
+                },
+                {
+                  "propertyId": "module.driver.timer.adc_a_compare_match",
+                  "value": "10"
+                },
+                {
+                  "propertyId": "module.driver.timer.adc_b_compare_match",
+                  "value": "200"
+                },
+                {
+                  "propertyId": "module.driver.timer.gtior.custom_waveform_enable",
+                  "value": "module.driver.timer.gtior.custom_waveform_enable.enabled"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.timer_on_gpt",
+              "parentModuleId": "module.driver.three_phase_on_gpt_three_phase",
+              "interfaceId": "module.driver.three_phase.requires.gpt_v",
+              "properties": [
+                {
+                  "propertyId": "module.driver.timer.adc_trigger",
+                  "excludeValue": [],
+                  "includeValue": [
+                    "module.driver.timer.adc_trigger.adc_trigger_up_count_start_adc_a"
+                  ]
+                },
+                {
+                  "propertyId": "module.driver.timer.adc_a_compare_match",
+                  "value": "5000"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shuntTypeId": "2-Shunt",
+          "propertyValue": "module.middleware.motor_hal_driver.shunt.2_shunt",
+          "moduleConfigs": [
+            {
+              "moduleId": "module.middleware.motor_sensor_on_motor_sensor_bemf",
+              "parentModuleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "interfaceId": "module.middleware.motor_algorithm.requires.sensor1",
+              "isSensorLess": "true",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_sensor.f4_id_down_speed_rpm",
+                  "value": "600"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.f4_id_up_speed_rpm",
+                  "value": "400"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.e_obs_omega",
+                  "value": "1000.0"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_algorithm.pwm_carrier_period",
+                  "value": "50"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_speed_ctrl_period",
+                  "value": "0.0005F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_over_current",
+                  "value": "3.2F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_v1",
+                  "value": "0.048F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_v2",
+                  "value": "0.096F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_v3",
+                  "value": "0.144F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_v4",
+                  "value": "0.192F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_v5",
+                  "value": "0.240F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_i1",
+                  "value": "0.070F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_i2",
+                  "value": "0.140F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_i3",
+                  "value": "0.220F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_i4",
+                  "value": "0.300F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_i5",
+                  "value": "0.500F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_ref_vdc",
+                  "value": "24.0F"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.middleware.motor_hal_driver_on_motor_hal_driver",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_hal_driver.shunt",
+                  "value": "module.middleware.motor_hal_driver.shunt.2_shunt"
+                },
+                {
+                  "propertyId": "module.middleware.motor_hal_driver.diff_min",
+                  "value": "300"
+                },
+                {
+                  "propertyId": "module.middleware.motor_hal_driver.adjust_adc_delay",
+                  "value": "240"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.adc_on_adc_b",
+              "properties": [
+                {
+                  "propertyId": "module.driver.adc.sampling_table_id_0",
+                  "value": "10"
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_end_ipl_group_0",
+                  "value": "board.icu.common.irq.priority5"
+                },
+                {
+                  "propertyId": "module.driver.adc.sample_and_hold_enable_mask",
+                  "includeValue": [
+                    "module.driver.adc.sample_and_hold_enable_mask.unit_0",
+                    "module.driver.adc.sample_and_hold_enable_mask.unit_2"
+                  ],
+                  "excludeValue": [
+                    "module.driver.adc.sample_and_hold_enable_mask.unit_1"
+                  ]
+                },
+                {
+                  "propertyId": "module.driver.adc.sample_and_hold_sampling_time_012",
+                  "value": "25"
+                },
+                {
+                  "propertyId": "module.driver.adc.sample_and_hold_hold_time_012",
+                  "value": "3"
+                },
+                {
+                  "propertyId": "module.driver.adc.virtual_channel_0_scan_group",
+                  "value": "module.driver.adc.virtual_channel_0_scan_group.scan_group_0"
+                },
+                {
+                  "propertyId": "module.driver.adc.virtual_channel_1_scan_group",
+                  "value": "module.driver.adc.virtual_channel_1_scan_group.none"
+                },
+                {
+                  "propertyId": "module.driver.adc.virtual_channel_4_scan_group",
+                  "value": "module.driver.adc.virtual_channel_4_scan_group.scan_group_0"
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_0_gpt_trigger_enable_mask",
+                  "includeValue": [
+                  ],
+                  "excludeValue": [
+                    "module.driver.adc.scan_group_0_gpt_trigger_enable_mask.gpt_channel_4_request_b",
+                    "module.driver.adc.scan_group_0_gpt_trigger_enable_mask.gpt_channel_8_request_b"
+                  ]
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_0_scan_end_isr_enable",
+                  "value": "module.driver.adc.scan_group_0_scan_end_isr_enable.enable"
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_0_fifo_enable",
+                  "value": "module.driver.adc.scan_group_0_fifo_enable.disable"
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_1_gpt_trigger_enable_mask",
+                  "includeValue": [
+                    "module.driver.adc.scan_group_1_gpt_trigger_enable_mask.gpt_channel_4_request_a"
+                  ],
+                  "excludeValue": [
+                    "module.driver.adc.scan_group_1_gpt_trigger_enable_mask.gpt_channel_5_request_a"
+                  ]
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_2_gpt_trigger_enable_mask",
+                  "includeValue": [],
+                  "excludeValue": [
+                    "module.driver.adc.scan_group_2_gpt_trigger_enable_mask.gpt_channel_5_request_a"
+                  ]
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_2_enable",
+                  "value": "module.driver.adc.scan_group_2_enable.disable"
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_2_scan_end_isr_enable",
+                  "value": "module.driver.adc.scan_group_2_scan_end_isr_enable.enable"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.three_phase_on_gpt_three_phase",
+              "properties": [
+                {
+                  "propertyId": "module.driver.three_phase.mode",
+                  "value": "module.driver.three_phase.mode.mode_symmetric_pwm"
+                },
+                {
+                  "propertyId": "module.driver.three_phase.buffer_mode",
+                  "value": "module.driver.three_phase.buffer_mode.single"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.timer_on_gpt",
+              "parentModuleId": "module.driver.three_phase_on_gpt_three_phase",
+              "interfaceId": "module.driver.three_phase.requires.gpt_u",
+              "properties": [
+                {
+                  "propertyId": "module.driver.timer.ipl",
+                  "value": "_disabled"
+                },
+                {
+                  "propertyId": "module.driver.timer.adc_trigger",
+                  "includeValue": [
+                    "module.driver.timer.adc_trigger.adc_trigger_down_count_start_adc_a"
+                  ],
+                  "excludeValue": [
+                    "module.driver.timer.adc_trigger.adc_trigger_up_count_start_adc_a",
+                    "module.driver.timer.adc_trigger.adc_trigger_up_count_start_adc_b"
+                  ]
+                },
+                {
+                  "propertyId": "module.driver.timer.adc_a_compare_match",
+                  "value": "0"
+                },
+                {
+                  "propertyId": "module.driver.timer.adc_b_compare_match",
+                  "value": "0"
+                },
+                {
+                  "propertyId": "module.driver.timer.gtior.custom_waveform_enable",
+                  "value": "module.driver.timer.gtior.custom_waveform_enable.disabled"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.timer_on_gpt",
+              "parentModuleId": "module.driver.three_phase_on_gpt_three_phase",
+              "interfaceId": "module.driver.three_phase.requires.gpt_v",
+              "properties": [
+                {
+                  "propertyId": "module.driver.timer.adc_trigger",
+                  "includeValue": [],
+                  "excludeValue": [
+                    "module.driver.timer.adc_trigger.adc_trigger_up_count_start_adc_a"
+                  ]
+                },
+                {
+                  "propertyId": "module.driver.timer.adc_a_compare_match",
+                  "value": "0"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shuntTypeId": "3-Shunt",
+          "propertyValue": "module.middleware.motor_hal_driver.shunt.3_shunt",
+          "moduleConfigs": [
+            {
+              "moduleId": "module.middleware.motor_sensor_on_motor_sensor_bemf",
+              "parentModuleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "interfaceId": "module.middleware.motor_algorithm.requires.sensor1",
+              "isSensorLess": "true",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_sensor.f4_id_down_speed_rpm",
+                  "value": "600"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.f4_id_up_speed_rpm",
+                  "value": "400"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.e_obs_omega",
+                  "value": "1000.0"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_algorithm.pwm_carrier_period",
+                  "value": "50"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_speed_ctrl_period",
+                  "value": "0.0005F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_over_current",
+                  "value": "3.2F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_v1",
+                  "value": "0.048F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_v2",
+                  "value": "0.096F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_v3",
+                  "value": "0.144F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_v4",
+                  "value": "0.192F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_v5",
+                  "value": "0.240F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_i1",
+                  "value": "0.070F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_i2",
+                  "value": "0.140F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_i3",
+                  "value": "0.220F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_i4",
+                  "value": "0.300F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_i5",
+                  "value": "0.500F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_ref_vdc",
+                  "value": "24.0F"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.middleware.motor_hal_driver_on_motor_hal_driver",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_hal_driver.shunt",
+                  "value": "module.middleware.motor_hal_driver.shunt.3_shunt"
+                },
+                {
+                  "propertyId": "module.middleware.motor_hal_driver.diff_min",
+                  "value": "300"
+                },
+                {
+                  "propertyId": "module.middleware.motor_hal_driver.adjust_adc_delay",
+                  "value": "240"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.adc_on_adc_b",
+              "properties": [
+                {
+                  "propertyId": "module.driver.adc.sampling_table_id_0",
+                  "value": "10"
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_end_ipl_group_0",
+                  "value": "board.icu.common.irq.priority5"
+                },
+                {
+                  "propertyId": "module.driver.adc.sample_and_hold_enable_mask",
+                  "includeValue": [
+                    "module.driver.adc.sample_and_hold_enable_mask.unit_0",
+                    "module.driver.adc.sample_and_hold_enable_mask.unit_1",
+                    "module.driver.adc.sample_and_hold_enable_mask.unit_2"
+                  ],
+                  "excludeValue": []
+                },
+                {
+                  "propertyId": "module.driver.adc.sample_and_hold_sampling_time_012",
+                  "value": "25"
+                },
+                {
+                  "propertyId": "module.driver.adc.sample_and_hold_hold_time_012",
+                  "value": "3"
+                },
+                {
+                  "propertyId": "module.driver.adc.virtual_channel_0_scan_group",
+                  "value": "module.driver.adc.virtual_channel_0_scan_group.scan_group_0"
+                },
+                {
+                  "propertyId": "module.driver.adc.virtual_channel_1_scan_group",
+                  "value": "module.driver.adc.virtual_channel_1_scan_group.scan_group_0"
+                },
+                {
+                  "propertyId": "module.driver.adc.virtual_channel_4_scan_group",
+                  "value": "module.driver.adc.virtual_channel_4_scan_group.scan_group_0"
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_0_gpt_trigger_enable_mask",
+                  "includeValue": [
+                  ],
+                  "excludeValue": [
+                    "module.driver.adc.scan_group_0_gpt_trigger_enable_mask.gpt_channel_4_request_b",
+                    "module.driver.adc.scan_group_0_gpt_trigger_enable_mask.gpt_channel_8_request_b"
+                  ]
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_0_scan_end_isr_enable",
+                  "value": "module.driver.adc.scan_group_0_scan_end_isr_enable.enable"
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_0_fifo_enable",
+                  "value": "module.driver.adc.scan_group_0_fifo_enable.disable"
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_1_gpt_trigger_enable_mask",
+                  "includeValue": [
+                    "module.driver.adc.scan_group_1_gpt_trigger_enable_mask.gpt_channel_4_request_a"
+                  ],
+                  "excludeValue": [
+                    "module.driver.adc.scan_group_1_gpt_trigger_enable_mask.gpt_channel_5_request_a"
+                  ]
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_2_gpt_trigger_enable_mask",
+                  "includeValue": [],
+                  "excludeValue": [
+                    "module.driver.adc.scan_group_2_gpt_trigger_enable_mask.gpt_channel_5_request_a"
+                  ]
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_2_enable",
+                  "value": "module.driver.adc.scan_group_2_enable.disable"
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_2_scan_end_isr_enable",
+                  "value": "module.driver.adc.scan_group_2_scan_end_isr_enable.enable"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.three_phase_on_gpt_three_phase",
+              "properties": [
+                {
+                  "propertyId": "module.driver.three_phase.mode",
+                  "value": "module.driver.three_phase.mode.mode_symmetric_pwm"
+                },
+                {
+                  "propertyId": "module.driver.three_phase.buffer_mode",
+                  "value": "module.driver.three_phase.buffer_mode.single"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.timer_on_gpt",
+              "parentModuleId": "module.driver.three_phase_on_gpt_three_phase",
+              "interfaceId": "module.driver.three_phase.requires.gpt_u",
+              "properties": [
+                {
+                  "propertyId": "module.driver.timer.ipl",
+                  "value": "_disabled"
+                },
+                {
+                  "propertyId": "module.driver.timer.adc_trigger",
+                  "includeValue": [
+                    "module.driver.timer.adc_trigger.adc_trigger_down_count_start_adc_a"
+                  ],
+                  "excludeValue": [
+                    "module.driver.timer.adc_trigger.adc_trigger_up_count_start_adc_a",
+                    "module.driver.timer.adc_trigger.adc_trigger_up_count_start_adc_b"
+                  ]
+                },
+                {
+                  "propertyId": "module.driver.timer.adc_a_compare_match",
+                  "value": "0"
+                },
+                {
+                  "propertyId": "module.driver.timer.adc_b_compare_match",
+                  "value": "0"
+                },
+                {
+                  "propertyId": "module.driver.timer.gtior.custom_waveform_enable",
+                  "value": "module.driver.timer.gtior.custom_waveform_enable.disabled"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.timer_on_gpt",
+              "parentModuleId": "module.driver.three_phase_on_gpt_three_phase",
+              "interfaceId": "module.driver.three_phase.requires.gpt_v",
+              "properties": [
+                {
+                  "propertyId": "module.driver.timer.adc_trigger",
+                  "includeValue": [],
+                  "excludeValue": [
+                    "module.driver.timer.adc_trigger.adc_trigger_up_count_start_adc_a"
+                  ]
+                },
+                {
+                  "propertyId": "module.driver.timer.adc_a_compare_match",
+                  "value": "0"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
