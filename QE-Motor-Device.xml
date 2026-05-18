@@ -36,6 +36,7 @@
 			</Device>
 			<Device>
 				<DeviceName>RA6T2</DeviceName>
+				<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/ramp_base_projects.xml</ProjectUrl>
 				<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6421xx0131-ra-sensorless-foc-2motor.xml</ProjectUrl>
 				<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6466xx0131-ra-hall-foc.xml</ProjectUrl>
 				<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6980xx0100-ra-motor.xml</ProjectUrl>
@@ -46,7 +47,6 @@
 				<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6839xx0121-ra-sensorless-foc.xml</ProjectUrl>
 				<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6843xx0121-ra-hall-120.xml</ProjectUrl>
 				<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6842xx0121-ra-inductive-foc.xml</ProjectUrl>
-				<ProjectUrl>https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/r01an6840xx0121-ra-hall-foc-3shunt-ramp.xml</ProjectUrl>
 			</Device>
 			<Device>
 				<DeviceName>RA6T3</DeviceName>
@@ -110,15 +110,23 @@
 	<DeviceFamily>
 		<DeviceFamilyName>RX</DeviceFamilyName>
 		<DeviceSeries>
+			<DeviceSeriesName>RX100</DeviceSeriesName>
+			<Device>
+				<DeviceName>RX14T</DeviceName>
+				<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6857xx0120-rx-encoderFOC.xml</ProjectUrl>
+				<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6858xx0120-rx-sensorlessFOC.xml</ProjectUrl>
+				<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an8026xx0100-rx-120conduction.xml</ProjectUrl>
+			</Device>
+		</DeviceSeries>
+		<DeviceSeries>
 			<DeviceSeriesName>RX200</DeviceSeriesName>
 			<Device>
 				<DeviceName>RX26T</DeviceName>
-				<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6857xx0111-rx-encoderFOC.xml</ProjectUrl>
-				<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6858xx0111-rx-sensorlessFOC.xml</ProjectUrl>
+				<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6857xx0120-rx-encoderFOC.xml</ProjectUrl>
+				<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an6858xx0120-rx-sensorlessFOC.xml</ProjectUrl>
 				<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an7331xx0101-rx-motor.xml</ProjectUrl>
 				<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/r01an7422xx0101-motor-hall-foc-rx26t.xml</ProjectUrl>
 			</Device>
 		</DeviceSeries>
 	</DeviceFamily>
 </DeviceFamilies>
-
