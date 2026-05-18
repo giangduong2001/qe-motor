@@ -102,7 +102,7 @@
 		<HardwareInfo en="https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardHardwareInfo/en/MCK-RA6T2-V2-HardwareInfo.html" jp="https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/BoardHardwareInfo/jp/MCK-RA6T2-V2-HardwareInfo.html" />
 		<Project>
 			<ProjectFolderName>RA6T2_MCB2_MCILV1_RAMP_E2S_V100</ProjectFolderName>
-			<ProjectUrl>https://raw.githubusercontent.com/renesas/qe-tools/main/qe_motor/SampleProjects/ramp_base_projects.xml</ProjectUrl>
+			<ProjectUrl>https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/ramp_base_projects.xml</ProjectUrl>
 		</Project>
 		<Project>
 			<ProjectFolderName>RA6T2_MCB2_MCILV1_2SPM_LESS_FOC_E2S_V100</ProjectFolderName>
