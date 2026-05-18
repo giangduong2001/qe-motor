@@ -19,6 +19,7 @@
 		<ProjectName 
 		en="RAMP-Based Vector control for magnetic synchronous motor (sensorless or hall sensors - 1,2,3shunt current detection)" 
 		jp="RAMP使用 永久磁石同期モータのベクトル制御 (センサレス, ホールセンサ - 1,2,3シャント電流検出方式)" />
+		<ApplicationNoteUrl>https://renesas.github.io/qe-tools/qe_motor/RampMotorMiddlewareDoc/index.html</ApplicationNoteUrl>
 		
 		<ProjectDescription en="This is a sample project using RAMP (Renesas Advanced Motor Control Platform). It is a sample program that drives a permanent magnet synchronous motor (PMSM) using vector control with the RA6T2 microcontroller, supporting either sensorless control or Hall sensor based control.After importing the project into e2 studio, the sensor type (sensorless or Hall sensor) and the number of shunts (1-shunt, 2-shunt, or 3-shunt) can be switched using QE for Motor."
 		jp="RAMP(Renesas Advanced Motor control Platform)を使用したプロジェクトです。RA6T2マイクロコントローラを使用し、センサレスまたはホールセンサを用いて永久磁石同期モータ(PMSM)をベクトル制御で駆動するサンプルプログラムです。e2 studioにインポート後、QE for Motorによりセンサー種別(センサレス,ホールセンサ)とシャント数(1,2,3シャント)を切り替えられます。"/>
