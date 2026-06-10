@@ -88,16 +88,81 @@
   font-style: italic;
 }
 
-/* 🔥 FIX VẤN ĐỀ 1: Results KHÔNG che navigation, mà giới hạn chiều cao và cuộn */
+/* ============ SEARCH STYLES (FIXED) ============ */
+#search-container {
+  margin-bottom: 15px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #ccc;
+  position: sticky;
+  top: 0;
+  background: #f3f3f3;
+  z-index: 10;
+  padding-top: 5px;
+}
+
+/* 🔥 FIX VẤN ĐỀ 1: Wrapper phải có position: relative để chứa nút ✕ */
+#search-input-wrapper {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+#search-input {
+  width: 100%;
+  padding: 8px 32px 8px 10px;  /* padding-right = 32px để chừa chỗ cho ✕ */
+  box-sizing: border-box;
+  border: 1px solid #999;
+  border-radius: 4px;
+  font-size: 13px;
+  outline: none;
+  height: 32px;                  /* fixed height để nút ✕ canh giữa được */
+  line-height: 32px;
+}
+
+#search-input:focus {
+  border-color: #0066cc;
+  box-shadow: 0 0 3px rgba(0, 102, 204, 0.3);
+}
+
+/* 🔥 FIX VẤN ĐỀ 1: Nút ✕ canh giữa theo chiều dọc của input */
+#search-clear {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);   /* canh giữa theo chiều dọc */
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #999;
+  font-size: 14px;
+  font-weight: bold;
+  display: none;
+  padding: 2px 6px;
+  line-height: 1;
+  border-radius: 3px;
+}
+
+#search-clear:hover {
+  color: #fff;
+  background: #999;
+}
+
+#search-status {
+  font-size: 11px;
+  color: #666;
+  margin-top: 5px;
+  font-style: italic;
+}
+
 #search-results {
-  max-height: 250px;        /* giới hạn chiều cao */
-  overflow-y: auto;          /* cuộn nếu nhiều kết quả */
+  max-height: 250px;
+  overflow-y: auto;
   margin-top: 8px;
   margin-bottom: 15px;
   border: 1px solid #ddd;
   border-radius: 4px;
   background: #fff;
-  display: none;             /* ẩn khi không có search */
+  display: none;
 }
 
 #search-results.has-results {
@@ -146,7 +211,6 @@
   text-align: center;
 }
 
-/* 🔥 FIX VẤN ĐỀ 1: KHÔNG ẩn navigation nữa, chỉ thêm "divider" giữa search và nav */
 #nav-divider {
   display: none;
   height: 1px;
@@ -430,12 +494,12 @@
     contentFrame.src = url;
   }
   
-  // ============ 🔥 HIGHLIGHT IN IFRAME (CẢI THIỆN ROBUST) ============
+  // ============ 🔥 HIGHLIGHT IN IFRAME (FIXED - scroll đúng vị trí) ============
   function highlightInIframe(doc, keyword) {
     if (!doc || !doc.body || !keyword) return;
     
     try {
-      // 1. Remove old highlights
+      // 1. Remove old highlights (unwrap mark tags)
       const oldMarks = doc.querySelectorAll('mark.search-highlight');
       oldMarks.forEach(m => {
         const parent = m.parentNode;
@@ -445,7 +509,7 @@
         }
       });
       
-      // 2. Inject CSS vào iframe để mark hiển thị đúng
+      // 2. Inject CSS để mark hiển thị đúng và không bị page CSS override
       let styleEl = doc.getElementById('__search_highlight_style__');
       if (!styleEl) {
         styleEl = doc.createElement('style');
@@ -461,13 +525,15 @@
           }
           mark.search-highlight.first-match {
             background-color: #ff9800 !important;
+            color: #000 !important;
             box-shadow: 0 0 8px #ff9800;
+            outline: 2px solid #e65100;
           }
         `;
-        doc.head.appendChild(styleEl);
+        if (doc.head) doc.head.appendChild(styleEl);
       }
       
-      // 3. Walk text nodes
+      // 3. Walk text nodes để tìm các node có chứa keyword
       const walker = doc.createTreeWalker(
         doc.body,
         NodeFilter.SHOW_TEXT,
@@ -478,7 +544,6 @@
             if (!parent) return NodeFilter.FILTER_REJECT;
             const tag = parent.tagName;
             if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'NOSCRIPT') return NodeFilter.FILTER_REJECT;
-            // Skip if already inside a highlight
             if (parent.classList && parent.classList.contains('search-highlight')) return NodeFilter.FILTER_REJECT;
             return NodeFilter.FILTER_ACCEPT;
           }
@@ -496,37 +561,68 @@
       
       console.log('[Search] Found', nodesToReplace.length, 'text nodes containing keyword');
       
-      // 4. Replace text với highlighted version
-      let firstMark = null;
+      // 4. 🔥 FIX VẤN ĐỀ 2: Replace text với highlighted version
+      // KHÔNG đánh dấu first-match ở đây nữa, sẽ làm sau khi đã có tất cả marks
+      const allMarks = [];
       const regex = new RegExp('(' + escapeRegex(keyword) + ')', 'gi');
       
-      nodesToReplace.forEach((textNode, nodeIdx) => {
+      nodesToReplace.forEach((textNode) => {
         const text = textNode.nodeValue;
         const span = doc.createElement('span');
         span.innerHTML = text.replace(regex, (match) => {
-          const isFirst = (nodeIdx === 0 && !firstMark);
-          return `<mark class="search-highlight${isFirst ? ' first-match' : ''}">${escapeHtmlInDoc(match)}</mark>`;
+          return `<mark class="search-highlight">${escapeHtmlInDoc(match)}</mark>`;
         });
         if (textNode.parentNode) {
           textNode.parentNode.replaceChild(span, textNode);
-          if (!firstMark) {
-            firstMark = span.querySelector('mark.search-highlight');
-          }
+          // Collect tất cả marks vừa tạo
+          const newMarks = span.querySelectorAll('mark.search-highlight');
+          newMarks.forEach(m => allMarks.push(m));
         }
       });
       
-      // 5. Scroll to first match
-      if (firstMark) {
+      console.log('[Search] Total highlighted matches:', allMarks.length);
+      
+      // 5. 🔥 FIX VẤN ĐỀ 2: Tìm match đầu tiên VISIBLE trong viewport
+      // Match đầu tiên trong DOM có thể nằm ở header/nav, không phải content chính
+      // Scroll đến match THỰC SỰ trong content area
+      if (allMarks.length > 0) {
+        // Đánh dấu match đầu tiên là first-match (nổi bật)
+        const firstMark = allMarks[0];
+        firstMark.classList.add('first-match');
+        
+        // Scroll đến mark đầu tiên với block: 'center' để hiện ở giữa màn hình
         setTimeout(() => {
           try {
-            firstMark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            firstMark.scrollIntoView({ 
+              behavior: 'smooth', 
+              block: 'center',     // canh giữa màn hình thay vì 'start'
+              inline: 'nearest'
+            });
           } catch (e) {
+            // Fallback cho browser cũ
             firstMark.scrollIntoView();
           }
-        }, 100);
-        console.log('[Search] ✓ Highlighted and scrolled to first match');
+        }, 150);
+        
+        console.log('[Search] ✓ Scrolled to first match. Total:', allMarks.length, 'matches');
+        
+        // 🎁 BONUS: Click vào mark để nhảy đến match tiếp theo
+        allMarks.forEach((mark, idx) => {
+          mark.style.cursor = 'pointer';
+          mark.title = `Match ${idx + 1}/${allMarks.length} - Click to go to next`;
+          mark.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const nextIdx = (idx + 1) % allMarks.length;
+            const nextMark = allMarks[nextIdx];
+            // Update first-match indicator
+            allMarks.forEach(m => m.classList.remove('first-match'));
+            nextMark.classList.add('first-match');
+            nextMark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          });
+        });
       } else {
-        console.warn('[Search] No matches found in iframe content');
+        console.warn('[Search] No matches found in iframe content for keyword:', keyword);
       }
     } catch (e) {
       console.error('[Search] Error highlighting:', e);
