@@ -301,12 +301,15 @@
   const DEBOUNCE_DELAY = 300;
   const SNIPPET_PADDING = 50;
   const MAX_RESULTS = 30;
+  const HIGHLIGHT_RETRY_COUNT = 5;       // 🔥 NEW: retry highlight nhiều lần
+  const HIGHLIGHT_RETRY_DELAY = 300;     // 🔥 NEW: delay giữa các retry
   
   // ============ STATE ============
   const searchIndex = [];
   let isIndexBuilt = false;
   let debounceTimer = null;
-  let pendingHighlightKeyword = null;  // 🔥 FIX: Lưu keyword cần highlight
+  let pendingHighlightKeyword = null;
+  let highlightRetries = 0;
   
   // ============ ELEMENTS ============
   const navEl = document.getElementById('nav');
@@ -322,28 +325,60 @@
     link.addEventListener('click', function() {
       document.querySelectorAll('#nav a').forEach(a => a.classList.remove('active'));
       this.classList.add('active');
-      pendingHighlightKeyword = null;  // clear pending highlight khi click nav thường
+      pendingHighlightKeyword = null;
     });
   });
   if (allLinks.length > 0) allLinks[0].classList.add('active');
   
-  // ============ 🔥 GLOBAL IFRAME LOAD HANDLER (FIX VẤN ĐỀ 2) ============
-  // Chỉ gắn 1 lần, không dùng onload (vì sẽ bị ghi đè)
+  // ============ 🔥 IFRAME LOAD HANDLER với RETRY ============
   contentFrame.addEventListener('load', function() {
-    if (pendingHighlightKeyword) {
-      // Delay nhỏ để đảm bảo DOM của iframe đã render xong
-      setTimeout(() => {
-        try {
-          const iframeDoc = contentFrame.contentDocument || contentFrame.contentWindow.document;
-          if (iframeDoc && iframeDoc.body) {
-            highlightInIframe(iframeDoc, pendingHighlightKeyword);
-          }
-        } catch (e) {
-          console.warn('[Search] Cannot highlight in iframe:', e.message);
-        }
-      }, 200);
-    }
+    if (!pendingHighlightKeyword) return;
+    
+    highlightRetries = 0;
+    tryHighlightWithRetry(pendingHighlightKeyword);
   });
+  
+  function tryHighlightWithRetry(keyword) {
+    if (highlightRetries >= HIGHLIGHT_RETRY_COUNT) {
+      console.warn('[Search] Failed to highlight after', HIGHLIGHT_RETRY_COUNT, 'retries');
+      return;
+    }
+    
+    setTimeout(() => {
+      try {
+        const iframeDoc = contentFrame.contentDocument || contentFrame.contentWindow.document;
+        if (!iframeDoc) {
+          console.warn('[Search] iframeDoc is null, retry', highlightRetries);
+          highlightRetries++;
+          tryHighlightWithRetry(keyword);
+          return;
+        }
+        if (!iframeDoc.body) {
+          console.warn('[Search] iframeDoc.body is null, retry', highlightRetries);
+          highlightRetries++;
+          tryHighlightWithRetry(keyword);
+          return;
+        }
+        // Check if body has actual content
+        if (iframeDoc.body.innerText.trim().length < 10) {
+          console.warn('[Search] iframe body too short, retry', highlightRetries);
+          highlightRetries++;
+          tryHighlightWithRetry(keyword);
+          return;
+        }
+        
+        const success = highlightInIframe(iframeDoc, keyword);
+        if (!success && highlightRetries < HIGHLIGHT_RETRY_COUNT - 1) {
+          highlightRetries++;
+          tryHighlightWithRetry(keyword);
+        }
+      } catch (e) {
+        console.error('[Search] Highlight error:', e.message);
+        highlightRetries++;
+        tryHighlightWithRetry(keyword);
+      }
+    }, HIGHLIGHT_RETRY_DELAY);
+  }
   
   // ============ BUILD SEARCH INDEX ============
   async function buildSearchIndex() {
@@ -398,7 +433,7 @@
   function performSearch(keyword) {
     keyword = keyword.trim().toLowerCase();
     searchResults.innerHTML = '';
-    searchResults.classList.remove('has-results');  // 🔥 FIX VẤN ĐỀ 1
+    searchResults.classList.remove('has-results');
     
     if (keyword.length < MIN_KEYWORD_LENGTH) {
       searchStatus.textContent = isIndexBuilt 
@@ -470,36 +505,32 @@
       fragment.appendChild(item);
     }
     searchResults.appendChild(fragment);
-    searchResults.classList.add('has-results');  // 🔥 FIX VẤN ĐỀ 1
+    searchResults.classList.add('has-results');
   }
   
-  // ============ 🔥 LOAD RESULT IN IFRAME (FIX VẤN ĐỀ 2) ============
+  // ============ 🔥🔥🔥 LOAD RESULT - DUAL APPROACH ============
   function loadResultInIframe(url, keyword) {
-    pendingHighlightKeyword = keyword;  // Lưu keyword để global handler dùng
+    pendingHighlightKeyword = keyword;
+    highlightRetries = 0;
     
-    // Nếu cùng URL đang load → force highlight luôn (không trigger load event)
-    const currentSrc = contentFrame.src;
-    if (currentSrc === url || currentSrc.endsWith(url.replace(/^https?:\/\/[^/]+/, ''))) {
-      try {
-        const iframeDoc = contentFrame.contentDocument || contentFrame.contentWindow.document;
-        if (iframeDoc && iframeDoc.body) {
-          highlightInIframe(iframeDoc, keyword);
-          return;
-        }
-      } catch (e) {
-        // fallback: reload
-      }
-    }
+    // Strategy 1: Use Text Fragment Directive (built-in browser feature)
+    // This works on Edge/Chrome 89+ and Edge WebView2
+    // Browser will auto-scroll and highlight (yellow) the first match
+    const urlWithFragment = url + '#:~:text=' + encodeURIComponent(keyword);
     
-    contentFrame.src = url;
+    console.log('[Search] Loading URL with text fragment:', urlWithFragment);
+    contentFrame.src = urlWithFragment;
+    
+    // Strategy 2: ALSO try to inject custom highlight via JS
+    // (will run after iframe loads, in addition to browser's built-in highlight)
   }
   
-  // ============ 🔥 HIGHLIGHT IN IFRAME (FIXED - scroll đúng vị trí) ============
+  // ============ 🔥 HIGHLIGHT IN IFRAME ============
   function highlightInIframe(doc, keyword) {
-    if (!doc || !doc.body || !keyword) return;
+    if (!doc || !doc.body || !keyword) return false;
     
     try {
-      // 1. Remove old highlights (unwrap mark tags)
+      // 1. Remove old highlights
       const oldMarks = doc.querySelectorAll('mark.search-highlight');
       oldMarks.forEach(m => {
         const parent = m.parentNode;
@@ -509,7 +540,7 @@
         }
       });
       
-      // 2. Inject CSS để mark hiển thị đúng và không bị page CSS override
+      // 2. Inject CSS
       let styleEl = doc.getElementById('__search_highlight_style__');
       if (!styleEl) {
         styleEl = doc.createElement('style');
@@ -524,16 +555,21 @@
             box-shadow: 0 0 0 1px #fbc02d;
           }
           mark.search-highlight.first-match {
-            background-color: #ff9800 !important;
-            color: #000 !important;
-            box-shadow: 0 0 8px #ff9800;
-            outline: 2px solid #e65100;
+            background-color: #ff5722 !important;
+            color: #fff !important;
+            box-shadow: 0 0 8px #ff5722;
+            outline: 2px solid #d84315;
+            animation: search-pulse 1s ease-in-out 2;
+          }
+          @keyframes search-pulse {
+            0%, 100% { box-shadow: 0 0 8px #ff5722; }
+            50% { box-shadow: 0 0 16px #ff5722, 0 0 24px #ff9800; }
           }
         `;
         if (doc.head) doc.head.appendChild(styleEl);
       }
       
-      // 3. Walk text nodes để tìm các node có chứa keyword
+      // 3. Walk text nodes
       const walker = doc.createTreeWalker(
         doc.body,
         NodeFilter.SHOW_TEXT,
@@ -561,8 +597,12 @@
       
       console.log('[Search] Found', nodesToReplace.length, 'text nodes containing keyword');
       
-      // 4. 🔥 FIX VẤN ĐỀ 2: Replace text với highlighted version
-      // KHÔNG đánh dấu first-match ở đây nữa, sẽ làm sau khi đã có tất cả marks
+      if (nodesToReplace.length === 0) {
+        console.warn('[Search] No text nodes match keyword "' + keyword + '"');
+        return false;
+      }
+      
+      // 4. Replace text với highlighted version - collect ALL marks first
       const allMarks = [];
       const regex = new RegExp('(' + escapeRegex(keyword) + ')', 'gi');
       
@@ -574,58 +614,58 @@
         });
         if (textNode.parentNode) {
           textNode.parentNode.replaceChild(span, textNode);
-          // Collect tất cả marks vừa tạo
           const newMarks = span.querySelectorAll('mark.search-highlight');
           newMarks.forEach(m => allMarks.push(m));
         }
       });
       
-      console.log('[Search] Total highlighted matches:', allMarks.length);
+      console.log('[Search] Total highlighted marks:', allMarks.length);
       
-      // 5. 🔥 FIX VẤN ĐỀ 2: Tìm match đầu tiên VISIBLE trong viewport
-      // Match đầu tiên trong DOM có thể nằm ở header/nav, không phải content chính
-      // Scroll đến match THỰC SỰ trong content area
+      // 5. Mark FIRST match as special, scroll to it
       if (allMarks.length > 0) {
-        // Đánh dấu match đầu tiên là first-match (nổi bật)
         const firstMark = allMarks[0];
         firstMark.classList.add('first-match');
         
-        // Scroll đến mark đầu tiên với block: 'center' để hiện ở giữa màn hình
+        // Scroll với delay để đảm bảo DOM render xong
         setTimeout(() => {
           try {
             firstMark.scrollIntoView({ 
               behavior: 'smooth', 
-              block: 'center',     // canh giữa màn hình thay vì 'start'
+              block: 'center',
               inline: 'nearest'
             });
+            console.log('[Search] ✓ Scrolled to first match');
           } catch (e) {
-            // Fallback cho browser cũ
-            firstMark.scrollIntoView();
+            try {
+              firstMark.scrollIntoView();
+            } catch (e2) {
+              console.error('[Search] Cannot scroll:', e2.message);
+            }
           }
-        }, 150);
+        }, 200);
         
-        console.log('[Search] ✓ Scrolled to first match. Total:', allMarks.length, 'matches');
-        
-        // 🎁 BONUS: Click vào mark để nhảy đến match tiếp theo
+        // Click vào mark để đi đến match tiếp theo
         allMarks.forEach((mark, idx) => {
           mark.style.cursor = 'pointer';
-          mark.title = `Match ${idx + 1}/${allMarks.length} - Click to go to next`;
+          mark.title = `Match ${idx + 1}/${allMarks.length} - Click for next`;
           mark.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
             const nextIdx = (idx + 1) % allMarks.length;
             const nextMark = allMarks[nextIdx];
-            // Update first-match indicator
             allMarks.forEach(m => m.classList.remove('first-match'));
             nextMark.classList.add('first-match');
             nextMark.scrollIntoView({ behavior: 'smooth', block: 'center' });
           });
         });
-      } else {
-        console.warn('[Search] No matches found in iframe content for keyword:', keyword);
+        
+        return true;
       }
+      
+      return false;
     } catch (e) {
-      console.error('[Search] Error highlighting:', e);
+      console.error('[Search] Error in highlightInIframe:', e);
+      return false;
     }
   }
   
