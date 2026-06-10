@@ -78,47 +78,8 @@
   }
   /* ============ SEARCH STYLES ============ */
 #search-container {
-  margin-bottom: 20px;
-  padding-bottom: 15px;
-  border-bottom: 1px solid #ccc;
-}
 
-#search-input-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-#search-input {
-  width: 100%;
-  padding: 8px 30px 8px 10px;
-  box-sizing: border-box;
-  border: 1px solid #999;
-  border-radius: 4px;
-  font-size: 13px;
-  outline: none;
-}
-
-#search-input:focus {
-  border-color: #0066cc;
-  box-shadow: 0 0 3px rgba(0, 102, 204, 0.3);
-}
-
-#search-clear {
-  position: absolute;
-  right: 5px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  color: #999;
-  font-size: 14px;
-  display: none;
-  padding: 4px 8px;
-}
-
-#search-clear:hover {
-  color: #333;
-}
+#search-clear:hover { color: #333; }
 
 #search-status {
   font-size: 11px;
@@ -127,10 +88,20 @@
   font-style: italic;
 }
 
+/* 🔥 FIX VẤN ĐỀ 1: Results KHÔNG che navigation, mà giới hạn chiều cao và cuộn */
 #search-results {
-  max-height: 400px;
-  overflow-y: auto;
+  max-height: 250px;        /* giới hạn chiều cao */
+  overflow-y: auto;          /* cuộn nếu nhiều kết quả */
   margin-top: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: #fff;
+  display: none;             /* ẩn khi không có search */
+}
+
+#search-results.has-results {
+  display: block;
 }
 
 .search-result-item {
@@ -138,13 +109,10 @@
   cursor: pointer;
   border-bottom: 1px solid #eee;
   font-size: 12px;
-  border-radius: 3px;
-  margin-bottom: 2px;
 }
 
-.search-result-item:hover {
-  background: #dcdcdc !important;
-}
+.search-result-item:last-child { border-bottom: none; }
+.search-result-item:hover { background: #e8f4ff !important; }
 
 .search-result-title {
   font-weight: bold;
@@ -178,17 +146,16 @@
   text-align: center;
 }
 
-.search-loading {
-  padding: 10px;
-  color: #0066cc;
-  text-align: center;
+/* 🔥 FIX VẤN ĐỀ 1: KHÔNG ẩn navigation nữa, chỉ thêm "divider" giữa search và nav */
+#nav-divider {
+  display: none;
+  height: 1px;
+  background: #ccc;
+  margin: 15px 0;
 }
 
-/* Hide nav links khi đang search */
-#nav.searching > h1,
-#nav.searching > h2,
-#nav.searching > ul {
-  display: none;
+#search-results.has-results + #nav-divider {
+  display: block;
 }
 </style>
 </head>
@@ -198,16 +165,12 @@
 
 <div id="search-container">
     <div id="search-input-wrapper">
-      <input 
-        type="text" 
-        id="search-input" 
-        placeholder="🔍 Search documentation..." 
-        autocomplete="off"
-      />
+      <input type="text" id="search-input" placeholder="🔍 Search documentation..." autocomplete="off" />
       <button id="search-clear" title="Clear">✕</button>
     </div>
     <div id="search-status"></div>
     <div id="search-results"></div>
+    <div id="nav-divider"></div>
   </div>
 
 <h1>RAMP Documentation</h1>
@@ -271,14 +234,15 @@
   
   // ============ CONFIG ============
   const MIN_KEYWORD_LENGTH = 2;
-  const DEBOUNCE_DELAY = 300; // ms
-  const SNIPPET_PADDING = 50; // chars before/after keyword
+  const DEBOUNCE_DELAY = 300;
+  const SNIPPET_PADDING = 50;
   const MAX_RESULTS = 30;
   
   // ============ STATE ============
   const searchIndex = [];
   let isIndexBuilt = false;
   let debounceTimer = null;
+  let pendingHighlightKeyword = null;  // 🔥 FIX: Lưu keyword cần highlight
   
   // ============ ELEMENTS ============
   const navEl = document.getElementById('nav');
@@ -289,16 +253,33 @@
   const contentFrame = document.getElementById('content');
   const allLinks = document.querySelectorAll('#nav ul a');
   
-  // ============ HIGHLIGHT ACTIVE LINK (existing logic) ============
+  // ============ HIGHLIGHT ACTIVE LINK ============
   allLinks.forEach(link => {
     link.addEventListener('click', function() {
       document.querySelectorAll('#nav a').forEach(a => a.classList.remove('active'));
       this.classList.add('active');
+      pendingHighlightKeyword = null;  // clear pending highlight khi click nav thường
     });
   });
-  if (allLinks.length > 0) {
-    allLinks[0].classList.add('active');
-  }
+  if (allLinks.length > 0) allLinks[0].classList.add('active');
+  
+  // ============ 🔥 GLOBAL IFRAME LOAD HANDLER (FIX VẤN ĐỀ 2) ============
+  // Chỉ gắn 1 lần, không dùng onload (vì sẽ bị ghi đè)
+  contentFrame.addEventListener('load', function() {
+    if (pendingHighlightKeyword) {
+      // Delay nhỏ để đảm bảo DOM của iframe đã render xong
+      setTimeout(() => {
+        try {
+          const iframeDoc = contentFrame.contentDocument || contentFrame.contentWindow.document;
+          if (iframeDoc && iframeDoc.body) {
+            highlightInIframe(iframeDoc, pendingHighlightKeyword);
+          }
+        } catch (e) {
+          console.warn('[Search] Cannot highlight in iframe:', e.message);
+        }
+      }, 200);
+    }
+  });
   
   // ============ BUILD SEARCH INDEX ============
   async function buildSearchIndex() {
@@ -306,39 +287,27 @@
     let indexed = 0;
     let failed = 0;
     
-    // Group links by category (h2 sections)
     const linksByCategory = [];
     let currentCategory = '';
-    const navChildren = Array.from(navEl.children);
-    
-    navChildren.forEach(child => {
+    Array.from(navEl.children).forEach(child => {
       if (child.tagName === 'H2') {
         currentCategory = child.textContent.trim();
       } else if (child.tagName === 'UL') {
-        const links = child.querySelectorAll('a');
-        links.forEach(link => {
-          linksByCategory.push({
-            link: link,
-            category: currentCategory
-          });
+        child.querySelectorAll('a').forEach(link => {
+          linksByCategory.push({ link, category: currentCategory });
         });
       }
     });
     
-    // Fetch all pages in parallel (faster than sequential)
     const promises = linksByCategory.map(async ({ link, category }) => {
       try {
         const response = await fetch(link.href);
         if (!response.ok) throw new Error('HTTP ' + response.status);
-        
         const html = await response.text();
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = html;
-        
-        // Remove script/style tags để search clean text
         tempDiv.querySelectorAll('script, style').forEach(el => el.remove());
         const text = (tempDiv.textContent || tempDiv.innerText || '').trim();
-        
         searchIndex.push({
           title: link.textContent.trim(),
           url: link.href,
@@ -348,32 +317,26 @@
         });
         indexed++;
       } catch (e) {
-        console.warn('Failed to index:', link.href, e.message);
+        console.warn('[Search] Failed to index:', link.href, e.message);
         failed++;
       }
     });
     
     await Promise.all(promises);
-    
     isIndexBuilt = true;
-    searchStatus.textContent = `✓ Indexed ${indexed} pages` + 
-      (failed > 0 ? ` (${failed} failed)` : '');
+    searchStatus.textContent = `✓ Indexed ${indexed} pages` + (failed > 0 ? ` (${failed} failed)` : '');
     setTimeout(() => {
-      if (searchInput.value.trim() === '') {
-        searchStatus.textContent = '';
-      }
+      if (searchInput.value.trim() === '') searchStatus.textContent = '';
     }, 3000);
-    
-    console.log('[Search] Index built:', indexed, 'pages,', failed, 'failed');
   }
   
   // ============ SEARCH LOGIC ============
   function performSearch(keyword) {
     keyword = keyword.trim().toLowerCase();
     searchResults.innerHTML = '';
+    searchResults.classList.remove('has-results');  // 🔥 FIX VẤN ĐỀ 1
     
     if (keyword.length < MIN_KEYWORD_LENGTH) {
-      navEl.classList.remove('searching');
       searchStatus.textContent = isIndexBuilt 
         ? `Type at least ${MIN_KEYWORD_LENGTH} characters to search` 
         : '⏳ Indexing...';
@@ -381,25 +344,20 @@
     }
     
     if (!isIndexBuilt) {
-      searchResults.innerHTML = '<div class="search-loading">⏳ Still indexing, please wait...</div>';
+      searchResults.innerHTML = '<div class="search-no-results">⏳ Still indexing, please wait...</div>';
+      searchResults.classList.add('has-results');
       return;
     }
-    
-    navEl.classList.add('searching');
     
     const results = [];
     for (const page of searchIndex) {
       const idx = page.content.indexOf(keyword);
       if (idx !== -1) {
-        // Calculate relevance score
         let score = 0;
         if (page.title.toLowerCase().includes(keyword)) score += 100;
-        const occurrences = (page.content.match(
-          new RegExp(escapeRegex(keyword), 'gi')
-        ) || []).length;
+        const occurrences = (page.content.match(new RegExp(escapeRegex(keyword), 'gi')) || []).length;
         score += occurrences;
         
-        // Get snippet around first occurrence
         const start = Math.max(0, idx - SNIPPET_PADDING);
         const end = Math.min(page.content.length, idx + keyword.length + SNIPPET_PADDING);
         let snippet = page.originalContent.substring(start, end);
@@ -417,17 +375,15 @@
       }
     }
     
-    // Sort by relevance
     results.sort((a, b) => b.score - a.score);
     const topResults = results.slice(0, MAX_RESULTS);
     
-    // Display
     searchStatus.textContent = `Found ${results.length} result(s)` +
       (results.length > MAX_RESULTS ? ` (showing top ${MAX_RESULTS})` : '');
     
     if (results.length === 0) {
-      searchResults.innerHTML = '<div class="search-no-results">No results found for "' + 
-        escapeHtml(keyword) + '"</div>';
+      searchResults.innerHTML = '<div class="search-no-results">No results for "' + escapeHtml(keyword) + '"</div>';
+      searchResults.classList.add('has-results');
       return;
     }
     
@@ -435,100 +391,150 @@
     for (const r of topResults) {
       const item = document.createElement('div');
       item.className = 'search-result-item';
-      
       const highlightedSnippet = highlightKeyword(r.snippet, keyword);
-      
       item.innerHTML = `
         <div class="search-result-title">${escapeHtml(r.title)}</div>
         <div class="search-result-category">${escapeHtml(r.category)} • ${r.occurrences} match(es)</div>
         <div class="search-result-snippet">${highlightedSnippet}</div>
       `;
-      
       item.addEventListener('click', () => {
         loadResultInIframe(r.url, keyword);
-        // Highlight active link in nav (if visible after clear)
         document.querySelectorAll('#nav a').forEach(a => a.classList.remove('active'));
         const matchedLink = Array.from(allLinks).find(a => a.href === r.url);
         if (matchedLink) matchedLink.classList.add('active');
       });
-      
       fragment.appendChild(item);
     }
     searchResults.appendChild(fragment);
+    searchResults.classList.add('has-results');  // 🔥 FIX VẤN ĐỀ 1
   }
   
-  // ============ LOAD RESULT IN IFRAME + HIGHLIGHT ============
+  // ============ 🔥 LOAD RESULT IN IFRAME (FIX VẤN ĐỀ 2) ============
   function loadResultInIframe(url, keyword) {
-    contentFrame.src = url;
+    pendingHighlightKeyword = keyword;  // Lưu keyword để global handler dùng
     
-    // Khi iframe load xong, inject highlight script
-    contentFrame.onload = function() {
+    // Nếu cùng URL đang load → force highlight luôn (không trigger load event)
+    const currentSrc = contentFrame.src;
+    if (currentSrc === url || currentSrc.endsWith(url.replace(/^https?:\/\/[^/]+/, ''))) {
       try {
         const iframeDoc = contentFrame.contentDocument || contentFrame.contentWindow.document;
-        if (!iframeDoc) return;
-        
-        highlightInIframe(iframeDoc, keyword);
+        if (iframeDoc && iframeDoc.body) {
+          highlightInIframe(iframeDoc, keyword);
+          return;
+        }
       } catch (e) {
-        // Cross-origin error - không thể inject (nhưng vẫn load được page)
-        console.warn('Cannot highlight in iframe (cross-origin):', e.message);
+        // fallback: reload
       }
-    };
+    }
+    
+    contentFrame.src = url;
   }
   
+  // ============ 🔥 HIGHLIGHT IN IFRAME (CẢI THIỆN ROBUST) ============
   function highlightInIframe(doc, keyword) {
-    // Remove old highlights
-    const oldMarks = doc.querySelectorAll('mark.search-highlight');
-    oldMarks.forEach(m => {
-      const parent = m.parentNode;
-      parent.replaceChild(doc.createTextNode(m.textContent), m);
-      parent.normalize();
-    });
+    if (!doc || !doc.body || !keyword) return;
     
-    // Walk through text nodes and highlight
-    const walker = doc.createTreeWalker(
-      doc.body,
-      NodeFilter.SHOW_TEXT,
-      {
-        acceptNode: function(node) {
-          if (!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
-          const parent = node.parentNode;
-          if (!parent) return NodeFilter.FILTER_REJECT;
-          const tag = parent.tagName;
-          if (tag === 'SCRIPT' || tag === 'STYLE') return NodeFilter.FILTER_REJECT;
-          return NodeFilter.FILTER_ACCEPT;
+    try {
+      // 1. Remove old highlights
+      const oldMarks = doc.querySelectorAll('mark.search-highlight');
+      oldMarks.forEach(m => {
+        const parent = m.parentNode;
+        if (parent) {
+          parent.replaceChild(doc.createTextNode(m.textContent), m);
+          parent.normalize();
+        }
+      });
+      
+      // 2. Inject CSS vào iframe để mark hiển thị đúng
+      let styleEl = doc.getElementById('__search_highlight_style__');
+      if (!styleEl) {
+        styleEl = doc.createElement('style');
+        styleEl.id = '__search_highlight_style__';
+        styleEl.textContent = `
+          mark.search-highlight {
+            background-color: #ffeb3b !important;
+            color: #000 !important;
+            padding: 0 2px !important;
+            border-radius: 2px !important;
+            font-weight: bold !important;
+            box-shadow: 0 0 0 1px #fbc02d;
+          }
+          mark.search-highlight.first-match {
+            background-color: #ff9800 !important;
+            box-shadow: 0 0 8px #ff9800;
+          }
+        `;
+        doc.head.appendChild(styleEl);
+      }
+      
+      // 3. Walk text nodes
+      const walker = doc.createTreeWalker(
+        doc.body,
+        NodeFilter.SHOW_TEXT,
+        {
+          acceptNode: function(node) {
+            if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+            const parent = node.parentNode;
+            if (!parent) return NodeFilter.FILTER_REJECT;
+            const tag = parent.tagName;
+            if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'NOSCRIPT') return NodeFilter.FILTER_REJECT;
+            // Skip if already inside a highlight
+            if (parent.classList && parent.classList.contains('search-highlight')) return NodeFilter.FILTER_REJECT;
+            return NodeFilter.FILTER_ACCEPT;
+          }
+        }
+      );
+      
+      const nodesToReplace = [];
+      let node;
+      const lowerKeyword = keyword.toLowerCase();
+      while (node = walker.nextNode()) {
+        if (node.nodeValue.toLowerCase().includes(lowerKeyword)) {
+          nodesToReplace.push(node);
         }
       }
-    );
-    
-    const nodesToReplace = [];
-    let node;
-    const regex = new RegExp(escapeRegex(keyword), 'gi');
-    
-    while (node = walker.nextNode()) {
-      if (regex.test(node.nodeValue)) {
-        nodesToReplace.push(node);
-      }
-    }
-    
-    let firstMark = null;
-    nodesToReplace.forEach(textNode => {
-      const text = textNode.nodeValue;
-      const span = doc.createElement('span');
-      span.innerHTML = text.replace(
-        new RegExp(escapeRegex(keyword), 'gi'),
-        match => `<mark class="search-highlight" style="background:#ffeb3b;padding:0 2px;">${match}</mark>`
-      );
-      textNode.parentNode.replaceChild(span, textNode);
       
-      if (!firstMark) {
-        firstMark = span.querySelector('mark.search-highlight');
+      console.log('[Search] Found', nodesToReplace.length, 'text nodes containing keyword');
+      
+      // 4. Replace text với highlighted version
+      let firstMark = null;
+      const regex = new RegExp('(' + escapeRegex(keyword) + ')', 'gi');
+      
+      nodesToReplace.forEach((textNode, nodeIdx) => {
+        const text = textNode.nodeValue;
+        const span = doc.createElement('span');
+        span.innerHTML = text.replace(regex, (match) => {
+          const isFirst = (nodeIdx === 0 && !firstMark);
+          return `<mark class="search-highlight${isFirst ? ' first-match' : ''}">${escapeHtmlInDoc(match)}</mark>`;
+        });
+        if (textNode.parentNode) {
+          textNode.parentNode.replaceChild(span, textNode);
+          if (!firstMark) {
+            firstMark = span.querySelector('mark.search-highlight');
+          }
+        }
+      });
+      
+      // 5. Scroll to first match
+      if (firstMark) {
+        setTimeout(() => {
+          try {
+            firstMark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          } catch (e) {
+            firstMark.scrollIntoView();
+          }
+        }, 100);
+        console.log('[Search] ✓ Highlighted and scrolled to first match');
+      } else {
+        console.warn('[Search] No matches found in iframe content');
       }
-    });
-    
-    // Scroll to first highlight
-    if (firstMark) {
-      firstMark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } catch (e) {
+      console.error('[Search] Error highlighting:', e);
     }
+  }
+  
+  function escapeHtmlInDoc(str) {
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
   
   // ============ HELPERS ============
@@ -551,26 +557,22 @@
   function clearSearch() {
     searchInput.value = '';
     searchResults.innerHTML = '';
+    searchResults.classList.remove('has-results');
     searchStatus.textContent = '';
     searchClear.style.display = 'none';
-    navEl.classList.remove('searching');
+    pendingHighlightKeyword = null;
   }
   
   // ============ EVENT LISTENERS ============
   searchInput.addEventListener('input', function() {
     const keyword = this.value;
     searchClear.style.display = keyword.length > 0 ? 'block' : 'none';
-    
     clearTimeout(debounceTimer);
-    debounceTimer = setTimeout(() => {
-      performSearch(keyword);
-    }, DEBOUNCE_DELAY);
+    debounceTimer = setTimeout(() => performSearch(keyword), DEBOUNCE_DELAY);
   });
   
   searchInput.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-      clearSearch();
-    }
+    if (e.key === 'Escape') clearSearch();
   });
   
   searchClear.addEventListener('click', clearSearch);
