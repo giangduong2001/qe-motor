@@ -1,584 +1,1169 @@
-<html lang="ja">
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="color-scheme" content="light only">
-<title>Documentation Navigation</title>
-<style>
-  html {
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    background-color: #f3f3f3 !important;
-  }
-  
-  body {
-    height: 100%;
-    width: 100%;
-    min-height: 100vh;
-    margin: 0;
-    padding: 0;
-    background-color: #f3f3f3 !important;
-    display: flex;
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  }
-  
-  #nav {
-    width: 400px;
-    min-height: 100vh;
-    height: 100%;
-    background: #f3f3f3 !important;
-    border-right: 1px solid #ccc !important;
-    padding: 20px;
-    box-sizing: border-box;
-    overflow-y: auto;
-  }
-  
-  #nav h1, #nav h2 {
-    color: #000000 !important;
-  }
-  
-  #nav a {
-    color: #0066cc !important;
-  }
-  
-  #nav a:hover {
-    background: #dcdcdc !important;
-  }
+  <meta charset="UTF-8" />
+  <meta name="color-scheme" content="light only">
+  <title>Documentation Navigation</title>
+  <style>
+    html {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      background-color: #f3f3f3 !important;
+    }
 
-  #nav a.active {
-    background-color: #C2EBFF !important;
-    font-weight: bold;
-  }
-  
-  #content {
-    flex: 1;
-    border: none;
-    width: 100%;
-    min-height: 100vh;
-    height: 100%;
-    background-color: #ffffff !important;
-  }
-  
-  h1 {
-    border-bottom: 2px solid #444;
-    padding-bottom: 0.3em;
-    color: #000000 !important;
-  }
-  
-  h2 {
-    margin-top: 1.5em;
-    border-left: 6px solid #666;
-    padding-left: 10px;
-    color: #000000 !important;
-  }
-  
-  ul {
-    line-height: 1.8;
-  }
-/* ============ SEARCH STYLES ============ */
-#search-container {
-  margin-bottom: 20px;
-  padding-bottom: 15px;
-  border-bottom: 1px solid #ccc;
-}
+    body {
+      height: 100%;
+      width: 100%;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      background-color: #f3f3f3 !important;
+      display: flex;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
 
-#search-input-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
+    /* ============ SIDEBAR LAYOUT ============ */
+    #nav {
+      width: 400px;
+      height: 100vh;
+      background: #f3f3f3 !important;
+      border-right: 1px solid #ccc !important;
+      padding: 0;
+      box-sizing: border-box;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
 
-#search-input {
-  width: 100%;
-  padding: 8px 30px 8px 10px;
-  box-sizing: border-box;
-  border: 1px solid #999;
-  border-radius: 4px;
-  font-size: 13px;
-  outline: none;
-}
+    #nav h1,
+    #nav h2 {
+      color: #000000 !important;
+    }
 
-#search-input:focus {
-  border-color: #0066cc;
-  box-shadow: 0 0 3px rgba(0, 102, 204, 0.3);
-}
+    #nav a {
+      color: #0066cc !important;
+    }
 
-#search-clear {
-  position: absolute;
-  right: 5px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  color: #999;
-  font-size: 14px;
-  display: none;
-  padding: 4px 8px;
-}
+    #nav a:hover {
+      background: #dcdcdc !important;
+    }
 
-#search-clear:hover {
-  color: #333;
-}
+    #nav a.active {
+      background-color: #C2EBFF !important;
+      font-weight: bold;
+    }
 
-#search-status {
-  font-size: 11px;
-  color: #666;
-  margin-top: 5px;
-  font-style: italic;
-}
+    /* ============ SEARCH CONTAINER ============ */
+    #search-container {
+      flex-shrink: 0;
+      padding: 20px 20px 15px 20px;
+      border-bottom: 1px solid #ccc;
+      display: flex;
+      flex-direction: column;
+    }
 
-#search-results {
-  max-height: 400px;
-  overflow-y: auto;
-  margin-top: 8px;
-}
+    #search-input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
 
-.search-result-item {
-  padding: 8px;
-  cursor: pointer;
-  border-bottom: 1px solid #eee;
-  font-size: 12px;
-  border-radius: 3px;
-  margin-bottom: 2px;
-}
+    #search-input {
+      width: 100%;
+      padding: 8px 30px 8px 10px;
+      box-sizing: border-box;
+      border: 1px solid #999;
+      border-radius: 4px;
+      font-size: 13px;
+      outline: none;
+    }
 
-.search-result-item:hover {
-  background: #dcdcdc !important;
-}
+    #search-input:focus {
+      border-color: #0066cc;
+      box-shadow: 0 0 3px rgba(0, 102, 204, 0.3);
+    }
 
-.search-result-title {
-  font-weight: bold;
-  color: #0066cc !important;
-  margin-bottom: 3px;
-}
+    #search-clear {
+      position: absolute;
+      right: 5px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: #999;
+      font-size: 14px;
+      display: none;
+      padding: 4px 8px;
+    }
 
-.search-result-category {
-  font-size: 10px;
-  color: #888;
-  margin-bottom: 3px;
-}
+    #search-clear:hover {
+      color: #333;
+    }
 
-.search-result-snippet {
-  color: #555;
-  font-size: 11px;
-  line-height: 1.4;
-}
+    #search-status {
+      font-size: 11px;
+      color: #666;
+      margin-top: 5px;
+      font-style: italic;
+    }
 
-.search-result-snippet mark {
-  background: #ffeb3b;
-  padding: 0 2px;
-  border-radius: 2px;
-  font-weight: bold;
-}
+    #search-results {
+      max-height: 200px;
+      overflow-y: auto;
+      margin-top: 8px;
+    }
 
-.search-no-results {
-  padding: 10px;
-  color: #999;
-  font-style: italic;
-  text-align: center;
-}
+    #search-results:not(:empty) {
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      background: #fafafa;
+    }
 
-.search-loading {
-  padding: 10px;
-  color: #0066cc;
-  text-align: center;
-}
+    .search-result-item {
+      padding: 8px;
+      cursor: pointer;
+      border-bottom: 1px solid #eee;
+      font-size: 12px;
+      border-radius: 3px;
+      margin-bottom: 2px;
+    }
 
-/* Hide nav links khi đang search */
-#nav.searching > h1,
-#nav.searching > h2,
-#nav.searching > ul {
-  display: none;
-}
-</style>
+    .search-result-item:hover {
+      background: #dcdcdc !important;
+    }
+
+    .search-result-item.selected {
+      background: #C2EBFF !important;
+      border-left: 3px solid #0066cc;
+      padding-left: 5px;
+    }
+
+    .search-result-item.selected .search-result-title {
+      color: #003d7a !important;
+    }
+
+    .search-result-title {
+      font-weight: bold;
+      color: #0066cc !important;
+      margin-bottom: 3px;
+    }
+
+    .search-result-category {
+      font-size: 10px;
+      color: #888;
+      margin-bottom: 3px;
+    }
+
+    .search-result-snippet {
+      color: #555;
+      font-size: 11px;
+      line-height: 1.4;
+    }
+
+    .search-result-snippet mark {
+      background: #ffeb3b;
+      padding: 0 2px;
+      border-radius: 2px;
+      font-weight: bold;
+    }
+
+    .search-no-results {
+      padding: 10px;
+      color: #999;
+      font-style: italic;
+      text-align: center;
+    }
+
+    .search-loading {
+      padding: 10px;
+      color: #0066cc;
+      text-align: center;
+    }
+
+    /* ============ NAV HEADER (FIXED AT TOP OF SIDEBAR) ============ */
+    #nav-header {
+      flex-shrink: 0;
+      padding: 15px 20px 0 20px;
+      background: #f3f3f3;
+    }
+
+    #nav-header h1 {
+      margin: 0 0 10px 0;
+      border-bottom: 2px solid #444;
+      padding-bottom: 0.3em;
+    }
+
+    /* ============ NAV SECTIONS (INDEPENDENTLY SCROLLABLE) ============ */
+    #nav-sections {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0 20px 20px 20px;
+    }
+
+    #nav-sections h2 {
+      margin-top: 1.5em;
+      border-left: 6px solid #666;
+      padding-left: 10px;
+    }
+
+    #nav-sections ul {
+      line-height: 1.8;
+    }
+
+    /* ============ CONTENT WRAPPER + IFRAME ============ */
+    #content-wrapper {
+      flex: 1;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #content {
+      flex: 1;
+      border: none;
+      width: 100%;
+      min-height: 100vh;
+      height: 100%;
+      background-color: #ffffff !important;
+    }
+
+    /* ============ FLOATING MATCH NAVIGATION BAR ============ */
+    #match-nav-bar {
+      position: absolute;
+      top: 15px;
+      right: 30px;
+      background: #ffffff;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      padding: 8px 12px;
+      display: none;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      z-index: 1000;
+      user-select: none;
+    }
+
+    #match-nav-bar.visible {
+      display: flex;
+    }
+
+    #match-nav-keyword {
+      color: #333;
+      font-weight: 500;
+      max-width: 200px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    #match-nav-keyword::before {
+      content: "🔍 ";
+    }
+
+    #match-nav-counter {
+      color: #666;
+      padding: 0 8px;
+      border-left: 1px solid #ddd;
+      border-right: 1px solid #ddd;
+      min-width: 50px;
+      text-align: center;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .match-nav-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 4px;
+      color: #555;
+      font-size: 14px;
+      line-height: 1;
+      transition: background 0.15s;
+    }
+
+    .match-nav-btn:hover:not(:disabled) {
+      background: #e8e8e8;
+      color: #000;
+    }
+
+    .match-nav-btn:active:not(:disabled) {
+      background: #d0d0d0;
+    }
+
+    .match-nav-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    #match-nav-close {
+      color: #999;
+      margin-left: 4px;
+      border-left: 1px solid #ddd;
+      padding-left: 10px;
+      border-radius: 0 4px 4px 0;
+    }
+
+    #match-nav-close:hover {
+      color: #d33;
+    }
+
+    /* ============ SCROLLBAR MARKERS ============ */
+    #scrollbar-markers {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 15px;
+      height: 100%;
+      pointer-events: none;
+      z-index: 999;
+      display: none;
+    }
+
+    #scrollbar-markers.visible {
+      display: block;
+    }
+
+    .scrollbar-marker {
+      position: absolute;
+      right: 2px;
+      width: 11px;
+      height: 3px;
+      background: #036269;
+      border-radius: 1px;
+      cursor: pointer;
+      pointer-events: auto;
+      transition: background 0.2s;
+    }
+
+    .scrollbar-marker:hover {
+      background: #ffc107;
+      width: 13px;
+      right: 1px;
+    }
+
+    .scrollbar-marker.current {
+      background: #ff9632;
+      width: 13px;
+      right: 1px;
+      height: 4px;
+    }
+  </style>
 </head>
+
 <body>
 
-<nav id="nav">
-
-  <!-- ⭐ NEW: Search Box -->
-  <div id="search-container">
-    <div id="search-input-wrapper">
-      <input 
-        type="text" 
-        id="search-input" 
-        placeholder="🔍 Search documentation..." 
-        autocomplete="off"
-      />
-      <button id="search-clear" title="Clear">✕</button>
+  <nav id="nav">
+    <!-- Section 1: Search input + results dropdown -->
+    <div id="search-container">
+      <div id="search-input-wrapper">
+        <input type="text" id="search-input" placeholder="🔍 Search..." autocomplete="off" />
+        <button id="search-clear" title="Clear">✕</button>
+      </div>
+      <div id="search-status"></div>
+      <div id="search-results"></div>
     </div>
-    <div id="search-status"></div>
-    <div id="search-results"></div>
+
+    <!-- Section 2: Fixed title header -->
+    <div id="nav-header">
+      <h1>RAMP Documentation</h1>
+    </div>
+
+    <!-- Section 3: Navigation links (scrolls independently from the header) -->
+    <div id="nav-sections">
+      <h2>Motor Control Algorithm</h2>
+      <ul>
+        <li><a href="doc_alg/Algorithm_1shunt.html" target="contentFrame">1shunt Current Sensing</a></li>
+        <li><a href="doc_alg/Algorithm_Deadtime_Compensation.html" target="contentFrame">Deadtime Compensation</a></li>
+        <li><a href="doc_alg/Algorithm_PMSM_BEMFObserver.html" target="contentFrame">PMSM BEMF Observer</a></li>
+        <li><a href="doc_alg/Algorithm_PMSM_CurrentControl.html" target="contentFrame">PMSM Current Control</a></li>
+        <li><a href="doc_alg/Algorithm_PMSM_DecouplingControl.html" target="contentFrame">PMSM Decoupling Control</a>
+        </li>
+        <li><a href="doc_alg/Algorithm_PMSM_Modulation.html" target="contentFrame">PMSM Modulation</a></li>
+        <li><a href="doc_alg/Algorithm_PMSM_MTPA.html" target="contentFrame">PMSM MTPA</a></li>
+        <li><a href="doc_alg/Algorithm_PMSM_OpenloopStartup.html" target="contentFrame">PMSM Openloop Startup</a></li>
+        <li><a href="doc_alg/Algorithm_PMSM_SpeedControl.html" target="contentFrame">PMSM Speed Control</a></li>
+        <li><a href="doc_alg/Algorithm_PMSM_Tuning.html" target="contentFrame">PMSM Tuning</a></li>
+        <li><a href="doc_alg/Algorithm_SampleDelay_Compensation.html" target="contentFrame">Sample Delay
+            Compensation</a></li>
+        <li><a href="doc_alg/Algorithm_Sensor_HallFOC.html" target="contentFrame">Hall Sensor FOC</a></li>
+      </ul>
+      <h2>FSP and Parameters</h2>
+      <ul>
+        <li><a href="doc_fsp/fsp_mw_start_guide.html" target="contentFrame">Start Guide</a></li>
+        <li><a href="doc_fsp/fsp_mw_motor_change.html" target="contentFrame">Motor Change</a></li>
+        <li><a href="doc_fsp/param_setting_control.html" target="contentFrame">Parameter: control</a></li>
+        <li><a href="doc_fsp/param_setting_hal_driver.html" target="contentFrame">Parameter: hal_driver</a></li>
+        <li><a href="doc_fsp/param_setting_pm_foc.html" target="contentFrame">Parameter: pm_foc</a></li>
+        <li><a href="doc_fsp/param_setting_sensor_bemf.html" target="contentFrame">Parameter: sensor_bemf</a></li>
+        <li><a href="doc_fsp/param_setting_sensor_hall.html" target="contentFrame">Parameter: sensor_hall</a></li>
+        <li><a href="doc_fsp/param_setting_trajectory_linear.html" target="contentFrame">Parameter:
+            trajectory_linear</a></li>
+        <li><a href="doc_fsp/param_setting_tuner_pm.html" target="contentFrame">Parameter: tuner_pm</a></li>
+      </ul>
+      <h2>Hardware & Environment</h2>
+      <ul>
+        <li><a href="doc_hw_env/hw_env_01_common_hardware.html" target="contentFrame">Common_hardware</a></li>
+        <li><a href="doc_hw_env/hw_env_02_target_cpu_ra6t2.html" target="contentFrame">Target_cpu_ra6t2</a></li>
+        <li><a href="doc_hw_env/hw_env_03_software_tools.html" target="contentFrame">Software_tools</a></li>
+        <li><a href="doc_hw_env/hw_env_04_configuring_hw_environment.html" target="contentFrame">Configuring hw
+            environment</a></li>
+        <li><a href="doc_hw_env/hw_env_05_ra6t2_cpu_board_setup.html" target="contentFrame">RA6t2 cpu board setup</a>
+        </li>
+        <li><a href="doc_hw_env/hw_env_06_connection_example.html" target="contentFrame">Connection example</a></li>
+        <li><a href="doc_hw_env/hw_env_07_on_board_debugger_wiring_measuring.html" target="contentFrame">On board
+            debugger wiring and measuring</a></li>
+        <li><a href="doc_hw_env/hw_env_08_tuner_function.html" target="contentFrame">Tuner function</a></li>
+      </ul>
+      <h2>Motor Workbench</h2>
+      <ul>
+        <li><a href="doc_startup/startup_04_rmw.html" target="contentFrame">Startup RMW</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div id="content-wrapper">
+    <!-- Floating Match Navigation Bar (appears when search highlights are active in iframe) -->
+    <div id="match-nav-bar">
+      <span id="match-nav-keyword"></span>
+      <span id="match-nav-counter">0 / 0</span>
+      <button class="match-nav-btn" id="match-nav-prev" title="Previous match">◀</button>
+      <button class="match-nav-btn" id="match-nav-next" title="Next match">▶</button>
+      <button class="match-nav-btn" id="match-nav-close" title="Close">✕</button>
+    </div>
+
+    <iframe id="content" name="contentFrame" src="doc_alg/Algorithm_1shunt.html"></iframe>
+
+    <!-- Scrollbar markers overlay: thin ticks marking each keyword match position -->
+    <div id="scrollbar-markers"></div>
   </div>
 
-<h1>RAMP Documentation</h1>
-<h2>Motor Control Algorithm</h2>
-<ul>
-  <li><a href="doc_alg/Algorithm_1shunt.html" target="contentFrame">1shunt Current Sensing</a></li>
-  <li><a href="doc_alg/Algorithm_Deadtime_Compensation.html" target="contentFrame">Deadtime Compensation</a></li>
-  <li><a href="doc_alg/Algorithm_PMSM_BEMFObserver.html" target="contentFrame">PMSM BEMF Observer</a></li>
-  <li><a href="doc_alg/Algorithm_PMSM_CurrentControl.html" target="contentFrame">PMSM Current Control</a></li>
-  <li><a href="doc_alg/Algorithm_PMSM_DecouplingControl.html" target="contentFrame">PMSM Decoupling Control</a></li>
-  <li><a href="doc_alg/Algorithm_PMSM_Modulation.html" target="contentFrame">PMSM Modulation</a></li>
-  <li><a href="doc_alg/Algorithm_PMSM_MTPA.html" target="contentFrame">PMSM MTPA</a></li>
-  <li><a href="doc_alg/Algorithm_PMSM_OpenloopStartup.html" target="contentFrame">PMSM Openloop Startup</a></li>
-  <li><a href="doc_alg/Algorithm_PMSM_SpeedControl.html" target="contentFrame">PMSM Speed Control</a></li>
-  <li><a href="doc_alg/Algorithm_PMSM_Tuning.html" target="contentFrame">PMSM Tuning</a></li>
-  <li><a href="doc_alg/Algorithm_SampleDelay_Compensation.html" target="contentFrame">Sample Delay Compensation</a></li>
-  <li><a href="doc_alg/Algorithm_Sensor_HallFOC.html" target="contentFrame">Hall Sensor FOC</a></li>
-</ul>
-<h2>FSP and Parameters</h2>
-<ul>
-  <li><a href="doc_fsp/fsp_mw_start_guide.html" target="contentFrame">Start Guide</a></li>
-  <li><a href="doc_fsp/fsp_mw_motor_change.html" target="contentFrame">Motor Change</a></li>
-  <li><a href="doc_fsp/param_setting_control.html" target="contentFrame">Parameter: control</a></li>
-  <li><a href="doc_fsp/param_setting_hal_driver.html" target="contentFrame">Parameter: hal_driver</a></li>
-  <li><a href="doc_fsp/param_setting_pm_foc.html" target="contentFrame">Parameter: pm_foc</a></li>
-  <li><a href="doc_fsp/param_setting_sensor_bemf.html" target="contentFrame">Parameter: sensor_bemf</a></li>
-  <li><a href="doc_fsp/param_setting_sensor_hall.html" target="contentFrame">Parameter: sensor_hall</a></li>
-  <li><a href="doc_fsp/param_setting_trajectory_linear.html" target="contentFrame">Parameter: trajectory_linear</a></li>
-  <li><a href="doc_fsp/param_setting_tuner_pm.html" target="contentFrame">Parameter: tuner_pm</a></li>
-</ul>
-<h2>Hardware & Environment</h2>
-<ul>
-  <li><a href="doc_hw_env/hw_env_01_common_hardware.html" target="contentFrame">Common_hardware</a></li>
-  <li><a href="doc_hw_env/hw_env_02_target_cpu_ra6t2.html" target="contentFrame">Target_cpu_ra6t2</a></li>
-  <li><a href="doc_hw_env/hw_env_03_software_tools.html" target="contentFrame">Software_tools</a></li>
-  <li><a href="doc_hw_env/hw_env_04_configuring_hw_environment.html" target="contentFrame">Configuring hw environment</a></li>
-  <li><a href="doc_hw_env/hw_env_05_ra6t2_cpu_board_setup.html" target="contentFrame">RA6t2 cpu board setup</a></li>
-  <li><a href="doc_hw_env/hw_env_06_connection_example.html" target="contentFrame">Connection example</a></li>
-  <li><a href="doc_hw_env/hw_env_07_on_board_debugger_wiring_measuring.html" target="contentFrame">On board debugger wiring and measuring</a></li>
-  <li><a href="doc_hw_env/hw_env_08_tuner_function.html" target="contentFrame">Tuner function</a></li>
-</ul>
-<h2>Motor Workbench</h2>
-<ul>
-  <li><a href="doc_startup/startup_04_rmw.html" target="contentFrame">Startup RMW</a></li>
-</ul>
-</nav>
-  <iframe id="content" name="contentFrame" src="doc_alg/Algorithm_1shunt.html"></iframe>
-<!-- <script>
-  document.querySelectorAll('#nav a').forEach(link => {
-    link.addEventListener('click', function() {
-      document.querySelectorAll('#nav a').forEach(a => a.classList.remove('active'));
-      this.classList.add('active');
-    });
-  });
-  document.querySelector('#nav a').classList.add('active');
-</script> -->
+  <script>
+    (function () {
+      'use strict';
 
-<script>
-(function() {
-  'use strict';
-  
-  // ============ CONFIG ============
-  const MIN_KEYWORD_LENGTH = 2;
-  const DEBOUNCE_DELAY = 300; // ms
-  const SNIPPET_PADDING = 50; // chars before/after keyword
-  const MAX_RESULTS = 30;
-  
-  // ============ STATE ============
-  const searchIndex = [];
-  let isIndexBuilt = false;
-  let debounceTimer = null;
-  
-  // ============ ELEMENTS ============
-  const navEl = document.getElementById('nav');
-  const searchInput = document.getElementById('search-input');
-  const searchClear = document.getElementById('search-clear');
-  const searchStatus = document.getElementById('search-status');
-  const searchResults = document.getElementById('search-results');
-  const contentFrame = document.getElementById('content');
-  const allLinks = document.querySelectorAll('#nav ul a');
-  
-  // ============ HIGHLIGHT ACTIVE LINK (existing logic) ============
-  allLinks.forEach(link => {
-    link.addEventListener('click', function() {
-      document.querySelectorAll('#nav a').forEach(a => a.classList.remove('active'));
-      this.classList.add('active');
-    });
-  });
-  if (allLinks.length > 0) {
-    allLinks[0].classList.add('active');
-  }
-  
-  // ============ BUILD SEARCH INDEX ============
-  async function buildSearchIndex() {
-    searchStatus.textContent = '⏳ Indexing documentation...';
-    let indexed = 0;
-    let failed = 0;
-    
-    // Group links by category (h2 sections)
-    const linksByCategory = [];
-    let currentCategory = '';
-    const navChildren = Array.from(navEl.children);
-    
-    navChildren.forEach(child => {
-      if (child.tagName === 'H2') {
-        currentCategory = child.textContent.trim();
-      } else if (child.tagName === 'UL') {
-        const links = child.querySelectorAll('a');
-        links.forEach(link => {
-          linksByCategory.push({
-            link: link,
-            category: currentCategory
-          });
+      // ============ CONFIG ============
+      const MIN_KEYWORD_LENGTH = 2;        // Minimum characters before search triggers
+      const DEBOUNCE_DELAY = 300;           // Delay (ms) after typing stops before search runs
+      const SNIPPET_PADDING = 50;           // Characters shown before/after keyword in snippet
+      const MAX_RESULTS = 30;               // Max number of search results displayed
+      const HIGHLIGHT_COLOR_OTHER = '#ffeb3b';    // Background color for non-active matches
+      const HIGHLIGHT_COLOR_CURRENT = '#ff9632';  // Background color for the currently focused match
+
+      // ============ STATE ============
+      const searchIndex = [];   // Stores indexed page data: { title, url, category, content, originalContent }
+      let isIndexBuilt = false; // Flag indicating whether the search index has been fully built
+      let debounceTimer = null; // Timer ID for debouncing search input
+
+      // State for navigating through highlighted matches inside the iframe
+      let matchState = {
+        keyword: '',        // The current search keyword
+        matches: [],        // Array of <mark> elements representing each match in the iframe
+        currentIndex: -1,   // Index of the currently focused match (-1 = none)
+        isActive: false,    // Whether the match navigation bar is visible
+        markerEls: []       // Scrollbar marker <div> elements, parallel to `matches`
+      };
+
+      // ============ DOM ELEMENTS ============
+      const navSectionsEl = document.getElementById('nav-sections');
+      const searchInput = document.getElementById('search-input');
+      const searchClear = document.getElementById('search-clear');
+      const searchStatus = document.getElementById('search-status');
+      const searchResults = document.getElementById('search-results');
+      const contentFrame = document.getElementById('content');
+      const allLinks = document.querySelectorAll('#nav-sections ul a');
+
+      // Match navigation bar elements
+      const matchNavBar = document.getElementById('match-nav-bar');
+      const matchNavKeyword = document.getElementById('match-nav-keyword');
+      const matchNavCounter = document.getElementById('match-nav-counter');
+      const matchNavPrev = document.getElementById('match-nav-prev');
+      const matchNavNext = document.getElementById('match-nav-next');
+      const matchNavClose = document.getElementById('match-nav-close');
+
+      // Scrollbar markers overlay
+      const scrollbarMarkers = document.getElementById('scrollbar-markers');
+
+      // ============ HIGHLIGHT ACTIVE NAV LINK ============
+      // When a sidebar link is clicked, mark it as "active" and dismiss any match navigation
+      allLinks.forEach(link => {
+        link.addEventListener('click', function () {
+          document.querySelectorAll('#nav-sections a').forEach(a => a.classList.remove('active'));
+          this.classList.add('active');
+          // Remove any pending highlight handler left over from a previous search-result click.
+          // Otherwise, when this sidebar link loads a new page into the iframe, the old
+          // `onload` handler would re-run highlightInIframe() with the previous keyword,
+          // causing the page to jump to that keyword instead of starting at the top.
+          contentFrame.onload = null;
+          hideMatchNavBar();
         });
-      }
-    });
-    
-    // Fetch all pages in parallel (faster than sequential)
-    const promises = linksByCategory.map(async ({ link, category }) => {
-      try {
-        const response = await fetch(link.href);
-        if (!response.ok) throw new Error('HTTP ' + response.status);
-        
-        const html = await response.text();
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = html;
-        
-        // Remove script/style tags để search clean text
-        tempDiv.querySelectorAll('script, style').forEach(el => el.remove());
-        const text = (tempDiv.textContent || tempDiv.innerText || '').trim();
-        
-        searchIndex.push({
-          title: link.textContent.trim(),
-          url: link.href,
-          category: category,
-          content: text.toLowerCase(),
-          originalContent: text
-        });
-        indexed++;
-      } catch (e) {
-        console.warn('Failed to index:', link.href, e.message);
-        failed++;
-      }
-    });
-    
-    await Promise.all(promises);
-    
-    isIndexBuilt = true;
-    searchStatus.textContent = `✓ Indexed ${indexed} pages` + 
-      (failed > 0 ? ` (${failed} failed)` : '');
-    setTimeout(() => {
-      if (searchInput.value.trim() === '') {
-        searchStatus.textContent = '';
-      }
-    }, 3000);
-    
-    console.log('[Search] Index built:', indexed, 'pages,', failed, 'failed');
-  }
-  
-  // ============ SEARCH LOGIC ============
-  function performSearch(keyword) {
-    keyword = keyword.trim().toLowerCase();
-    searchResults.innerHTML = '';
-    
-    if (keyword.length < MIN_KEYWORD_LENGTH) {
-      navEl.classList.remove('searching');
-      searchStatus.textContent = isIndexBuilt 
-        ? `Type at least ${MIN_KEYWORD_LENGTH} characters to search` 
-        : '⏳ Indexing...';
-      return;
-    }
-    
-    if (!isIndexBuilt) {
-      searchResults.innerHTML = '<div class="search-loading">⏳ Still indexing, please wait...</div>';
-      return;
-    }
-    
-    navEl.classList.add('searching');
-    
-    const results = [];
-    for (const page of searchIndex) {
-      const idx = page.content.indexOf(keyword);
-      if (idx !== -1) {
-        // Calculate relevance score
-        let score = 0;
-        if (page.title.toLowerCase().includes(keyword)) score += 100;
-        const occurrences = (page.content.match(
-          new RegExp(escapeRegex(keyword), 'gi')
-        ) || []).length;
-        score += occurrences;
-        
-        // Get snippet around first occurrence
-        const start = Math.max(0, idx - SNIPPET_PADDING);
-        const end = Math.min(page.content.length, idx + keyword.length + SNIPPET_PADDING);
-        let snippet = page.originalContent.substring(start, end);
-        if (start > 0) snippet = '...' + snippet;
-        if (end < page.content.length) snippet = snippet + '...';
-        
-        results.push({
-          title: page.title,
-          url: page.url,
-          category: page.category,
-          snippet: snippet,
-          score: score,
-          occurrences: occurrences
-        });
-      }
-    }
-    
-    // Sort by relevance
-    results.sort((a, b) => b.score - a.score);
-    const topResults = results.slice(0, MAX_RESULTS);
-    
-    // Display
-    searchStatus.textContent = `Found ${results.length} result(s)` +
-      (results.length > MAX_RESULTS ? ` (showing top ${MAX_RESULTS})` : '');
-    
-    if (results.length === 0) {
-      searchResults.innerHTML = '<div class="search-no-results">No results found for "' + 
-        escapeHtml(keyword) + '"</div>';
-      return;
-    }
-    
-    const fragment = document.createDocumentFragment();
-    for (const r of topResults) {
-      const item = document.createElement('div');
-      item.className = 'search-result-item';
-      
-      const highlightedSnippet = highlightKeyword(r.snippet, keyword);
-      
-      item.innerHTML = `
-        <div class="search-result-title">${escapeHtml(r.title)}</div>
-        <div class="search-result-category">${escapeHtml(r.category)} • ${r.occurrences} match(es)</div>
-        <div class="search-result-snippet">${highlightedSnippet}</div>
-      `;
-      
-      item.addEventListener('click', () => {
-        loadResultInIframe(r.url, keyword);
-        // Highlight active link in nav (if visible after clear)
-        document.querySelectorAll('#nav a').forEach(a => a.classList.remove('active'));
-        const matchedLink = Array.from(allLinks).find(a => a.href === r.url);
-        if (matchedLink) matchedLink.classList.add('active');
       });
-      
-      fragment.appendChild(item);
-    }
-    searchResults.appendChild(fragment);
-  }
-  
-  // ============ LOAD RESULT IN IFRAME + HIGHLIGHT ============
-  function loadResultInIframe(url, keyword) {
-    contentFrame.src = url;
-    
-    // Khi iframe load xong, inject highlight script
-    contentFrame.onload = function() {
-      try {
-        const iframeDoc = contentFrame.contentDocument || contentFrame.contentWindow.document;
-        if (!iframeDoc) return;
-        
-        highlightInIframe(iframeDoc, keyword);
-      } catch (e) {
-        // Cross-origin error - không thể inject (nhưng vẫn load được page)
-        console.warn('Cannot highlight in iframe (cross-origin):', e.message);
+      // Default: mark the first link as active on page load
+      if (allLinks.length > 0) {
+        allLinks[0].classList.add('active');
       }
-    };
-  }
-  
-  function highlightInIframe(doc, keyword) {
-    // Remove old highlights
-    const oldMarks = doc.querySelectorAll('mark.search-highlight');
-    oldMarks.forEach(m => {
-      const parent = m.parentNode;
-      parent.replaceChild(doc.createTextNode(m.textContent), m);
-      parent.normalize();
-    });
-    
-    // Walk through text nodes and highlight
-    const walker = doc.createTreeWalker(
-      doc.body,
-      NodeFilter.SHOW_TEXT,
-      {
-        acceptNode: function(node) {
-          if (!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
-          const parent = node.parentNode;
-          if (!parent) return NodeFilter.FILTER_REJECT;
-          const tag = parent.tagName;
-          if (tag === 'SCRIPT' || tag === 'STYLE') return NodeFilter.FILTER_REJECT;
-          return NodeFilter.FILTER_ACCEPT;
+
+      // ============ BUILD SEARCH INDEX ============
+      // Fetches every linked documentation page, extracts its text content,
+      // and stores it in `searchIndex` for fast client-side full-text search.
+      async function buildSearchIndex() {
+        searchStatus.textContent = '⏳ Indexing documentation...';
+        let indexed = 0;
+        let failed = 0;
+
+        // Pair each <a> link with its parent <h2> category heading
+        const linksByCategory = [];
+        let currentCategory = '';
+        const sectionsChildren = Array.from(navSectionsEl.children);
+
+        sectionsChildren.forEach(child => {
+          if (child.tagName === 'H2') {
+            currentCategory = child.textContent.trim();
+          } else if (child.tagName === 'UL') {
+            const links = child.querySelectorAll('a');
+            links.forEach(link => {
+              linksByCategory.push({ link: link, category: currentCategory });
+            });
+          }
+        });
+
+        // Fetch all pages in parallel and extract their text content
+        const promises = linksByCategory.map(async ({ link, category }) => {
+          try {
+            const response = await fetch(link.href);
+            if (!response.ok) throw new Error('HTTP ' + response.status);
+            const html = await response.text();
+
+            // Parse the HTML and strip non-content elements (scripts, styles, etc.)
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = html;
+            tempDiv.querySelectorAll('script, style, title, head, meta, link').forEach(el => el.remove());
+
+            // Normalize whitespace: collapse all spaces/newlines/tabs into single spaces.
+            // This ensures consistent matching with the iframe highlight logic (findAndWrapMatches).
+            const text = (tempDiv.textContent || tempDiv.innerText || '')
+              .replace(/\s+/g, ' ')
+              .trim();
+
+            searchIndex.push({
+              title: link.textContent.trim(),
+              url: link.href,
+              category: category,
+              content: text.toLowerCase(),       // Lowercase for case-insensitive search
+              originalContent: text              // Preserve original casing for snippets
+            });
+            indexed++;
+          } catch (e) {
+            console.warn('Failed to index:', link.href, e.message);
+            failed++;
+          }
+        });
+
+        await Promise.all(promises);
+
+        isIndexBuilt = true;
+        searchStatus.textContent = `✓ Indexed ${indexed} pages` +
+          (failed > 0 ? ` (${failed} failed)` : '');
+
+        // Clear the status message after 3 seconds if the user hasn't typed anything
+        setTimeout(() => {
+          if (searchInput.value.trim() === '') {
+            searchStatus.textContent = '';
+          }
+        }, 3000);
+      }
+
+      // ============ SEARCH LOGIC ============
+      // Searches the pre-built index for the given keyword and renders matching results.
+      function performSearch(keyword) {
+        // Normalize keyword: collapse all whitespace into single spaces (same as index)
+        keyword = keyword.replace(/\s+/g, ' ').trim().toLowerCase();
+        searchResults.innerHTML = '';
+
+        if (keyword.length < MIN_KEYWORD_LENGTH) {
+          searchStatus.textContent = isIndexBuilt
+            ? `Type at least ${MIN_KEYWORD_LENGTH} characters to search`
+            : '⏳ Indexing...';
+          return;
+        }
+
+        if (!isIndexBuilt) {
+          searchResults.innerHTML = '<div class="search-loading">⏳ Still indexing, please wait...</div>';
+          return;
+        }
+
+        // Search each indexed page for the keyword
+        const results = [];
+        for (const page of searchIndex) {
+          const idx = page.content.indexOf(keyword);
+          if (idx !== -1) {
+            // Score: title matches are boosted (+100), plus number of occurrences
+            let score = 0;
+            if (page.title.toLowerCase().includes(keyword)) score += 100;
+            const occurrences = (page.content.match(
+              new RegExp(escapeRegex(keyword), 'gi')
+            ) || []).length;
+            score += occurrences;
+
+            // Extract a snippet around the first occurrence for preview
+            const start = Math.max(0, idx - SNIPPET_PADDING);
+            const end = Math.min(page.content.length, idx + keyword.length + SNIPPET_PADDING);
+            let snippet = page.originalContent.substring(start, end);
+            if (start > 0) snippet = '...' + snippet;
+            if (end < page.content.length) snippet = snippet + '...';
+
+            results.push({
+              title: page.title,
+              url: page.url,
+              category: page.category,
+              snippet: snippet,
+              score: score,
+              occurrences: occurrences
+            });
+          }
+        }
+
+        // Sort by relevance score (descending) and limit to MAX_RESULTS
+        results.sort((a, b) => b.score - a.score);
+        const topResults = results.slice(0, MAX_RESULTS);
+
+        searchStatus.textContent = `Found ${results.length} result(s)` +
+          (results.length > MAX_RESULTS ? ` (showing top ${MAX_RESULTS})` : '');
+
+        if (results.length === 0) {
+          searchResults.innerHTML = '<div class="search-no-results">No results found for "' +
+            escapeHtml(keyword) + '"</div>';
+          return;
+        }
+
+        // Render result items into the dropdown
+        const fragment = document.createDocumentFragment();
+        for (const r of topResults) {
+          const item = document.createElement('div');
+          item.className = 'search-result-item';
+          const highlightedSnippet = highlightKeyword(r.snippet, keyword);
+          item.innerHTML = `
+            <div class="search-result-title">${escapeHtml(r.title)}</div>
+            <div class="search-result-category">${escapeHtml(r.category)} • ${r.occurrences} match(es)</div>
+            <div class="search-result-snippet">${highlightedSnippet}</div>
+          `;
+
+          // On click: load the page in the iframe and highlight the keyword inside it
+          item.addEventListener('click', () => {
+            loadResultInIframe(r.url, keyword);
+
+            // Update the active link in the sidebar navigation
+            document.querySelectorAll('#nav-sections a').forEach(a => a.classList.remove('active'));
+            const matchedLink = Array.from(allLinks).find(a => a.href === r.url);
+            if (matchedLink) {
+              matchedLink.classList.add('active');
+              scrollLinkIntoView(matchedLink, navSectionsEl);
+            }
+
+            // Highlight the selected search result item in the dropdown
+            document.querySelectorAll('.search-result-item').forEach(el => el.classList.remove('selected'));
+            item.classList.add('selected');
+          });
+          fragment.appendChild(item);
+        }
+        searchResults.appendChild(fragment);
+      }
+
+      // ============ SCROLL NAV LINK INTO VIEW ============
+      // Smoothly scrolls the nav-sections container so that the given link is visible.
+      function scrollLinkIntoView(link, container) {
+        if (!link || !container) return;
+
+        const linkRect = link.getBoundingClientRect();
+        const containerRect = container.getBoundingClientRect();
+
+        // Calculate the link's position relative to the container's scroll area
+        const linkRelativeTop = linkRect.top - containerRect.top + container.scrollTop;
+        const linkHeight = link.offsetHeight;
+        const containerHeight = container.clientHeight;
+        const containerScrollTop = container.scrollTop;
+
+        // Link is above the visible area -> scroll up
+        if (linkRelativeTop < containerScrollTop) {
+          container.scrollTo({
+            top: linkRelativeTop - 20,
+            behavior: 'smooth'
+          });
+        }
+        // Link is below the visible area -> scroll down
+        else if (linkRelativeTop + linkHeight > containerScrollTop + containerHeight) {
+          container.scrollTo({
+            top: linkRelativeTop - containerHeight + linkHeight + 20,
+            behavior: 'smooth'
+          });
+        }
+        // Otherwise the link is already visible; no scroll needed
+      }
+
+      // ============ LOAD PAGE INTO IFRAME + HIGHLIGHT KEYWORD ============
+      // Navigates the iframe to the given URL, then highlights all occurrences of the keyword.
+      function loadResultInIframe(url, keyword) {
+        // Reset match navigation state for the new page
+        matchState.keyword = keyword;
+        matchState.matches = [];
+        matchState.currentIndex = -1;
+        matchState.markerEls = [];
+
+        contentFrame.src = url;
+
+        // Once the iframe finishes loading, inject keyword highlights
+        contentFrame.onload = function () {
+          try {
+            const iframeDoc = contentFrame.contentDocument || contentFrame.contentWindow.document;
+            if (!iframeDoc) {
+              hideMatchNavBar();
+              return;
+            }
+            highlightInIframe(iframeDoc, keyword);
+          } catch (e) {
+            console.warn('Cannot highlight in iframe (cross-origin):', e.message);
+            hideMatchNavBar();
+          }
+        };
+      }
+
+      // Highlights all occurrences of `keyword` inside the iframe document
+      // and sets up match navigation.
+      function highlightInIframe(doc, keyword) {
+        // Remove any existing highlights from a previous search
+        removeHighlights(doc);
+
+        // Collect all valid text nodes in the iframe body (skip <script> and <style>)
+        const walker = doc.createTreeWalker(
+          doc.body,
+          NodeFilter.SHOW_TEXT,
+          {
+            acceptNode: function (node) {
+              if (!node.nodeValue) return NodeFilter.FILTER_REJECT;
+              const parent = node.parentNode;
+              if (!parent) return NodeFilter.FILTER_REJECT;
+              const tag = parent.tagName;
+              if (tag === 'SCRIPT' || tag === 'STYLE') return NodeFilter.FILTER_REJECT;
+              return NodeFilter.FILTER_ACCEPT;
+            }
+          }
+        );
+
+        const textNodes = [];
+        let node;
+        while (node = walker.nextNode()) {
+          textNodes.push(node);
+        }
+
+        // Find keyword matches across all text nodes and wrap them with <mark>
+        const allMarks = findAndWrapMatches(doc, textNodes, keyword);
+
+        // Update global match state
+        matchState.matches = allMarks;
+        matchState.currentIndex = allMarks.length > 0 ? 0 : -1;
+
+        if (allMarks.length > 0) {
+          setCurrentMatch(0);
+          showMatchNavBar();
+        } else {
+          hideMatchNavBar();
         }
       }
-    );
-    
-    const nodesToReplace = [];
-    let node;
-    const regex = new RegExp(escapeRegex(keyword), 'gi');
-    
-    while (node = walker.nextNode()) {
-      if (regex.test(node.nodeValue)) {
-        nodesToReplace.push(node);
+
+      // ============ CROSS-NODE KEYWORD MATCHING & WRAPPING ============
+      //
+      // This function handles the case where a keyword may span across multiple
+      // DOM text nodes or even across different HTML elements. It works by:
+      //   1. Concatenating all text nodes into a single normalized string (whitespace collapsed).
+      //   2. Building a character map so each character in the combined string can be traced
+      //      back to its original text node and offset.
+      //   3. Finding all keyword occurrences in the combined string.
+      //   4. Wrapping each occurrence with <mark> elements (splitting across nodes as needed).
+      //
+      // Whitespace normalization (collapsing spaces/newlines/tabs into single spaces) is
+      // applied to both the keyword and the content, matching the behavior of the search index.
+      function findAndWrapMatches(doc, textNodes, keyword) {
+        // Normalize keyword: collapse consecutive whitespace into a single space
+        const normKeyword = keyword.replace(/\s+/g, ' ').trim().toLowerCase();
+        if (!normKeyword) return [];
+
+        // --- Step 1: Build a combined string from all text nodes + a character map ---
+        // `combined` is the concatenated text with normalized whitespace.
+        // `charMap[i]` maps each character in `combined` back to { node, offset } in the DOM.
+        let combined = '';
+        const charMap = [];
+
+        textNodes.forEach(tn => {
+          const raw = tn.nodeValue;
+          for (let i = 0; i < raw.length; i++) {
+            const ch = raw[i];
+            // Normalize whitespace: collapse all whitespace chars into a single space
+            if (/\s/.test(ch)) {
+              // Skip if the previous character in `combined` is already a space (avoid duplicates)
+              if (combined.length > 0 && combined[combined.length - 1] === ' ') {
+                continue;
+              }
+              combined += ' ';
+            } else {
+              combined += ch;
+            }
+            charMap.push({ node: tn, offset: i });
+          }
+        });
+
+        // --- Step 2: Find all keyword occurrences in the combined string ---
+        const lowerCombined = combined.toLowerCase();
+        const matchRanges = []; // Array of { startIdx, endIdx } indices in `combined`
+        let searchFrom = 0;
+        let idx;
+        while ((idx = lowerCombined.indexOf(normKeyword, searchFrom)) !== -1) {
+          matchRanges.push({ startIdx: idx, endIdx: idx + normKeyword.length - 1 });
+          searchFrom = idx + normKeyword.length; // Non-overlapping matches
+        }
+        if (matchRanges.length === 0) return [];
+
+        // --- Step 3: Map each match back to DOM node segments ---
+        // A single match may span multiple text nodes, so we split it into
+        // segments: [{ node, start, end }] where start/end are offsets within the node.
+        const matchSegmentsList = matchRanges.map(range => {
+          const segments = [];
+          let curNode = null;
+          let segStart = 0;
+          let segEnd = 0;
+          for (let i = range.startIdx; i <= range.endIdx; i++) {
+            const { node: n, offset } = charMap[i];
+            if (n !== curNode) {
+              // Entering a new node: push the previous segment (if any)
+              if (curNode) segments.push({ node: curNode, start: segStart, end: segEnd });
+              curNode = n;
+              segStart = offset;
+              segEnd = offset;
+            } else {
+              segEnd = offset;
+            }
+          }
+          if (curNode) segments.push({ node: curNode, start: segStart, end: segEnd });
+          return segments;
+        });
+
+        // --- Step 4: Group all segments by their text node ---
+        // This allows us to process each node once, wrapping segments in descending
+        // offset order so that earlier offsets are not invalidated by DOM mutations.
+        // segmentsByNode: Map<TextNode, Array<{ start, end, matchIndex }>>
+        const segmentsByNode = new Map();
+        matchSegmentsList.forEach((segments, matchIndex) => {
+          segments.forEach(seg => {
+            if (!segmentsByNode.has(seg.node)) segmentsByNode.set(seg.node, []);
+            segmentsByNode.get(seg.node).push({ start: seg.start, end: seg.end, matchIndex });
+          });
+        });
+
+        // markByMatchIndex: groups <mark> elements belonging to the same logical match,
+        // so the match navigator treats them as a single unit.
+        const markByMatchIndex = new Map();
+
+        segmentsByNode.forEach((segs, tn) => {
+          // Sort segments in descending order by start offset.
+          // This ensures that wrapping a later segment doesn't shift the offsets
+          // of earlier segments within the same text node.
+          segs.sort((a, b) => b.start - a.start);
+          segs.forEach(seg => {
+            const range = doc.createRange();
+            range.setStart(tn, seg.start);
+            range.setEnd(tn, seg.end + 1);
+
+            const mark = doc.createElement('mark');
+            mark.className = 'search-highlight';
+            mark.style.background = HIGHLIGHT_COLOR_OTHER;
+            mark.style.padding = '0 2px';
+            mark.style.borderRadius = '2px';
+
+            try {
+              range.surroundContents(mark);
+              if (!markByMatchIndex.has(seg.matchIndex)) markByMatchIndex.set(seg.matchIndex, []);
+              markByMatchIndex.get(seg.matchIndex).push(mark);
+            } catch (e) {
+              // surroundContents can fail if the range crosses element boundaries
+              // (e.g., partially overlapping inline elements). Silently skip these.
+            }
+          });
+        });
+
+        // --- Step 5: Build a flat list of matches in document order ---
+        // Each entry in `allMarks` represents one logical match.
+        // The first <mark> in the group is used as the scroll target;
+        // the full group (_group) is used for highlight coloring.
+        const allMarks = [];
+        for (let i = 0; i < matchRanges.length; i++) {
+          const marks = markByMatchIndex.get(i);
+          if (marks && marks.length > 0) {
+            const primary = marks[0];
+            primary._group = marks; // Attach the full group for multi-node highlight coloring
+            allMarks.push(primary);
+          }
+        }
+
+        return allMarks;
       }
-    }
-    
-    let firstMark = null;
-    nodesToReplace.forEach(textNode => {
-      const text = textNode.nodeValue;
-      const span = doc.createElement('span');
-      span.innerHTML = text.replace(
-        new RegExp(escapeRegex(keyword), 'gi'),
-        match => `<mark class="search-highlight" style="background:#ffeb3b;padding:0 2px;">${match}</mark>`
-      );
-      textNode.parentNode.replaceChild(span, textNode);
-      
-      if (!firstMark) {
-        firstMark = span.querySelector('mark.search-highlight');
+
+      // ============ MATCH NAVIGATION ============
+
+      // Focuses a specific match by index: highlights it with the "current" color,
+      // resets all others to the default color, and scrolls it into view.
+      function setCurrentMatch(index) {
+        if (matchState.matches.length === 0) return;
+
+        // Reset all matches to the default (non-active) highlight color
+        matchState.matches.forEach(m => {
+          const group = m._group || [m];
+          group.forEach(g => {
+            g.style.background = HIGHLIGHT_COLOR_OTHER;
+            g.style.color = '';
+          });
+        });
+
+        // Highlight the current match (and all <mark> elements in its group) with the active color
+        const target = matchState.matches[index];
+        const targetGroup = target._group || [target];
+        targetGroup.forEach(g => {
+          g.style.background = HIGHLIGHT_COLOR_CURRENT;
+          g.style.color = '#fff';
+        });
+        matchState.currentIndex = index;
+        updateMatchNavCounter();
+        updateScrollbarMarkers();
+
+        // Scroll the iframe to bring the current match into view
+        try {
+          target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } catch (e) {
+          target.scrollIntoView();
+        }
       }
-    });
-    
-    // Scroll to first highlight
-    if (firstMark) {
-      firstMark.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-  }
-  
-  // ============ HELPERS ============
-  function escapeRegex(str) {
-    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  }
-  
-  function escapeHtml(str) {
-    const div = document.createElement('div');
-    div.textContent = str;
-    return div.innerHTML;
-  }
-  
-  function highlightKeyword(text, keyword) {
-    const escaped = escapeHtml(text);
-    const regex = new RegExp('(' + escapeRegex(keyword) + ')', 'gi');
-    return escaped.replace(regex, '<mark>$1</mark>');
-  }
-  
-  function clearSearch() {
-    searchInput.value = '';
-    searchResults.innerHTML = '';
-    searchStatus.textContent = '';
-    searchClear.style.display = 'none';
-    navEl.classList.remove('searching');
-  }
-  
-  // ============ EVENT LISTENERS ============
-  searchInput.addEventListener('input', function() {
-    const keyword = this.value;
-    searchClear.style.display = keyword.length > 0 ? 'block' : 'none';
-    
-    clearTimeout(debounceTimer);
-    debounceTimer = setTimeout(() => {
-      performSearch(keyword);
-    }, DEBOUNCE_DELAY);
-  });
-  
-  searchInput.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-      clearSearch();
-    }
-  });
-  
-  searchClear.addEventListener('click', clearSearch);
-  
-  // ============ INIT ============
-  buildSearchIndex();
-})();
-</script>
+
+      // Navigate to the next match (wraps around from last to first)
+      function nextMatch() {
+        if (matchState.matches.length === 0) return;
+        const newIndex = (matchState.currentIndex + 1) % matchState.matches.length;
+        setCurrentMatch(newIndex);
+      }
+
+      // Navigate to the previous match (wraps around from first to last)
+      function prevMatch() {
+        if (matchState.matches.length === 0) return;
+        const newIndex = (matchState.currentIndex - 1 + matchState.matches.length) % matchState.matches.length;
+        setCurrentMatch(newIndex);
+      }
+
+      // Show the floating match navigation bar with the current keyword and counter
+      function showMatchNavBar() {
+        matchState.isActive = true;
+        matchNavKeyword.textContent = `"${matchState.keyword}"`;
+        updateMatchNavCounter();
+        renderScrollbarMarkers();
+        matchNavBar.classList.add('visible');
+      }
+
+      // Hide the match navigation bar and clean up all highlights in the iframe
+      function hideMatchNavBar() {
+        matchState.isActive = false;
+        matchNavBar.classList.remove('visible');
+        hideScrollbarMarkers();
+
+        // Remove all <mark> highlights from the iframe content
+        try {
+          const iframeDoc = contentFrame.contentDocument || contentFrame.contentWindow.document;
+          removeHighlights(iframeDoc);
+        } catch (e) {
+          // Cross-origin iframe: cannot access document, ignore silently
+        }
+
+        // Reset match state
+        matchState.matches = [];
+        matchState.currentIndex = -1;
+        matchState.keyword = '';
+        matchState.markerEls = [];
+      }
+
+      // Update the "N / M" counter text and enable/disable prev/next buttons
+      function updateMatchNavCounter() {
+        const total = matchState.matches.length;
+        const current = total > 0 ? matchState.currentIndex + 1 : 0;
+        matchNavCounter.textContent = `${current} / ${total}`;
+
+        matchNavPrev.disabled = total === 0;
+        matchNavNext.disabled = total === 0;
+      }
+
+      // ============ SCROLLBAR MARKERS ============
+
+      // Builds the full set of scrollbar marker ticks from scratch.
+      // Each match gets one tick positioned proportionally to its location within
+      // the iframe document's total scrollable height (like VS Code / browser find).
+      // Call this once after highlights are created (or when the layout changes).
+      function renderScrollbarMarkers() {
+        scrollbarMarkers.innerHTML = '';
+        matchState.markerEls = [];
+
+        if (matchState.matches.length === 0) {
+          scrollbarMarkers.classList.remove('visible');
+          return;
+        }
+
+        try {
+          const iframeDoc = contentFrame.contentDocument || contentFrame.contentWindow.document;
+          const iframeWin = contentFrame.contentWindow;
+
+          // Total scrollable height of the document (content height, not just viewport)
+          const docHeight = Math.max(
+            iframeDoc.documentElement.scrollHeight,
+            iframeDoc.body ? iframeDoc.body.scrollHeight : 0
+          );
+          if (docHeight <= 0) {
+            scrollbarMarkers.classList.remove('visible');
+            return;
+          }
+
+          const scrollTop = iframeWin.pageYOffset || iframeDoc.documentElement.scrollTop || 0;
+          const fragment = document.createDocumentFragment();
+
+          matchState.matches.forEach((mark, idx) => {
+            // Absolute vertical position of the match within the full document
+            const rect = mark.getBoundingClientRect();
+            const absoluteTop = rect.top + scrollTop;
+            // Clamp the ratio to [0, 1] so markers never fall outside the strip
+            let ratio = absoluteTop / docHeight;
+            ratio = Math.max(0, Math.min(1, ratio));
+
+            const marker = document.createElement('div');
+            marker.className = 'scrollbar-marker';
+            if (idx === matchState.currentIndex) marker.classList.add('current');
+            // Use calc so the tick's own height is accounted for and never overflows
+            marker.style.top = `calc(${(ratio * 100).toFixed(3)}% - 1.5px)`;
+            marker.title = `Match ${idx + 1} of ${matchState.matches.length}`;
+
+            // Clicking a tick jumps to (and scrolls to) that match
+            marker.addEventListener('click', () => setCurrentMatch(idx));
+
+            matchState.markerEls[idx] = marker;
+            fragment.appendChild(marker);
+          });
+
+          scrollbarMarkers.appendChild(fragment);
+          scrollbarMarkers.classList.add('visible');
+        } catch (e) {
+          console.warn('Cannot create scrollbar markers (cross-origin):', e.message);
+          scrollbarMarkers.classList.remove('visible');
+        }
+      }
+
+      // Lightweight update: only moves the "current" class to the active marker
+      // without rebuilding the whole strip (avoids flicker on next/prev navigation).
+      function updateScrollbarMarkers() {
+        if (!matchState.markerEls.length) {
+          // No markers built yet (e.g., first call) -> build them.
+          renderScrollbarMarkers();
+          return;
+        }
+        matchState.markerEls.forEach((el, idx) => {
+          if (!el) return;
+          el.classList.toggle('current', idx === matchState.currentIndex);
+        });
+      }
+
+      function hideScrollbarMarkers() {
+        scrollbarMarkers.classList.remove('visible');
+        scrollbarMarkers.innerHTML = '';
+        matchState.markerEls = [];
+      }
+
+      // ============ UTILITY / HELPER FUNCTIONS ============
+
+      // Removes all <mark class="search-highlight"> elements from the given document,
+      // replacing them with their text content and normalizing adjacent text nodes.
+      function removeHighlights(doc) {
+        if (!doc) return;
+        doc.querySelectorAll('mark.search-highlight').forEach(m => {
+          const parent = m.parentNode;
+          parent.replaceChild(doc.createTextNode(m.textContent), m);
+          parent.normalize(); // Merge adjacent text nodes back together
+        });
+      }
+
+      // Escapes special regex characters in a string so it can be used in new RegExp()
+      function escapeRegex(str) {
+        return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      }
+
+      // Escapes HTML special characters to prevent XSS when inserting into innerHTML
+      function escapeHtml(str) {
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+      }
+
+      // Wraps all occurrences of `keyword` in `text` with <mark> tags (for search result snippets)
+      function highlightKeyword(text, keyword) {
+        const escaped = escapeHtml(text);
+        const regex = new RegExp('(' + escapeRegex(keyword) + ')', 'gi');
+        return escaped.replace(regex, '<mark>$1</mark>');
+      }
+
+      // Clears the search input, results dropdown, status text, and match navigation
+      function clearSearch() {
+        searchInput.value = '';
+        searchResults.innerHTML = '';
+        searchStatus.textContent = '';
+        searchClear.style.display = 'none';
+        hideMatchNavBar();
+      }
+
+      // ============ EVENT LISTENERS ============
+
+      // Debounced search: triggers performSearch() after the user stops typing
+      searchInput.addEventListener('input', function () {
+        const keyword = this.value;
+        searchClear.style.display = keyword.length > 0 ? 'block' : 'none';
+
+        // If the keyword changed while the match nav bar is active, dismiss it
+        if (matchState.isActive && keyword.replace(/\s+/g, ' ').trim().toLowerCase() !== matchState.keyword.toLowerCase()) {
+          hideMatchNavBar();
+        }
+
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+          performSearch(keyword);
+        }, DEBOUNCE_DELAY);
+      });
+
+      searchClear.addEventListener('click', clearSearch);
+
+      // Match navigation bar button handlers
+      matchNavPrev.addEventListener('click', prevMatch);
+      matchNavNext.addEventListener('click', nextMatch);
+      matchNavClose.addEventListener('click', hideMatchNavBar);
+
+      // Re-render scrollbar markers on window resize (the overlay strip height and
+      // the iframe content layout may change, shifting each match's relative position).
+      // Debounced to avoid excessive recalculation during continuous resizing.
+      let resizeTimer = null;
+      window.addEventListener('resize', function () {
+        if (!matchState.isActive) return;
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          renderScrollbarMarkers();
+        }, 150);
+      });
+
+      // ============ INITIALIZATION ============
+      // Start building the search index as soon as the page loads
+      buildSearchIndex();
+    })();
+  </script>
 </body>
+
 </html>
