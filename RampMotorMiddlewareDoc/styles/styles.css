@@ -1,0 +1,17 @@
+/* Override Pandoc default body max-width so content fills the iframe */
+
+body {
+  max-width: 70em !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+p {
+  text-align: justify !important;
+}
+
+th,
+td {
+  text-align: left !important;
+}
+
