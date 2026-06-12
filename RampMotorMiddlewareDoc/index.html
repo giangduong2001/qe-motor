@@ -6,12 +6,53 @@
   <meta name="color-scheme" content="light only">
   <title>Documentation Navigation</title>
   <style>
+    
+    :root {
+      /* Neutral documentation UI palette */
+      --bg-app: #f7f8fa;
+      --bg-sidebar: #f3f4f6;
+      --bg-surface: #ffffff;
+      --bg-hover: #e9eef5;
+      --bg-active: #eaf4ff;
+
+      --border-subtle: #d0d7de;
+      --border-light: #e5e7eb;
+      --border-active: #b9d9f4;
+
+      --text-primary: #111827;
+      --text-secondary: #374151;
+      --text-muted: #6b7280;
+
+      --accent: #0078d4;
+      --accent-hover: #005a9e;
+      --accent-dark: #004578;
+
+      /* Search highlights: stronger but still soft amber for readability */
+      --highlight: #ffef99;
+      --highlight-text: #3b2f00;
+      --highlight-current: #ffd166;
+      --highlight-current-outline: #3b82f6;
+
+      /* Scrollbar markers: longer muted amber markers, blue for current match */
+      --marker: #d9a900;
+      --marker-hover: #b88a00;
+      --marker-current: #2563eb;
+
+      --shadow-sm: 0 1px 2px rgba(17, 24, 39, 0.06);
+      --shadow-md: 0 8px 18px rgba(17, 24, 39, 0.12);
+      --shadow-lg: 0 12px 30px rgba(17, 24, 39, 0.18);
+
+      --radius-sm: 5px;
+      --radius-md: 7px;
+      --radius-lg: 10px;
+    }
+
     html {
       height: 100%;
       width: 100%;
       margin: 0;
       padding: 0;
-      background-color: #f3f3f3 !important;
+      background-color: var(--bg-app);
     }
 
     body {
@@ -20,7 +61,8 @@
       min-height: 100vh;
       margin: 0;
       padding: 0;
-      background-color: #f3f3f3 !important;
+      background-color: var(--bg-app);
+      color: var(--text-primary);
       display: flex;
       font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     }
@@ -29,8 +71,8 @@
     #nav {
       width: 400px;
       height: 100vh;
-      background: #f3f3f3 !important;
-      border-right: 1px solid #ccc !important;
+      background: var(--bg-sidebar);
+      border-right: 1px solid var(--border-subtle);
       padding: 0;
       box-sizing: border-box;
       overflow: hidden;
@@ -40,29 +82,41 @@
 
     #nav h1,
     #nav h2 {
-      color: #000000 !important;
+      color: var(--text-primary);
     }
 
     #nav a {
-      color: #0066cc !important;
+      color: var(--text-secondary);
+      display: block;
+      padding: 6px 9px;
+      border: 1px solid transparent;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      line-height: 1.4;
+      transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
     }
 
     #nav a:hover {
-      background: #dcdcdc !important;
+      background: var(--bg-hover);
+      color: var(--accent-hover);
     }
 
     #nav a.active {
-      background-color: #C2EBFF !important;
-      font-weight: bold;
+      background: var(--bg-active);
+      color: var(--accent-dark);
+      font-weight: 600;
+      border-color: var(--border-active);
+      box-shadow: none;
     }
 
     /* ============ SEARCH CONTAINER ============ */
     #search-container {
       flex-shrink: 0;
-      padding: 20px 20px 15px 20px;
-      border-bottom: 1px solid #ccc;
+      padding: 18px 18px 12px 18px;
+      border-bottom: 1px solid var(--border-subtle);
       display: flex;
       flex-direction: column;
+      background: var(--bg-sidebar);
     }
 
     #search-input-wrapper {
@@ -73,143 +127,169 @@
 
     #search-input {
       width: 100%;
-      padding: 8px 30px 8px 10px;
+      padding: 8px 34px 8px 11px;
       box-sizing: border-box;
-      border: 1px solid #999;
-      border-radius: 4px;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
       font-size: 13px;
+      color: var(--text-primary);
+      background: var(--bg-surface);
       outline: none;
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.12s ease, box-shadow 0.12s ease;
     }
 
     #search-input:focus {
-      border-color: #0066cc;
-      box-shadow: 0 0 3px rgba(0, 102, 204, 0.3);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(0, 120, 212, 0.18);
     }
 
     #search-clear {
       position: absolute;
-      right: 5px;
+      right: 6px;
       background: transparent;
       border: none;
       cursor: pointer;
-      color: #999;
+      color: var(--text-muted);
       font-size: 14px;
       display: none;
       padding: 4px 8px;
+      border-radius: var(--radius-sm);
     }
 
     #search-clear:hover {
-      color: #333;
+      color: var(--text-primary);
+      background: var(--bg-hover);
     }
 
     #search-status {
       font-size: 11px;
-      color: #666;
-      margin-top: 5px;
+      color: var(--text-muted);
+      margin-top: 6px;
       font-style: italic;
     }
 
     #search-results {
-      max-height: 200px;
+      max-height: 220px;
       overflow-y: auto;
+      overflow-x: hidden;
       margin-top: 8px;
+      scrollbar-gutter: stable;
     }
 
     #search-results:not(:empty) {
-      border: 1px solid #e0e0e0;
-      border-radius: 4px;
-      background: #fafafa;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      background: var(--bg-surface);
+      box-shadow: var(--shadow-md);
     }
 
     .search-result-item {
-      padding: 8px;
+      padding: 9px 10px;
       cursor: pointer;
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid var(--border-light);
       font-size: 12px;
-      border-radius: 3px;
-      margin-bottom: 2px;
+      transition: background 0.12s ease;
+    }
+
+    .search-result-item:last-child {
+      border-bottom: none;
     }
 
     .search-result-item:hover {
-      background: #dcdcdc !important;
+      background: var(--bg-hover);
     }
 
     .search-result-item.selected {
-      background: #C2EBFF !important;
-      border-left: 3px solid #0066cc;
-      padding-left: 5px;
+      background: var(--bg-active);
+      border-left: 2px solid var(--accent);
+      padding-left: 8px;
     }
 
     .search-result-item.selected .search-result-title {
-      color: #003d7a !important;
+      color: var(--accent-dark);
     }
 
     .search-result-title {
-      font-weight: bold;
-      color: #0066cc !important;
+      font-weight: 600;
+      color: var(--accent);
       margin-bottom: 3px;
     }
 
     .search-result-category {
       font-size: 10px;
-      color: #888;
+      color: var(--text-muted);
       margin-bottom: 3px;
     }
 
     .search-result-snippet {
-      color: #555;
+      color: var(--text-secondary);
       font-size: 11px;
-      line-height: 1.4;
+      line-height: 1.45;
     }
 
     .search-result-snippet mark {
-      background: #ffeb3b;
+      background: var(--highlight);
       padding: 0 2px;
-      border-radius: 2px;
-      font-weight: bold;
+      border-radius: 3px;
+      font-weight: 700;
+      color: var(--highlight-text);
     }
 
     .search-no-results {
       padding: 10px;
-      color: #999;
+      color: var(--text-muted);
       font-style: italic;
       text-align: center;
     }
 
     .search-loading {
       padding: 10px;
-      color: #0066cc;
+      color: var(--accent);
       text-align: center;
     }
 
     /* ============ NAV HEADER (FIXED AT TOP OF SIDEBAR) ============ */
     #nav-header {
       flex-shrink: 0;
-      padding: 15px 20px 0 20px;
-      background: #f3f3f3;
+      padding: 15px 18px 0 18px;
+      background: var(--bg-sidebar);
     }
 
     #nav-header h1 {
       margin: 0 0 10px 0;
-      border-bottom: 2px solid #444;
-      padding-bottom: 0.3em;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 0.4em;
+      font-size: 1.45rem;
+      letter-spacing: -0.02em;
     }
 
     /* ============ NAV SECTIONS (INDEPENDENTLY SCROLLABLE) ============ */
     #nav-sections {
       flex: 1;
       overflow-y: auto;
-      padding: 0 20px 20px 20px;
+      padding: 0 18px 20px 18px;
     }
 
     #nav-sections h2 {
-      margin-top: 1.5em;
-      border-left: 6px solid #666;
-      padding-left: 10px;
+      margin-top: 1.45em;
+      margin-bottom: 8px;
+      border-left: 3px solid var(--accent);
+      padding-left: 9px;
+      font-size: 0.9rem;
+      letter-spacing: 0.01em;
+      color: var(--text-primary);
     }
 
     #nav-sections ul {
-      line-height: 1.8;
+      list-style: none;
+      line-height: 1.5;
+      padding-left: 0;
+      margin: 8px 0 0 0;
+    }
+
+    #nav-sections li {
+      margin: 3px 0;
     }
 
     /* ============ CONTENT WRAPPER + IFRAME ============ */
@@ -218,6 +298,7 @@
       position: relative;
       display: flex;
       flex-direction: column;
+      background: var(--bg-surface);
     }
 
     #content {
@@ -226,7 +307,7 @@
       width: 100%;
       min-height: 100vh;
       height: 100%;
-      background-color: #ffffff !important;
+      background-color: var(--bg-surface);
     }
 
     /* ============ FLOATING MATCH NAVIGATION BAR ============ */
@@ -234,10 +315,10 @@
       position: absolute;
       top: 15px;
       right: 30px;
-      background: #ffffff;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
       padding: 8px 12px;
       display: none;
       align-items: center;
@@ -252,7 +333,7 @@
     }
 
     #match-nav-keyword {
-      color: #333;
+      color: var(--text-primary);
       font-weight: 500;
       max-width: 200px;
       overflow: hidden;
@@ -265,10 +346,10 @@
     }
 
     #match-nav-counter {
-      color: #666;
+      color: var(--text-secondary);
       padding: 0 8px;
-      border-left: 1px solid #ddd;
-      border-right: 1px solid #ddd;
+      border-left: 1px solid var(--border-light);
+      border-right: 1px solid var(--border-light);
       min-width: 50px;
       text-align: center;
       font-variant-numeric: tabular-nums;
@@ -279,20 +360,20 @@
       border: 1px solid transparent;
       cursor: pointer;
       padding: 4px 8px;
-      border-radius: 4px;
-      color: #555;
+      border-radius: var(--radius-sm);
+      color: var(--text-secondary);
       font-size: 14px;
       line-height: 1;
-      transition: background 0.15s;
+      transition: background 0.12s ease, color 0.12s ease;
     }
 
     .match-nav-btn:hover:not(:disabled) {
-      background: #e8e8e8;
-      color: #000;
+      background: var(--bg-hover);
+      color: var(--text-primary);
     }
 
     .match-nav-btn:active:not(:disabled) {
-      background: #d0d0d0;
+      background: var(--border-light);
     }
 
     .match-nav-btn:disabled {
@@ -301,23 +382,23 @@
     }
 
     #match-nav-close {
-      color: #999;
+      color: var(--text-muted);
       margin-left: 4px;
-      border-left: 1px solid #ddd;
+      border-left: 1px solid var(--border-light);
       padding-left: 10px;
-      border-radius: 0 4px 4px 0;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
     }
 
     #match-nav-close:hover {
-      color: #d33;
+      color: #c50f1f;
     }
 
     /* ============ SCROLLBAR MARKERS ============ */
     #scrollbar-markers {
       position: absolute;
       top: 0;
-      right: 0;
-      width: 15px;
+      right: 3px;
+      width: 22px;
       height: 100%;
       pointer-events: none;
       z-index: 999;
@@ -330,27 +411,33 @@
 
     .scrollbar-marker {
       position: absolute;
-      right: 2px;
-      width: 11px;
+      right: 3px;
+      width: 14px;
       height: 3px;
-      background: #036269;
-      border-radius: 1px;
+      background: var(--marker);
+      border-radius: 999px;
       cursor: pointer;
       pointer-events: auto;
-      transition: background 0.2s;
+      opacity: 0.9;
+      box-shadow: none;
+      transition: background 0.12s ease, width 0.12s ease, right 0.12s ease, height 0.12s ease, opacity 0.12s ease;
     }
 
     .scrollbar-marker:hover {
-      background: #ffc107;
-      width: 13px;
-      right: 1px;
+      background: var(--marker-hover);
+      width: 17px;
+      height: 4px;
+      right: 2px;
+      opacity: 1;
     }
 
     .scrollbar-marker.current {
-      background: #ff9632;
-      width: 13px;
-      right: 1px;
+      background: var(--marker-current);
+      width: 18px;
       height: 4px;
+      right: 1px;
+      opacity: 1;
+      box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.25);
     }
   </style>
 </head>
@@ -451,8 +538,8 @@
       const DEBOUNCE_DELAY = 300;           // Delay (ms) after typing stops before search runs
       const SNIPPET_PADDING = 50;           // Characters shown before/after keyword in snippet
       const MAX_RESULTS = 30;               // Max number of search results displayed
-      const HIGHLIGHT_COLOR_OTHER = '#ffeb3b';    // Background color for non-active matches
-      const HIGHLIGHT_COLOR_CURRENT = '#ff9632';  // Background color for the currently focused match
+      const HIGHLIGHT_COLOR_OTHER = '#ffef99';    // Soft amber for non-active matches
+      const HIGHLIGHT_COLOR_CURRENT = '#ffd166';  // Vivid orange for the currently focused match
 
       // ============ STATE ============
       const searchIndex = [];   // Stores indexed page data: { title, url, category, content, originalContent }
@@ -923,6 +1010,9 @@
           group.forEach(g => {
             g.style.background = HIGHLIGHT_COLOR_OTHER;
             g.style.color = '';
+            g.style.outline = '';
+            g.style.outlineOffset = '';
+            g.style.boxShadow = '';
           });
         });
 
@@ -931,7 +1021,10 @@
         const targetGroup = target._group || [target];
         targetGroup.forEach(g => {
           g.style.background = HIGHLIGHT_COLOR_CURRENT;
-          g.style.color = '#fff';
+          g.style.color = '#111827';
+          g.style.outline = '1px solid #3b82f6';
+          g.style.outlineOffset = '1px';
+          g.style.boxShadow = '0 0 0 2px rgba(59, 130, 246, 0.16)';
         });
         matchState.currentIndex = index;
         updateMatchNavCounter();
