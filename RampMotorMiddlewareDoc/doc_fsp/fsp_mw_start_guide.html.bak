@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>fsp_mw_start_guide</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+<h1 id="start-guide-of-renesas-advanced-motor-control-platform">Start
+Guide of Renesas Advanced Motor control Platform</h1>
+<h2 id="fsp-configuration">FSP Configuration</h2>
+<h3 id="fsp-overview">FSP Overview</h3>
+<p>The software architecture of this sample program for RA Family MCUs
+is shown in the figure. FSP manages MCU-specific register settings and
+interrupt management for peripherals such as ADC, GPT, and SCI. It is a
+software package that includes the functions of the Hardware Abstraction
+Layer (HAL) as well as middleware functions such as a file system and
+communication protocol stacks.</p>
+<p><a href="./media/image_fspmw_overall.png">Renesas Advanced Motor
+control Platform overview</a></p>
+<p>Renesas Advanced Motor control Platform compatible with FSP 6.4
+supports two types of methods: sensorless vector control and Hall sensor
+vector control. The control method can be switched by the Sensor module.
+The other modules are used in common.</p>
+<h3 id="fsp-stack-configuration">FSP Stack Configuration</h3>
+<p>In FSP, functional modules are provided for each peripheral function
+and are referred to as “stacks.” The table shows the FSP stacks used in
+this sample program and their function assignments.<br />
+Advance Motor Middleware is located within the Motor module.<br />
+The following modules are provided, and each has a corresponding API
+interface.</p>
+<table>
+<thead>
+<tr>
+<th>Module</th>
+<th>API Interface</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Control</td>
+<td>Motor API</td>
+</tr>
+<tr>
+<td>Trajectory Linear</td>
+<td>Trajectory API</td>
+</tr>
+<tr>
+<td>PM FOC</td>
+<td>Motor Algorithm API</td>
+</tr>
+<tr>
+<td>Tuner PM</td>
+<td>Tuner API</td>
+</tr>
+<tr>
+<td>Sensor BEMF</td>
+<td>Motor Sensor API</td>
+</tr>
+<tr>
+<td>Sensor Hall</td>
+<td>Motor Sensor API</td>
+</tr>
+<tr>
+<td>HAL Driver</td>
+<td>HAL Driver API</td>
+</tr>
+</tbody>
+</table>
+<p>When you open Stack Configuration in FSP or change properties inside
+a stack, files such as hal_data.c/h in the ra_gen folder are
+automatically generated. When you perform Generate Project Content, the
+FSP-related modules in the ra folder are automatically generated and
+updated.</p>
+<h2 id="control-module">Control Module</h2>
+<h3 id="overview">Overview</h3>
+<p>The Control module (<code>rm_motor_control</code>) is the top-level
+module that manages the lifecycle of the entire motor control system. It
+has an internal state machine (three states: STOP / RUN / ERROR) and
+centrally manages state transitions such as motor start/stop, error
+handling, and reset.</p>
+<p>The Control module calls the lower-layer Algorithm module (PM FOC) to
+control motor driving. It also works with the Trajectory module to
+generate and manage speed command values. It also receives callbacks
+notified from the Algorithm layer (speed control completion, current
+control completion, error detection, etc.) and re-notifies the
+application layer.</p>
+<h3 id="how-to-use">How to Use</h3>
+<ol type="1">
+<li>Initialize the module with the <code>open</code> API. Internally,
+<code>open</code> of the Algorithm module and the Trajectory module are
+called.</li>
+<li>Start the motor with the <code>run</code> API (state transition STOP
+→ RUN).</li>
+<li>Set the speed command value via the <code>speedSet</code> API or via
+the Trajectory module.</li>
+<li>Stop the motor with the <code>stop</code> API (state transition RUN
+→ STOP).</li>
+<li>You can check the error state with the <code>errorCheck</code> API.
+When an error is detected, it transitions to the ERROR state and PWM
+output is stopped.</li>
+<li>You can return from the error state to the STOP state with the
+<code>reset</code> API.</li>
+<li>Terminate the module with the <code>close</code> API.</li>
+</ol>
+<h2 id="algorithm-pm-foc-module">Algorithm (PM FOC) Module</h2>
+<h3 id="overview-1">Overview</h3>
+<p>The Algorithm (PM FOC) module (<code>rm_motor_pm_foc</code>)
+implements field-oriented control (FOC) for permanent magnet synchronous
+motors (PMSM). It consists of two control loops: an inner loop (current
+control) and an outer loop (speed control).</p>
+<p><strong>Inner loop (current control)</strong><br />
+Driven by the ADC conversion complete interrupt (for 3-shunt/2-shunt
+methods) or the GPT underflow interrupt (for the 1-shunt method), and
+performs the following processing: - Acquisition of three-phase currents
+and dq coordinate transformation (Clarke-Park transform) - Calling the
+Sensor module to estimate angle and speed - PI control of d-axis and
+q-axis currents - Non-interference control (decoupling) - Voltage vector
+limitation - Sample delay compensation (optional) - Inverse
+transformation from dq coordinates to uvw coordinates - Voltage error
+compensation</p>
+<p><strong>Outer loop (speed control)</strong><br />
+Driven by a timer interrupt and performs the following processing: -
+Speed feedback processing (selectable from speed observer, LPF, and
+extended observer) - Speed PI control - MTPA (maximum torque/current)
+control (optional) - Flux weakening control (optional)</p>
+<p>Between the inner loop and the outer loop, data is exchanged using a
+double-buffer shared data structure to ensure data consistency between
+the two loops operating at different control cycles.</p>
+<h3 id="how-to-use-1">How to Use</h3>
+<ol type="1">
+<li>Initialize the module with the <code>open</code> API. Internally,
+initialization of the inner loop and outer loop, initialization of the
+Sensor module, and initialization of the HAL Driver module are
+performed.</li>
+<li>Activate the inner loop and outer loop with the <code>run</code> API
+and enable the HAL Driver.</li>
+<li>You can dynamically update control parameters (PI control gains,
+etc.) with the <code>parameterUpdate</code> API.</li>
+<li>Stop control with the <code>stop</code> API and disable PWM
+output.</li>
+<li>You can obtain error information for the inner loop and outer loop
+with the <code>errorGet</code> API.</li>
+<li>Terminate the module with the <code>close</code> API.</li>
+</ol>
+<h2 id="sensor-module">Sensor Module</h2>
+<h3 id="overview-2">Overview</h3>
+<p>The Sensor module is a module for estimating/detecting the motor’s
+rotation angle and speed. It conforms to the Motor Sensor API interface,
+and you switch between the following two implementations depending on
+the control method.</p>
+<p><strong>Induced-voltage observer sensorless vector
+method</strong>:</p>
+<ul>
+<li><p>Sensorless vector control is a function for controlling a PM
+motor without a sensor to detect the magnetic pole position of the PM
+motor.<br />
+An induced voltage (BEMF) observer is used for estimation. During stop
+and low speed, open-loop control using current pull-in is used. Once the
+speed reaches a level where induced voltage can be estimated, it
+switches to sensorless vector control. The switching speed differs
+depending on motor characteristics.<br />
+Use an <code>rm_motor_sensor_bemf</code> instance in the sensor
+slot.</p></li>
+<li><p><strong>Parameter settings:</strong><br />
+For detailed configuration methods, check the parameter description of
+the <code>rm_motor_sensor_bemf</code> instance.<br />
+Motor parameters are automatically passed from the motor parameter
+settings of <code>rm_motor_pm_foc</code>. You need to set the bandwidth
+of the BEMF observer, the bandwidth of the PLL, and the open-loop
+startup parameters.</p></li>
+</ul>
+<p><strong>Hall vector method</strong>: - Hall vector control is a
+function that detects speed and position using three Hall sensors and
+performs vector control.<br />
+Because Hall sensors are low-cost and have coarse resolution, speed is
+calculated from the interval of Hall sensor signal changes, and
+continuous angle estimation is performed by interpolating the angle
+between signal changes. This enables vector control (FOC) without using
+an encoder.</p>
+<ul>
+<li><strong>Parameter settings:</strong><br />
+For detailed configuration methods, check the parameter description of
+the <code>rm_motor_sensor_hall</code> instance.<br />
+Motor parameters are automatically passed from the motor parameter
+settings of <code>rm_motor_pm_foc</code>. You need to set the Hall
+sensor input ports, Hall patterns, angle correction values, etc.</li>
+</ul>
+<h3 id="how-to-use-2">How to Use</h3>
+<ol type="1">
+<li>In the FSP stack settings, add the Sensor module to be used (BEMF or
+Hall) to the sensor slot of the PM FOC module.</li>
+<li>Initialize the module with the <code>open</code> API (automatically
+called during initialization of the PM FOC module).</li>
+<li>With the <code>angleSpeedInit</code> API, set the output pointers
+for angle/speed and the shared data structure with the inner loop.</li>
+<li>The <code>angleSpeedCalc</code> API is called for each control cycle
+of the inner loop to estimate angle and speed.</li>
+<li>With the <code>positionSpeedGet</code> API, you can obtain the
+mechanical angle position and speed (used from the outer loop).</li>
+<li>You can dynamically update control parameters with the
+<code>parameterUpdate</code> API.</li>
+<li>For the BEMF method, adjustment of open-loop startup parameters (Id
+current value, switching speed, etc.) is required.</li>
+<li>For the Hall sensor method, setting of Hall sensor input ports, Hall
+patterns, and angle correction values is required.</li>
+</ol>
+<h2 id="driver-module">Driver Module</h2>
+<h3 id="overview-3">Overview</h3>
+<p>The Driver module (<code>rm_motor_hal_driver</code>) is a HAL
+(Hardware Abstraction Layer) module that controls the hardware required
+for motor driving (PWM timer, ADC).</p>
+<p>Its main functions are as follows: - <strong>PWM output
+control</strong>: Calculates PWM duty ratios from three-phase voltage
+command values and sets them to the GPT timer. As modulation methods, it
+supports sine-wave PWM (SPWM), space-vector PWM (SVPWM), and two-phase
+modulation (DPWM). - <strong>Current detection</strong>: Detects
+three-phase currents and inverter DC bus voltage using the ADC. As
+current detection methods, it supports 3-shunt, 2-shunt, and 1-shunt
+methods. - <strong>Current offset correction</strong>: Automatically
+measures and corrects the offset of current detection at startup. -
+<strong>Bootstrap charging</strong>: Charges the bootstrap circuit at
+startup. - <strong>Enable/disable PWM output</strong>: Enables/disables
+PWM output by controlling the output of GPT pins. In the event of an
+error, PWM output is stopped immediately. - <strong>Saturation
+detection</strong>: Manages a saturation flag when the PWM duty ratio
+reaches upper/lower limits.</p>
+<p>In the 1-shunt method, three-phase currents are reconstructed from a
+single shunt resistor by using the GPT double-buffer function and
+adjusting ADC trigger timing.</p>
+<h3 id="inverter-settings">Inverter Settings</h3>
+<p>You need to set the inverter to be used and the operating
+conditions.<br />
+The default is set to use MCI-LV-1, as follows:</p>
+<ul>
+<li>Carrier cycle: 20 kHz (10 kHz for the 1-shunt method)</li>
+<li>Dead time: 0.5 us</li>
+<li>DC bus voltage: 24 V</li>
+</ul>
+<p>Inverter settings differ depending on the inverter used. If you
+change the inverter you use, refer to the manual and configure
+appropriate settings.</p>
+<h4 id="shunt">3shunt</h4>
+<p>The 3shunt current detection method provides shunt-based current
+detection on the low arm for each of the U, V, and W phases, and
+performs current detection using the valley interrupt of the PWM
+carrier.</p>
+<h4 id="shunt-1">1shunt</h4>
+<p>The 1shunt current detection method provides one shunt resistor on
+the low arm of the inverter, and reconstructs three-phase currents by
+performing multiple AD conversions by adjusting the timing of the PWM
+carrier.</p>
+<p>The 1-shunt method has advantages such as reducing component cost on
+the board, but it has weaknesses such as processing time constraints and
+a tendency for noise, etc. to occur in the current waveform, resulting
+in a trade-off in control performance.</p>
+<h3 id="how-to-use-3">How to Use</h3>
+<p>In Advance Motor Middleware, the Trajectory module is used to pass
+speed commands to the motor control unit. If you do not use the
+Trajectory module, you can also set the speed command value directly
+with the <code>speedSet</code> API. In the current version, only speed
+control is supported.</p>
+<ol type="1">
+<li>In the FSP stack settings, configure the Three-Phase PWM (GPT) and
+ADC instances, and connect them to the Driver module.</li>
+<li>Initialize the module with the <code>open</code> API (automatically
+called during initialization of the PM FOC module).</li>
+<li>Enable PWM output with the <code>activate</code> API. After current
+offset measurement is complete, the PWM output pins are automatically
+enabled.</li>
+<li>Set three-phase voltage command values with the
+<code>phaseVoltageSet</code> API (called from the inner loop).</li>
+<li>Obtain the detected three-phase currents, DC bus voltage, and
+maximum voltage vector with the <code>currentGet</code> API.</li>
+<li>Disable PWM output with the <code>deactivate</code> API.</li>
+<li>Set the following parameters according to the inverter
+specifications:
+<ul>
+<li>Carrier frequency (default: 20 kHz; 10 kHz for the 1-shunt
+method)</li>
+<li>Dead time (default: 0.5 μs)</li>
+<li>Modulation method (default: SVPWM)</li>
+<li>Shunt resistor value, current detection amplifier gain, voltage
+detection gain</li>
+<li>Voltage error compensation table</li>
+</ul></li>
+</ol>
+<h2 id="trajectory-module">Trajectory Module</h2>
+<h3 id="overview-4">Overview</h3>
+<p>The Trajectory module generates and manages speed command values. In
+the current version, linear trajectory generation (Trajectory Linear) is
+supported.</p>
+<p>The Trajectory module generates a smooth speed command profile by
+specifying the target speed and slew rate (acceleration). It also
+supports command queuing, allowing you to reserve the next command while
+the current trajectory is being executed.</p>
+<h3 id="how-to-use-4">How to Use</h3>
+<ol type="1">
+<li>In the FSP stack settings, add the Trajectory module to the Control
+module.</li>
+<li>In the Trajectory module properties, set “Use custom trajectory” to
+true, and in the application-layer C file, change the speed command
+value to a non-zero value.</li>
+<li>Build and run.</li>
+<li>If you do not use the Trajectory module, you can also set the speed
+command value directly with the <code>speedSet</code> API.</li>
+</ol>
+<h2 id="tuner-module">Tuner Module</h2>
+<h3 id="overview-5">Overview</h3>
+<p>The Tuner module provides an automatic estimation (parameter
+identification) function for motor parameters. Parameters such as motor
+resistance, inductance, and back-EMF constant can be automatically
+measured and estimated on actual hardware.</p>
+<p>When the Tuner module is enabled, processing of the inner loop and
+outer loop is delegated to the Tuner, and control of PWM output is
+performed by the Tuner. When parameter identification is complete, you
+can obtain the estimated motor parameters.</p>
+<h2 id="error-handling">Error Handling</h2>
+<h3 id="overview-6">Overview</h3>
+<p>In this library, error detection is performed in the inner loop
+(current control) and the outer loop (speed control). When an error is
+detected, PWM output is stopped immediately and the application layer is
+notified through a callback function.</p>
+<h3 id="error-list">Error List</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Error</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Overcurrent (HW)</td>
+<td>Hardware (POEG) overcurrent detection</td>
+</tr>
+<tr>
+<td>Overcurrent (SW)</td>
+<td>Software overcurrent detection of phase current</td>
+</tr>
+<tr>
+<td>Overvoltage</td>
+<td>Overvoltage detection of inverter DC bus voltage</td>
+</tr>
+<tr>
+<td>Undervoltage</td>
+<td>Undervoltage detection of inverter DC bus voltage</td>
+</tr>
+<tr>
+<td>Overspeed</td>
+<td>Overspeed detection of mechanical angular speed</td>
+</tr>
+<tr>
+<td>Flux weakening abnormality</td>
+<td>Abnormality detection of flux weakening control</td>
+</tr>
+</tbody>
+</table>
+<h3 id="recovery-from-errors">Recovery from Errors</h3>
+<p>When an error occurs, you can reset from the error state and return
+to the stop state by calling the <code>reset</code> API. After that, you
+can start the motor again with the <code>run</code> API.</p>
+<h2 id="state-machine">State Machine</h2>
+<p>The Control module is managed by a state machine with the following
+three states.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>State</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>STOP</td>
+<td>Stop state. The motor is not rotating.</td>
+</tr>
+<tr>
+<td>RUN</td>
+<td>Run state. The motor is rotating.</td>
+</tr>
+<tr>
+<td>ERROR</td>
+<td>Error state. An error has been detected and the motor is
+stopped.</td>
+</tr>
+</tbody>
+</table>
+<p>State transitions occur due to the following events.</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>STOP →</th>
+<th>RUN →</th>
+<th>ERROR →</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RUN</td>
+<td>RUN</td>
+<td>RUN</td>
+<td>ERROR</td>
+</tr>
+<tr>
+<td>STOP</td>
+<td>STOP</td>
+<td>STOP</td>
+<td>ERROR</td>
+</tr>
+<tr>
+<td>ERROR</td>
+<td>ERROR</td>
+<td>ERROR</td>
+<td>ERROR</td>
+</tr>
+<tr>
+<td>RESET</td>
+<td>STOP</td>
+<td>ERROR</td>
+<td>STOP</td>
+</tr>
+</tbody>
+</table>
+<h2 id="callback-functions">Callback Functions</h2>
+<p>The Control module calls callback functions for the following
+events.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Event</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SPEED_BACKWARD</td>
+<td>When processing of speed control (outer loop) is completed</td>
+</tr>
+<tr>
+<td>CURRENT_BACKWARD</td>
+<td>When processing of current control (inner loop) is completed</td>
+</tr>
+<tr>
+<td>ERROR</td>
+<td>When an error is detected</td>
+</tr>
+</tbody>
+</table>
+<p>Register callback functions in the settings of the Control module
+(<code>rm_motor_control</code>) instance.</p>
+</body>
+</html>

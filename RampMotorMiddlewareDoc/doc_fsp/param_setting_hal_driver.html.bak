@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>param_setting_hal_driver</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+<h1 id="list-of-hal-driver-module">List of Hal Driver Module</h1>
+<p>The changeable parameters that are used in Hal Driver module control
+and their initial values are listed below.</p>
+<p><strong>Table 1 Configuration Options
+(rm_motor_hal_driver)</strong></p>
+<table>
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 38%" />
+</colgroup>
+<thead>
+<tr>
+<th>Category</th>
+<th>Subcategory</th>
+<th>Options</th>
+<th>Descriptions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Common</td>
+<td>-</td>
+<td>ADC_B Support</td>
+<td>Selection of ADC_B module support</td>
+</tr>
+<tr>
+<td>Common</td>
+<td>-</td>
+<td>Shared ADC Support</td>
+<td>Selection of using shared ADC module</td>
+</tr>
+<tr>
+<td>Common</td>
+<td>-</td>
+<td>Supported Motor Number</td>
+<td>Number of driven motors</td>
+</tr>
+<tr>
+<td>Common</td>
+<td>-</td>
+<td>Saturation checking for PWM</td>
+<td>Saturation checking for PWM modulation</td>
+</tr>
+<tr>
+<td>General</td>
+<td>-</td>
+<td>Resolution of A/D conversion</td>
+<td>ADC resolution</td>
+</tr>
+<tr>
+<td>PWM config</td>
+<td>Timer</td>
+<td>PWM Timer Frequency (MHz)</td>
+<td>PWM timer source clock frequency [MHz]</td>
+</tr>
+<tr>
+<td>PWM config</td>
+<td>Timer</td>
+<td>PWM Carrier Period (Microseconds)</td>
+<td>PWM carrier period [Micro seconds]</td>
+</tr>
+<tr>
+<td>PWM config</td>
+<td>Timer</td>
+<td>Dead Time (Microseconds)</td>
+<td>PWM Dead Time [Micro seconds]</td>
+</tr>
+<tr>
+<td>PWM config</td>
+<td>Timer</td>
+<td>GTIOCA Stop Level</td>
+<td>Select the output level of the upper PWM pin when the timer is
+stopped.</td>
+</tr>
+<tr>
+<td>PWM config</td>
+<td>Timer</td>
+<td>GTIOCB Stop Level</td>
+<td>Select the output level of the lower PWM pin when the timer is
+stopped.</td>
+</tr>
+<tr>
+<td>PWM config</td>
+<td>Port</td>
+<td>PWM output port UP</td>
+<td>Port setting of U-phase upper arm</td>
+</tr>
+<tr>
+<td>PWM config</td>
+<td>Port</td>
+<td>PWM output port UN</td>
+<td>Port setting of U-phase lower arm</td>
+</tr>
+<tr>
+<td>PWM config</td>
+<td>Port</td>
+<td>PWM output port VP</td>
+<td>Port setting of V-phase upper arm</td>
+</tr>
+<tr>
+<td>PWM config</td>
+<td>Port</td>
+<td>PWM output port VN</td>
+<td>Port setting of V-phase lower arm</td>
+</tr>
+<tr>
+<td>PWM config</td>
+<td>Port</td>
+<td>PWM output port WP</td>
+<td>Port setting of W-phase upper arm</td>
+</tr>
+<tr>
+<td>PWM config</td>
+<td>Port</td>
+<td>PWM output port WN</td>
+<td>Port setting of W-phase lower arm</td>
+</tr>
+<tr>
+<td>Modulation</td>
+<td>-</td>
+<td>Modulation method</td>
+<td>Selection of the method of modulation</td>
+</tr>
+<tr>
+<td>Modulation</td>
+<td>-</td>
+<td>Input Voltage (V)</td>
+<td>Range of input for inverter bus voltage</td>
+</tr>
+<tr>
+<td>Modulation</td>
+<td>-</td>
+<td>Maximum Duty</td>
+<td>Maximum duty of PWM except dead time</td>
+</tr>
+<tr>
+<td>Current related</td>
+<td>-</td>
+<td>Current Range (A)</td>
+<td>Measurement Range of Electric current [A]</td>
+</tr>
+<tr>
+<td>Current related</td>
+<td>-</td>
+<td>Counts for current offset measurement</td>
+<td>Counts of measurement the offset of A/D Conversion at electric
+current input</td>
+</tr>
+<tr>
+<td>Current related</td>
+<td>-</td>
+<td>Offset of A/D conversion for current</td>
+<td>Offset level of A/D conversion input for current, set according to
+the circuit</td>
+</tr>
+<tr>
+<td>Voltage related</td>
+<td>-</td>
+<td>VDC Range (V)</td>
+<td>Measurement Range of Inverter Voltage [V]</td>
+</tr>
+<tr>
+<td>Voltage related</td>
+<td>-</td>
+<td>Voltage Range (V)</td>
+<td>Measurement Range of Output Voltage [V]</td>
+</tr>
+<tr>
+<td>Voltage related</td>
+<td>-</td>
+<td>Offset of A/D conversion for VDC</td>
+<td>Offset level of A/D conversion input for VDC input voltage, set
+according to the circuit</td>
+</tr>
+<tr>
+<td>Voltage related</td>
+<td>-</td>
+<td>Offset of A/D conversion for voltage</td>
+<td>Offset level of A/D conversion input for output voltage, set
+according to the circuit</td>
+</tr>
+<tr>
+<td>Bootstrap config</td>
+<td>-</td>
+<td>Counts for bootstrap charge</td>
+<td>Counts for charging the bootstrap circuit</td>
+</tr>
+<tr>
+<td>Shunt current config</td>
+<td>-</td>
+<td>Shunt type</td>
+<td>Current detection method selection</td>
+</tr>
+<tr>
+<td>Shunt current config</td>
+<td>-</td>
+<td>1shunt interrupt phase</td>
+<td>Select the phase which ADC end interrupt occurs</td>
+</tr>
+<tr>
+<td>Shunt current config</td>
+<td>-</td>
+<td>Minimum difference of PWM duty</td>
+<td>Minimum difference of PWM duty for 1shunt</td>
+</tr>
+<tr>
+<td>ADC setting</td>
+<td>Channel</td>
+<td>U Phase current</td>
+<td>Specify the A/D channel for U-phase current</td>
+</tr>
+<tr>
+<td>ADC setting</td>
+<td>Channel</td>
+<td>V Phase current</td>
+<td>Specify the A/D channel for V-phase current</td>
+</tr>
+<tr>
+<td>ADC setting</td>
+<td>Channel</td>
+<td>W Phase current</td>
+<td>Specify the A/D channel for W-phase current</td>
+</tr>
+<tr>
+<td>ADC setting</td>
+<td>Channel</td>
+<td>Main line voltage</td>
+<td>Specify the A/D channel for inverter bus voltage</td>
+</tr>
+<tr>
+<td>ADC setting</td>
+<td>Channel</td>
+<td>U Phase voltage</td>
+<td>Specify the A/D channel for U-phase voltage</td>
+</tr>
+<tr>
+<td>ADC setting</td>
+<td>Channel</td>
+<td>V Phase voltage</td>
+<td>Specify the A/D channel for V-phase voltage</td>
+</tr>
+<tr>
+<td>ADC setting</td>
+<td>Channel</td>
+<td>W Phase voltage</td>
+<td>Specify the A/D channel for W-phase voltage</td>
+</tr>
+<tr>
+<td>ADC setting</td>
+<td>Unit</td>
+<td>U Phase current</td>
+<td>Specify the A/D conversion module for U-phase current (only valid
+with r_adc)</td>
+</tr>
+<tr>
+<td>ADC setting</td>
+<td>Unit</td>
+<td>V Phase current</td>
+<td>Specify the A/D conversion module for V-phase current (only valid
+with r_adc)</td>
+</tr>
+<tr>
+<td>ADC setting</td>
+<td>Unit</td>
+<td>W Phase current</td>
+<td>Specify the A/D conversion module for W-phase current (only valid
+with r_adc)</td>
+</tr>
+<tr>
+<td>ADC setting</td>
+<td>Unit</td>
+<td>Main line voltage</td>
+<td>Specify the A/D conversion module for inverter bus voltage (only
+valid with r_adc)</td>
+</tr>
+<tr>
+<td>ADC setting</td>
+<td>Unit</td>
+<td>U Phase voltage</td>
+<td>Specify the A/D conversion module for U-phase voltage (only valid
+with r_adc)</td>
+</tr>
+<tr>
+<td>ADC setting</td>
+<td>Unit</td>
+<td>V Phase voltage</td>
+<td>Specify the A/D conversion module for V-phase voltage (only valid
+with r_adc)</td>
+</tr>
+<tr>
+<td>ADC setting</td>
+<td>Unit</td>
+<td>W Phase voltage</td>
+<td>Specify the A/D conversion module for W-phase voltage (only valid
+with r_adce)</td>
+</tr>
+<tr>
+<td>ADC setting</td>
+<td>-</td>
+<td>Using ADC Scan Group</td>
+<td>Specify the ADC Scan Group for MCUs with r_adc_b</td>
+</tr>
+<tr>
+<td>ADC setting</td>
+<td>-</td>
+<td>ADC interrupt module</td>
+<td>Select from which module ADC interrupt happens</td>
+</tr>
+<tr>
+<td>ADC setting</td>
+<td>-</td>
+<td>Adjustment value to current A/D</td>
+<td>Current A/D timing adjustment (for 1shunt)</td>
+</tr>
+<tr>
+<td>ADC setting</td>
+<td>-</td>
+<td>Adjustment delay</td>
+<td>Adjustment delay of A/D conversion (for 1shunt)</td>
+</tr>
+<tr>
+<td>ADC setting</td>
+<td>-</td>
+<td>Conversion level of A/D conversion for voltage</td>
+<td>Conversion level of A/D conversion for voltage. Please set when the
+MCU main voltage is different</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Table 2 Configuration options initial value
+(rm_motor_hal_driver)</strong></p>
+<table>
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 38%" />
+</colgroup>
+<thead>
+<tr>
+<th>Category</th>
+<th>Subcategory</th>
+<th>Options</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Common</td>
+<td>-</td>
+<td>ADC_B Support</td>
+<td>Enabled</td>
+</tr>
+<tr>
+<td>Common</td>
+<td>-</td>
+<td>Shared ADC support</td>
+<td>Disabled</td>
+</tr>
+<tr>
+<td>Common</td>
+<td>-</td>
+<td>Supported Motor Number</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Common</td>
+<td>-</td>
+<td>Saturation checking for PWM</td>
+<td>Disabled</td>
+</tr>
+<tr>
+<td>General</td>
+<td>-</td>
+<td>Resolution of A/D conversion</td>
+<td>0xFFF</td>
+</tr>
+<tr>
+<td>PWM config</td>
+<td>Timer</td>
+<td>PWM Timer Frequency (MHz)</td>
+<td>120</td>
+</tr>
+<tr>
+<td>PWM config</td>
+<td>Timer</td>
+<td>PWM Carrier Period (Microseconds)</td>
+<td>50</td>
+</tr>
+<tr>
+<td>PWM config</td>
+<td>Timer</td>
+<td>Dead Time (Microseconds)</td>
+<td>2.0</td>
+</tr>
+<tr>
+<td>PWM config</td>
+<td>Timer</td>
+<td>GTIOCA Stop Level</td>
+<td>Pin Level Low</td>
+</tr>
+<tr>
+<td>PWM config</td>
+<td>Timer</td>
+<td>GTIOCB Stop Level</td>
+<td>Pin Level High</td>
+</tr>
+<tr>
+<td>PWM config</td>
+<td>Port</td>
+<td>PWM output port UP</td>
+<td>BSP_IO_PORT_11_PIN_04</td>
+</tr>
+<tr>
+<td>PWM config</td>
+<td>Port</td>
+<td>PWM output port UN</td>
+<td>BSP_IO_PORT_11_PIN_05</td>
+</tr>
+<tr>
+<td>PWM config</td>
+<td>Port</td>
+<td>PWM output port VP</td>
+<td>BSP_IO_PORT_11_PIN_06</td>
+</tr>
+<tr>
+<td>PWM config</td>
+<td>Port</td>
+<td>PWM output port VN</td>
+<td>BSP_IO_PORT_11_PIN_07</td>
+</tr>
+<tr>
+<td>PWM config</td>
+<td>Port</td>
+<td>PWM output port WP</td>
+<td>BSP_IO_PORT_11_PIN_08</td>
+</tr>
+<tr>
+<td>PWM config</td>
+<td>Port</td>
+<td>PWM output port WN</td>
+<td>BSP_IO_PORT_11_PIN_09</td>
+</tr>
+<tr>
+<td>Modulation</td>
+<td>-</td>
+<td>Modulation method</td>
+<td>SVPWM</td>
+</tr>
+<tr>
+<td>Modulation</td>
+<td>-</td>
+<td>Input Voltage (V)</td>
+<td>24.0F</td>
+</tr>
+<tr>
+<td>Modulation</td>
+<td>-</td>
+<td>Maximum Duty</td>
+<td>0.9375F</td>
+</tr>
+<tr>
+<td>Current related</td>
+<td>-</td>
+<td>Current Range (A)</td>
+<td>16.5</td>
+</tr>
+<tr>
+<td>Current related</td>
+<td>-</td>
+<td>Counts for current offset measurement</td>
+<td>512</td>
+</tr>
+<tr>
+<td>Current related</td>
+<td>-</td>
+<td>Offset of A/D conversion for current</td>
+<td>0x7FF</td>
+</tr>
+<tr>
+<td>Voltage related</td>
+<td>-</td>
+<td>VDC Range (V)</td>
+<td>73.26</td>
+</tr>
+<tr>
+<td>Voltage related</td>
+<td>-</td>
+<td>Voltage Range (V)</td>
+<td>73.26</td>
+</tr>
+<tr>
+<td>Voltage related</td>
+<td>-</td>
+<td>Offset of A/D conversion for VDC</td>
+<td>0x0</td>
+</tr>
+<tr>
+<td>Voltage related</td>
+<td>-</td>
+<td>Offset of A/D conversion for voltage</td>
+<td>0x0</td>
+</tr>
+<tr>
+<td>Bootstrap config</td>
+<td>-</td>
+<td>Counts for bootstrap charge</td>
+<td>100</td>
+</tr>
+<tr>
+<td>Shunt current config</td>
+<td>-</td>
+<td>Shunt type</td>
+<td>2 shunt</td>
+</tr>
+<tr>
+<td>Shunt current config</td>
+<td>-</td>
+<td>1shunt interrupt phase</td>
+<td>PHASE_U</td>
+</tr>
+<tr>
+<td>Shunt current config</td>
+<td>-</td>
+<td>Minimum difference of PWM duty</td>
+<td>300</td>
+</tr>
+<tr>
+<td>ADC setting</td>
+<td>Channel</td>
+<td>U phase current</td>
+<td>4</td>
+</tr>
+<tr>
+<td>ADC setting</td>
+<td>Channel</td>
+<td>V phase current</td>
+<td>2</td>
+</tr>
+<tr>
+<td>ADC setting</td>
+<td>Channel</td>
+<td>W phase current</td>
+<td>0</td>
+</tr>
+<tr>
+<td>ADC setting</td>
+<td>Channel</td>
+<td>Main Line Voltage</td>
+<td>7</td>
+</tr>
+<tr>
+<td>ADC setting</td>
+<td>Channel</td>
+<td>U phase voltage</td>
+<td>27</td>
+</tr>
+<tr>
+<td>ADC setting</td>
+<td>Channel</td>
+<td>V phase voltage</td>
+<td>3</td>
+</tr>
+<tr>
+<td>ADC setting</td>
+<td>Channel</td>
+<td>W phase voltage</td>
+<td>1</td>
+</tr>
+<tr>
+<td>ADC setting</td>
+<td>Unit</td>
+<td>U phase current</td>
+<td>0</td>
+</tr>
+<tr>
+<td>ADC setting</td>
+<td>Unit</td>
+<td>V phase current</td>
+<td>0</td>
+</tr>
+<tr>
+<td>ADC setting</td>
+<td>Unit</td>
+<td>W phase current</td>
+<td>0</td>
+</tr>
+<tr>
+<td>ADC setting</td>
+<td>Unit</td>
+<td>Main line voltage</td>
+<td>0</td>
+</tr>
+<tr>
+<td>ADC setting</td>
+<td>Unit</td>
+<td>U phase voltage</td>
+<td>0</td>
+</tr>
+<tr>
+<td>ADC setting</td>
+<td>Unit</td>
+<td>V phase voltage</td>
+<td>0</td>
+</tr>
+<tr>
+<td>ADC setting</td>
+<td>Unit</td>
+<td>W phase voltage</td>
+<td>0</td>
+</tr>
+<tr>
+<td>ADC setting</td>
+<td>-</td>
+<td>Using ADC Scan Group</td>
+<td>0</td>
+</tr>
+<tr>
+<td>ADC setting</td>
+<td>-</td>
+<td>ADC interrupt module</td>
+<td>1st</td>
+</tr>
+<tr>
+<td>ADC setting</td>
+<td>-</td>
+<td>Adjustment value to current A/D</td>
+<td>20.0</td>
+</tr>
+<tr>
+<td>ADC setting</td>
+<td>-</td>
+<td>Adjustment delay</td>
+<td>240</td>
+</tr>
+<tr>
+<td>ADC setting</td>
+<td>-</td>
+<td>Conversion level of A/D conversion to voltage</td>
+<td>1.0</td>
+</tr>
+</tbody>
+</table>
+<h2 id="detail-of-common-prameters">Detail of Common Prameters</h2>
+<h3 id="adc_b-support">ADC_B Support</h3>
+<dl>
+<dt><strong>Description</strong></dt>
+<dd>
+Enable it for MCUs with ADC_B version of the A/D converter.
+</dd>
+<dt><strong>Option</strong></dt>
+<dd>
+Enabled, Disabled
+</dd>
+</dl>
+<h3 id="shared-adc-support">Shared ADC support</h3>
+<dl>
+<dt><strong>Description</strong></dt>
+<dd>
+Enable when using the same ADC unit for two motor controls.
+</dd>
+<dt><strong>Option</strong></dt>
+<dd>
+Enabled, Disabled
+</dd>
+</dl>
+<h3 id="supported-motor-number">Supported Motor Number</h3>
+<dl>
+<dt><strong>Description</strong></dt>
+<dd>
+Specify the number of motors
+</dd>
+<dt><strong>Set value</strong></dt>
+<dd>
+1 or 2
+</dd>
+</dl>
+<h3 id="saturation-checking-for-pwm">Saturation checking for PWM</h3>
+<dl>
+<dt><strong>Description</strong></dt>
+<dd>
+If selected, saturation checking code for PWM modulation is included in
+the build.
+</dd>
+<dt><strong>Option</strong></dt>
+<dd>
+Enabled, Disabled
+</dd>
+</dl>
+<h2 id="detail-of-general-prameters">Detail of General Prameters</h2>
+<h3 id="resolution-of-ad-conversion">Resolution of A/D conversion</h3>
+<dl>
+<dt><strong>Description</strong></dt>
+<dd>
+Resolution of A/D conversion
+</dd>
+</dl>
+<p><strong>Set value</strong> * 12-bit: 0x0FFF * 14-bit: 0x3FFF *
+16-bit: 0xFFFF</p>
+<h2 id="detail-of-pwm-config-prameters">Detail of PWM config
+Prameters</h2>
+<h3 id="gtioca-stop-level-gtiocb-stop-level">GTIOCA Stop Level, GTIOCB
+Stop Level</h3>
+<dl>
+<dt><strong>Description</strong></dt>
+<dd>
+Set the upper PWM to the inactive level and the lower PWM to the active
+level. Specify according to the gate circuit of the inverter board.
+</dd>
+<dt><strong>Option</strong></dt>
+<dd>
+Pin Level Low, Pin Level High
+</dd>
+</dl>
+<h3 id="pwm-output-port-up-un-vp-vn-wp-wn">PWM output port (UP, UN, VP,
+VN, WP, WN)</h3>
+<dl>
+<dt><strong>Description</strong></dt>
+<dd>
+Specifies the pin to be used for the PWM output.
+</dd>
+<dt><strong>Set value</strong></dt>
+<dd>
+See “._io.h” for the specified value.
+</dd>
+</dl>
+<h2 id="detail-of-current-and-voltage-related-prameters">Detail of
+Current and Voltage related Prameters</h2>
+<h3 id="currentvdc-and-voltage-range">Current,VDC and Voltage Range</h3>
+<dl>
+<dt><strong>Description</strong></dt>
+<dd>
+Specify according to the detection circuit of the inverter board.
+</dd>
+</dl>
+<h3 id="counts-for-current-offset-measurement">Counts for current offset
+measurement</h3>
+<dl>
+<dt><strong>Description</strong></dt>
+<dd>
+Specifies the number of times the current offset correction is
+calculated.
+</dd>
+<dt><strong>Set value</strong></dt>
+<dd>
+Specify a power of 2.
+</dd>
+</dl>
+<h3 id="offset-of-ad-conversion-for-current">Offset of A/D conversion
+for current</h3>
+<dl>
+<dt><strong>Description</strong></dt>
+<dd>
+Specify according to the detection circuit of the inverter board. Error
+correction is performed in software.
+</dd>
+</dl>
+<h3 id="offset-of-ad-conversion-for-vdc-and-voltage">Offset of A/D
+conversion for VDC and voltage</h3>
+<dl>
+<dt><strong>Description</strong></dt>
+<dd>
+Specify according to the detection circuit of the inverter board. Error
+correction changes the setting.
+</dd>
+</dl>
+<h2 id="detail-of-bootstrap-config-prameters">Detail of bootstrap config
+Prameters</h2>
+<h3 id="counts-for-bootstrap-charge">Counts for bootstrap charge</h3>
+<dl>
+<dt><strong>Description</strong></dt>
+<dd>
+Specifies the charging time for the bootstrap circuit. Specify the
+number of PWM cycles.
+</dd>
+</dl>
+<h2 id="detail-of-adc-setting-prameters">Detail of ADC setting
+Prameters</h2>
+<h3
+id="chanel-and-unit-of-phase-current-main-line-voltage-phase-voltage">Chanel
+and Unit of Phase current, Main Line Voltage, Phase voltage</h3>
+<dl>
+<dt><strong>Description</strong></dt>
+<dd>
+Specify the A/D channel and unit according to the CPU board used.
+</dd>
+</dl>
+<h3 id="adjustment-delay">Adjustment delay</h3>
+<p><strong>Description</strong> Specify the delay time by the number of
+states.</p>
+</body>
+</html>

@@ -12,7 +12,6 @@
       --bg-app: #f7f8fa;
       --bg-sidebar: #f3f4f6;
       --bg-surface: #ffffff;
-      --nav-width: 400px;
       --bg-hover: #e9eef5;
       --bg-active: #eaf4ff;
 
@@ -28,13 +27,13 @@
       --accent-hover: #005a9e;
       --accent-dark: #004578;
 
-      /* Search highlights */
+      /* Search highlights: stronger but still soft amber for readability */
       --highlight: #ffef99;
       --highlight-text: #3b2f00;
       --highlight-current: #ffd166;
       --highlight-current-outline: #3b82f6;
 
-      /* Scrollbar markers */
+      /* Scrollbar markers: longer muted amber markers, blue for current match */
       --marker: #d9a900;
       --marker-hover: #b88a00;
       --marker-current: #2563eb;
@@ -70,9 +69,7 @@
 
     /* ============ SIDEBAR LAYOUT ============ */
     #nav {
-      width: var(--nav-width);
-      min-width: 280px;
-      max-width: 640px;
+      width: 400px;
       height: 100vh;
       background: var(--bg-sidebar);
       border-right: 1px solid var(--border-subtle);
@@ -80,7 +77,6 @@
       box-sizing: border-box;
       overflow: hidden;
       display: flex;
-      flex-shrink: 0;
       flex-direction: column;
     }
 
@@ -253,7 +249,7 @@
       text-align: center;
     }
 
-    /* ============ NAV HEADER ============ */
+    /* ============ NAV HEADER (FIXED AT TOP OF SIDEBAR) ============ */
     #nav-header {
       flex-shrink: 0;
       padding: 15px 18px 0 18px;
@@ -268,7 +264,7 @@
       letter-spacing: -0.02em;
     }
 
-    /* ============ NAV SECTIONS ============ */
+    /* ============ NAV SECTIONS (INDEPENDENTLY SCROLLABLE) ============ */
     #nav-sections {
       flex: 1;
       overflow-y: auto;
@@ -296,48 +292,9 @@
       margin: 3px 0;
     }
 
-
-    /* ============ NAV RESIZER ============ */
-    #nav-resizer {
-      width: 6px;
-      height: 100vh;
-      cursor: col-resize;
-      background: transparent;
-      flex-shrink: 0;
-      position: relative;
-      z-index: 20;
-    }
-
-    #nav-resizer::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 2px;
-      width: 1px;
-      height: 100%;
-      background: var(--border-subtle);
-    }
-
-    #nav-resizer:hover::before,
-    body.resizing-nav #nav-resizer::before {
-      left: 1px;
-      width: 3px;
-      background: var(--accent);
-    }
-
-    body.resizing-nav {
-      cursor: col-resize;
-      user-select: none;
-    }
-
-    body.resizing-nav iframe {
-      pointer-events: none;
-    }
-
     /* ============ CONTENT WRAPPER + IFRAME ============ */
     #content-wrapper {
       flex: 1;
-      min-width: 0;
       position: relative;
       display: flex;
       flex-direction: column;
@@ -556,8 +513,6 @@
     </div>
   </nav>
 
-  <div id="nav-resizer" title="Resize navigation pane"></div>
-
   <div id="content-wrapper">
     <!-- Floating Match Navigation Bar (appears when search highlights are active in iframe) -->
     <div id="match-nav-bar">
@@ -607,8 +562,6 @@
       const searchStatus = document.getElementById('search-status');
       const searchResults = document.getElementById('search-results');
       const contentFrame = document.getElementById('content');
-      const nav = document.getElementById('nav');
-      const navResizer = document.getElementById('nav-resizer');
       const allLinks = document.querySelectorAll('#nav-sections ul a');
 
       // Match navigation bar elements
@@ -621,72 +574,6 @@
 
       // Scrollbar markers overlay
       const scrollbarMarkers = document.getElementById('scrollbar-markers');
-
-      // ============ RESIZABLE NAVIGATION PANE ============
-      const NAV_WIDTH_STORAGE_KEY = 'ramp-doc-nav-width';
-      const NAV_MIN_WIDTH = 280;
-      const NAV_MAX_WIDTH = 640;
-      const NAV_DEFAULT_WIDTH = 400;
-
-      function clamp(value, min, max) {
-        return Math.min(Math.max(value, min), max);
-      }
-
-      function setNavWidth(width) {
-        const clampedWidth = clamp(width, NAV_MIN_WIDTH, NAV_MAX_WIDTH);
-        document.documentElement.style.setProperty('--nav-width', `${clampedWidth}px`);
-        localStorage.setItem(NAV_WIDTH_STORAGE_KEY, String(clampedWidth));
-
-        if (matchState.isActive) {
-          renderScrollbarMarkers();
-        }
-      }
-
-      function restoreNavWidth() {
-        const savedWidth = Number(localStorage.getItem(NAV_WIDTH_STORAGE_KEY));
-        if (!Number.isNaN(savedWidth) && savedWidth > 0) {
-          setNavWidth(savedWidth);
-        }
-      }
-
-      function initNavResize() {
-        if (!nav || !navResizer) return;
-
-        let startX = 0;
-        let startWidth = 0;
-
-        navResizer.addEventListener('mousedown', function (event) {
-          event.preventDefault();
-
-          startX = event.clientX;
-          startWidth = nav.getBoundingClientRect().width;
-          document.body.classList.add('resizing-nav');
-
-          function onMouseMove(moveEvent) {
-            const deltaX = moveEvent.clientX - startX;
-            setNavWidth(startWidth + deltaX);
-          }
-
-          function onMouseUp() {
-            document.body.classList.remove('resizing-nav');
-            document.removeEventListener('mousemove', onMouseMove);
-            document.removeEventListener('mouseup', onMouseUp);
-
-            if (matchState.isActive) {
-              renderScrollbarMarkers();
-            }
-          }
-
-          document.addEventListener('mousemove', onMouseMove);
-          document.addEventListener('mouseup', onMouseUp);
-        });
-
-        // Double-click the handle to reset navigation width to default.
-        navResizer.addEventListener('dblclick', function () {
-          setNavWidth(NAV_DEFAULT_WIDTH);
-        });
-      }
-
 
       // ============ HIGHLIGHT ACTIVE NAV LINK ============
       // When a sidebar link is clicked, mark it as "active" and dismiss any match navigation
@@ -1366,9 +1253,6 @@
       });
 
       // ============ INITIALIZATION ============
-      restoreNavWidth();
-      initNavResize();
-
       // Start building the search index as soon as the page loads
       buildSearchIndex();
     })();

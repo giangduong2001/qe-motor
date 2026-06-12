@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>hw_env_08_tuner_function</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+<h1 id="tuning-motor-parameter-with-tuner-function">Tuning Motor
+Parameter with Tuner Function</h1>
+<h2 id="overview-of-tuner-function">Overview of Tuner Function</h2>
+<p>Tuner function measures motor parameters (such as R and L)
+automatically, and tunes various control parameters (such as PI control
+gains) required for sensorless control. If the motor parameter is
+available from the motor manufacturer, it is recommended to use those
+parameters. Motor parameters can also be measured using an LCR meter.
+For details, refer to the Motor Parameter section.</p>
+<h2 id="operation-instructions">Operation Instructions</h2>
+<p>This section describes the set-up procedure for motor parameter
+tuning using the Tuner function. The overall operation flow is
+illustrated in the figures referenced in the following sections.</p>
+<h3 id="writing-the-executable-file">1. Writing the Executable File</h3>
+<ol type="1">
+<li>Use <strong>e² studio</strong> to add the Motor Tuner stack to the
+<strong>Stacks Configuration</strong> in the
+<code>configuration.xml</code> file.</li>
+<li>Build the project.</li>
+<li>Run the debugger to write the executable file to the CPU board.</li>
+</ol>
+<div data-align="center">
+<p><img src="media/image_add_tuner_stack.png"
+alt="image_add_tuner_stack.png" /> Fig. 1 Adding Motor Tuner Stack in e²
+studio</p>
+</div>
+<h3 id="launching-renesas-motor-workbench">2. Launching Renesas Motor
+Workbench</h3>
+<ol type="1">
+<li>Launch <strong>Renesas Motor Workbench</strong>.</li>
+<li>Load the <strong>RMT file</strong> generated by the build into
+Renesas Motor Workbench.</li>
+<li>Choose the COM port connected to the CPU board from the
+<strong>Connection</strong> tab.</li>
+<li>Choose the <strong>Tuner</strong> tool from the <strong>Select
+Tool</strong> tab of Renesas Motor Workbench.</li>
+</ol>
+<p>The initial window of Renesas Motor Workbench is shown in Fig. 2.</p>
+<div data-align="center">
+<p><img src="media/image_RMW_startwindow.png"
+alt="image_RMW_startwindow.png" /> Fig. 2 Renesas Motor Workbench Start
+Window</p>
+</div>
+<h3 id="execution-of-tuning">3. Execution of Tuning</h3>
+<ol type="1">
+<li><p>After launching the Tuner tool, the <strong>Parameter
+Input</strong> screen appears (see Fig. 3).</p>
+<p>In the <strong>Input Parameter</strong> section:</p>
+<ul>
+<li>Enter <strong>Rated Current</strong></li>
+<li>Enter <strong>Pole Pairs</strong></li>
+</ul>
+<p>These values are typically described in the motor specifications or
+on the motor label.</p></li>
+<li><p>If motor parameters (such as resistance or inductance) are
+already known, they can be excluded from automatic measurement by
+enabling the corresponding items in the <strong>Skip Kind</strong>
+tab.</p></li>
+<li><p>Press the <strong>Start</strong> button to begin tuning.</p>
+<ul>
+<li>To stop tuning during execution, press the <strong>Stop</strong>
+button.</li>
+<li>If an error occurs, check the displayed error message and press the
+<strong>Reset</strong> button (an example error screen is shown in Fig.
+4).</li>
+</ul></li>
+</ol>
+<div data-align="center">
+<p><img src="media/image_tuner_parameter_input.png"
+alt="image_tuner_parameter_input.png" /> Fig. 3 Tuner Parameter Input
+Screen</p>
+</div>
+<div data-align="center">
+<p><img src="media/image_tuner_error.png"
+alt="image_tuner_error.png" /><br> Fig. 4 Example of Error Message</p>
+</div>
+<h3 id="confirming-the-tuning-result">4. Confirming the Tuning
+Result</h3>
+<p>After tuning is finished, the <strong>Tune Window</strong> will
+appear, as shown in Fig. 5.</p>
+<ol type="1">
+<li>Press the <strong>Report</strong> button to view the detailed tuning
+results.</li>
+<li>If needed, a PDF file containing the tuning results can be generated
+by pressing the <strong>Output</strong> button in the <strong>Result
+Report</strong> window (see Fig. 6).</li>
+<li>Tuning results can also be output in header file format used by
+Renesas motor control programs. Pressing the <strong>Output Header
+File</strong> button in the <strong>Tune Window</strong> displays the
+save dialog for:
+<ul>
+<li><code>r_mtr_control_parameter.h</code></li>
+<li><code>r_mtr_motor_parameter.h</code></li>
+</ul></li>
+</ol>
+<p>The obtained parameters can be used directly in the motor control
+software by updating the corresponding motor parameter and control
+parameter header files.</p>
+<div data-align="center">
+<p><img src="media/image_tuner_tune_window.png"
+alt="image_tuner_tune_window.png" /> Fig. 5 Tune Window</p>
+<p><img src="media/image_tuner_result_report.png"
+alt="image_tuner_result_report.png" /><br> Fig. 6 Tuning Result Report
+Window</p>
+</div>
+<h2 id="list-of-output-parameters">List of Output Parameters</h2>
+<p>Table 1 lists the parameters that can be obtained using the Tuner
+function.</p>
+<div data-align="center">
+<p>Table 1 List of Output Parameters Obtained by Tuner Function</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Macro</th>
+<th>Description</th>
+<th>Unit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MP_POLE_PAIRS</td>
+<td>Number of pole pairs</td>
+<td>-</td>
+</tr>
+<tr>
+<td>MP_MAGNETIC_FLUX</td>
+<td>Permanent magnetic flux</td>
+<td>[Wb]</td>
+</tr>
+<tr>
+<td>MP_RESISTANCE</td>
+<td>Resistance</td>
+<td>[ohm]</td>
+</tr>
+<tr>
+<td>MP_D_INDUCTANCE</td>
+<td>D-axis inductance</td>
+<td>[H]</td>
+</tr>
+<tr>
+<td>MP_Q_INDUCTANCE</td>
+<td>Q-axis inductance</td>
+<td>[H]</td>
+</tr>
+<tr>
+<td>MP_ROTOR_INERTIA</td>
+<td>Rotor inertia</td>
+<td>[kg·m²]</td>
+</tr>
+<tr>
+<td>MP_NOMINAL_CURRENT_RMS</td>
+<td>Nominal current</td>
+<td>[Arms]</td>
+</tr>
+<tr>
+<td>(N/A)</td>
+<td>Viscous friction coefficient</td>
+<td>[Nm/(rad/s)]</td>
+</tr>
+<tr>
+<td>CP_CURRENT_OMEGA</td>
+<td>Natural frequency for current loop</td>
+<td>[Hz]</td>
+</tr>
+<tr>
+<td>CP_CURRENT_ZETA</td>
+<td>Damping ratio for current loop</td>
+<td>-</td>
+</tr>
+<tr>
+<td>CP_SPEED_OMEGA</td>
+<td>Natural frequency for speed loop</td>
+<td>[Hz]</td>
+</tr>
+<tr>
+<td>CP_SPEED_ZETA</td>
+<td>Damping ratio for speed loop</td>
+<td>-</td>
+</tr>
+<tr>
+<td>CP_E_OBS_OMEGA</td>
+<td>Natural frequency of BEMF observer</td>
+<td>[Hz]</td>
+</tr>
+<tr>
+<td>CP_E_OBS_ZETA</td>
+<td>Damping ratio of BEMF observer</td>
+<td>-</td>
+</tr>
+<tr>
+<td>CP_PLL_EST_OMEGA</td>
+<td>Natural frequency of PLL speed estimate loop</td>
+<td>[Hz]</td>
+</tr>
+<tr>
+<td>CP_PLL_EST_ZETA</td>
+<td>Damping ratio of PLL speed estimate loop</td>
+<td>-</td>
+</tr>
+<tr>
+<td>CP_ID_DOWN_SPEED_RPM</td>
+<td>Speed to start decreasing Id (mechanical)</td>
+<td>[rpm]</td>
+</tr>
+<tr>
+<td>CP_ID_UP_SPEED_RPM</td>
+<td>Speed to start increasing Id (mechanical)</td>
+<td>[rpm]</td>
+</tr>
+<tr>
+<td>CP_MAX_SPEED_RPM</td>
+<td>Maximum speed (mechanical)</td>
+<td>[rpm]</td>
+</tr>
+<tr>
+<td>CP_SPEED_LIMIT_RPM</td>
+<td>Over speed limit (mechanical angle)</td>
+<td>[rpm]</td>
+</tr>
+<tr>
+<td>CP_OL_ID_REF</td>
+<td>Id reference when low speed</td>
+<td>[A]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</body>
+</html>

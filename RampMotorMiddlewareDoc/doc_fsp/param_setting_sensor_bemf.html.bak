@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>param_setting_sensor_bemf</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+<h1 id="list-of-sensor-bemf-module">List of Sensor BEMF Module</h1>
+<p>The changeable parameters that are used in BEMF Sensor module control
+and their initial values are listed below.</p>
+<p><strong>Table 1 Configuration Options
+(rm_motor_sensor_bemf)</strong></p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 18%" />
+<col style="width: 15%" />
+<col style="width: 39%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: center;">Category</th>
+<th style="text-align: center;">Sub-Category</th>
+<th style="text-align: left;">Item</th>
+<th style="text-align: left;">Descriptions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Open Loop</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">Open loop damping</td>
+<td style="text-align: left;">Enable or disable open-loop damping</td>
+</tr>
+<tr>
+<td style="text-align: center;">Open Loop</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">Soft switch</td>
+<td style="text-align: left;">Enable or disable soft switch at the
+transition of open loop to PI control</td>
+</tr>
+<tr>
+<td style="text-align: center;">Open Loop</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">Limit of speed fb rate</td>
+<td style="text-align: left;">Speed feedback rate limit</td>
+</tr>
+<tr>
+<td style="text-align: center;">Open Loop</td>
+<td style="text-align: center;">Current Reference</td>
+<td style="text-align: left;">Open-loop Id reference [A]</td>
+<td style="text-align: left;">Open loop Id current reference</td>
+</tr>
+<tr>
+<td style="text-align: center;">Open Loop</td>
+<td style="text-align: center;">Current Reference</td>
+<td style="text-align: left;">Id up step [step]</td>
+<td style="text-align: left;">Step of increase of d-axis current</td>
+</tr>
+<tr>
+<td style="text-align: center;">Open Loop</td>
+<td style="text-align: center;">Current Reference</td>
+<td style="text-align: left;">Id down step [step]</td>
+<td style="text-align: left;">Step of decrease of d-axis current</td>
+</tr>
+<tr>
+<td style="text-align: center;">Open Loop</td>
+<td style="text-align: center;">Current Reference</td>
+<td style="text-align: left;">Iq down proportion</td>
+<td style="text-align: left;">Ratio of decrease of q-axis current</td>
+</tr>
+<tr>
+<td style="text-align: center;">Open Loop</td>
+<td style="text-align: center;">Transition</td>
+<td style="text-align: left;">Speed threshold to FOC [rpm]</td>
+<td style="text-align: left;">Speed threshold to switch from open-loop
+to FOC</td>
+</tr>
+<tr>
+<td style="text-align: center;">Open Loop</td>
+<td style="text-align: center;">Transition</td>
+<td style="text-align: left;">Speed threshold to Open-loop [rpm]</td>
+<td style="text-align: left;">Speed threshold to switch from FOC to
+open-loop</td>
+</tr>
+<tr>
+<td style="text-align: center;">Open Loop</td>
+<td style="text-align: center;">Transition</td>
+<td style="text-align: left;">Transition time to FOC [s]</td>
+<td style="text-align: left;">Transition time from open-loop to FOC</td>
+</tr>
+<tr>
+<td style="text-align: center;">Open Loop</td>
+<td style="text-align: center;">Transition</td>
+<td style="text-align: left;">Phase error to FOC [degree]</td>
+<td style="text-align: left;">Phase error to decide switching from
+open-loop to FOC</td>
+</tr>
+<tr>
+<td style="text-align: center;">Open Loop</td>
+<td style="text-align: center;">Design Parameter</td>
+<td style="text-align: left;">ed HPF omega [Hz]</td>
+<td style="text-align: left;">Natural frequency [Hz] for HPF in
+open-loop damping gain design</td>
+</tr>
+<tr>
+<td style="text-align: center;">Open Loop</td>
+<td style="text-align: center;">Design Parameter</td>
+<td style="text-align: left;">Open-loop damping zeta</td>
+<td style="text-align: left;">Damping ratio for open-loop damping gain
+design</td>
+</tr>
+<tr>
+<td style="text-align: center;">BEMF Observer</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">Natural frequency [Hz]</td>
+<td style="text-align: left;">Natural frequency for disturbance speed
+observer</td>
+</tr>
+<tr>
+<td style="text-align: center;">BEMF Observer</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">Damping ratio</td>
+<td style="text-align: left;">Damping ratio for BEMF observer</td>
+</tr>
+<tr>
+<td style="text-align: center;">PLL</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">Natural frequency [Hz]</td>
+<td style="text-align: left;">Natural frequency for rotor position
+Phase-Locked Loop [Hz]</td>
+</tr>
+<tr>
+<td style="text-align: center;">PLL</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">Damping ratio</td>
+<td style="text-align: left;">Damping ratio for rotor position
+Phase-Locked Loop</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Table 2 Configuration Options initial value
+(rm_motor_sensor_bemf)</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Category</th>
+<th style="text-align: center;">Sub-Category</th>
+<th style="text-align: left;">Item</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Open Loop</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">Open loop damping</td>
+<td>Enable</td>
+</tr>
+<tr>
+<td style="text-align: center;">Open Loop</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">Soft switch</td>
+<td>Enable</td>
+</tr>
+<tr>
+<td style="text-align: center;">Open Loop</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">Limit of speed fb rate</td>
+<td>0.2</td>
+</tr>
+<tr>
+<td style="text-align: center;">Open Loop</td>
+<td style="text-align: center;">Current Reference</td>
+<td style="text-align: left;">Open-loop Id reference [A]</td>
+<td>0.5</td>
+</tr>
+<tr>
+<td style="text-align: center;">Open Loop</td>
+<td style="text-align: center;">Current Reference</td>
+<td style="text-align: left;">Id up step [step]</td>
+<td>256</td>
+</tr>
+<tr>
+<td style="text-align: center;">Open Loop</td>
+<td style="text-align: center;">Current Reference</td>
+<td style="text-align: left;">Id down step [step]</td>
+<td>500</td>
+</tr>
+<tr>
+<td style="text-align: center;">Open Loop</td>
+<td style="text-align: center;">Current Reference</td>
+<td style="text-align: left;">Iq down proportion</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td style="text-align: center;">Open Loop</td>
+<td style="text-align: center;">Transition</td>
+<td style="text-align: left;">Speed threshold to FOC [rpm]</td>
+<td>600.0</td>
+</tr>
+<tr>
+<td style="text-align: center;">Open Loop</td>
+<td style="text-align: center;">Transition</td>
+<td style="text-align: left;">Speed threshold to Open-loop [rpm]</td>
+<td>400.0</td>
+</tr>
+<tr>
+<td style="text-align: center;">Open Loop</td>
+<td style="text-align: center;">Transition</td>
+<td style="text-align: left;">Transition time to FOC [s]</td>
+<td>0.025</td>
+</tr>
+<tr>
+<td style="text-align: center;">Open Loop</td>
+<td style="text-align: center;">Transition</td>
+<td style="text-align: left;">Phase error to FOC [degree]</td>
+<td>10.0</td>
+</tr>
+<tr>
+<td style="text-align: center;">Open Loop</td>
+<td style="text-align: center;">Design Parameter</td>
+<td style="text-align: left;">Ed HPF omega [Hz]</td>
+<td>2.5</td>
+</tr>
+<tr>
+<td style="text-align: center;">Open Loop</td>
+<td style="text-align: center;">Design Parameter</td>
+<td style="text-align: left;">Open-loop damping zeta</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td style="text-align: center;">BEMF Observer</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">Natural frequency [Hz]</td>
+<td>1000.0</td>
+</tr>
+<tr>
+<td style="text-align: center;">BEMF Observer</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">Damping ratio</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td style="text-align: center;">PLL</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">Natural frequency [Hz]</td>
+<td>20.0</td>
+</tr>
+<tr>
+<td style="text-align: center;">PLL</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">Damping ratio</td>
+<td>1.0</td>
+</tr>
+</tbody>
+</table>
+<h2 id="setting-parameters">Setting Parameters</h2>
+<p>Parameters are broadly classified and described in two groups: those
+for open-loop control and those for sensorless FOC (closed-loop control
+using a back-EMF observer). Open-loop control is applied in the
+low-speed region, while sensorless FOC is applied in the medium- to
+high-speed region. Parameters related to switching between those control
+methods are included in the open-loop section.</p>
+<h3 id="open-loop">Open-Loop</h3>
+<p>Open-loop is a method to drive motor without using feedback of speed
+position, applied in low speed region. The parameters to be set are
+described in the sections bllow. - Parameters to set current reference
+profile for open-loop control (Current reference profile) - Parameters
+relating to switching between open-loop and sensorless FOC (Switching) -
+Parameters relating to open-loop damping (Open-loop damping)</p>
+<h4 id="current-reference-profile">Current reference profile</h4>
+<p>Use the parameters below for setting the Id current reference profile
+in open-loop, and Iq drop when switching from sensorless FOC to
+open-loop control.</p>
+<h5 id="open-loop-id-reference-a">Open-loop Id reference [A]</h5>
+<p>Specify the current that is to flow through the d axis when open-loop
+control is started. This value should be no greater than the rated
+current. If the motor has a large moment of inertia or load, specifying
+a small value may lead to the motor being unable to start properly.</p>
+<h5 id="id-up-step-step">Id up step [step]</h5>
+<p>Specify the time required to increase the current that is to flow
+through the d axis when open-loop control is started. The unit of this
+value is the current control cycle(a value of 1 specifies the period of
+one current control cycle).</p>
+<h5 id="id-down-step-step">Id down step [step]</h5>
+<p>Specify the time required to decrease the current that is to flow
+through the d axis in order to switch the operation to sensorless FOC
+control after open-loop control has started. The unit of this value is
+the current control cycle (a value of 1 specifies the period of one
+current control cycle).</p>
+<h5 id="iq-down-proportion">Iq down proportion</h5>
+<p>Specify the Iq reduction ratio from the reference value (used in
+feedback control) down to zero in open-loop mode. This Iq down
+proportion is applied over 256 steps of the current control cycle.</p>
+<h4 id="switching">Switching</h4>
+<p>Use the parameters below for setting the switching conditions between
+open-loop and sensorless FOC control.</p>
+<h5 id="speed-threshold-to-foc-rpm">Speed threshold to FOC [rpm]</h5>
+<p>Specify the mechanical angular velocity (rpm) at which the operation
+is to be switched from open-loop control to sensorless FOC control.
+Specify a velocity that is sufficiently higher than “Speed threshold to
+Open-loop” parameter.</p>
+<h5 id="speed-threshold-to-open-loop-rpm">Speed threshold to Open-loop
+[rpm]</h5>
+<p>Specify the mechanical angular velocity (rpm) at which the operation
+is to be switched from sensorless FOC control to open-loop control.</p>
+<h5 id="soft-switch">Soft switch</h5>
+<p>Specify the usage of soft switching function which helps the smooth
+switching from open-loop to sensorless FOC control.</p>
+<h5 id="transition-time-to-foc-s">Transition time to FOC [s]</h5>
+<p>Specify the time for switching the operation from open-loop control
+to closed-loop control (sensorless FOC by using the BEMF observer).
+Setting this parameter too long may cause a speed drop during the
+transition.</p>
+<h5 id="phase-error-to-foc-degree">Phase error to FOC [degree]</h5>
+<p>Specify the threshold value for the angle error to be used when the
+operation is switched from open-loop control to sensorless FOC control.
+The unit of this value is electrical angle (degrees). A value between
+5.0 and 10.0 is generally used.</p>
+<h5 id="limit-of-speed-fb-rate">Limit of speed fb rate</h5>
+<p>Specify the default constant for calculating the limit on the
+compensation value for output speed commands.</p>
+<h4 id="open-loop-damping">Open loop damping</h4>
+<p>Use the parameters below this function which will reduce vibration of
+the motor under open-loop control.</p>
+<h5 id="ed-hpf-omega-hz">Ed HPF omega [Hz]</h5>
+<p>Specify the cutoff frequency (Hz) of the HPF for estimating the
+voltage induced along the d axis.</p>
+<h5 id="open-loop-damping-zeta">Open-loop damping zeta</h5>
+<p>Specify the damping coefficient for the open-loop damping control
+system. Specify a value from 0.8 to 1.0.</p>
+<h3 id="sensorless-foc">Sensorless FOC</h3>
+<p>Sensorless FOC is a method to drive a motor in FOC, using estimated
+angle and speed. This module uses a BEMF observer and PLL for estimating
+the motor’s angle and speed, applied in middle to high speed region</p>
+<h4 id="bemf-observer">BEMF Observer</h4>
+<p>BEMF observer estimates the motor’s back-EMF from the voltage
+commands and measured currents using an electrical motor model. The
+estimated BEMF is used to obtain rotor electrical angle and speed (via
+PLL) for sensorless FOC.</p>
+<h5 id="natural-frequency-hz">Natural frequency [Hz]</h5>
+<p>Specify the natural frequency for the BEMF observer. The frequency
+should be sufficiently separated from the CURRENT_CFG_OMEGA setting for
+the current regulator, with around 2 to 3 times of CURRENT_CFG_OMEGA as
+a suggested range. Specifying a value that is relatively close to
+CURRENT_CFG_OMEGA will make obtaining correct values for angle
+impossible due to oscillation of the output from the BEMF observer.</p>
+<h5 id="damping-ratio">Damping ratio</h5>
+<p>Specify the attenuation coefficient for the BEMF observer. Specify
+1.0 in general.</p>
+<h4 id="pll">PLL</h4>
+<p>PLL is used to obtain electrical speed from the estimated BEMF.</p>
+<h5 id="natural-frequency-hz-1">Natural frequency [Hz]</h5>
+<p>Specify the natural frequency for the PLL for use in accumulating the
+angle errors obtained by the BEMF observer and in calculating angles.
+The frequency should be around 1/10 of that for the BEMF observer and
+higher than SPEED_CFG_OMEGA for the speed regulator. If an inappropriate
+value is specified, correct estimation of angles will not be possible
+and the output may oscillate.</p>
+<h5 id="damping-ratio-1">Damping ratio</h5>
+<p>Specify the attenuation coefficient for the PLL for use in
+accumulating the angle errors obtained by the BEMF observer and in
+calculating angles. Specify 1.0 in general.</p>
+</body>
+</html>
