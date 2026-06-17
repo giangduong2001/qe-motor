@@ -10,7 +10,7 @@
 	<SensorType en="Hall sensor feedback" jp="ホールセンサフィードバック" />
 	<SensorType en="Sensorless feedback" jp="センサレスフィードバック" />
 	<ControlType en="Vector control" jp="ベクトル制御" />
-	<ZipDownloadUrl>https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/RA6T2_MCB2_MCILV1_AMM_E2S_V100.zip</ZipDownloadUrl>
+	<ZipDownloadUrl>https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/RA6T2_MCB2_MCILV1_RAMP_E2S_V100.zip</ZipDownloadUrl>
 	<Date>2026-03-31</Date>
 	<SampleProject>
 		<DeviceName>RA6T2</DeviceName>
