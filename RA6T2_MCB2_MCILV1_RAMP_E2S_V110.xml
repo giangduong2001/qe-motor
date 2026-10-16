@@ -6,7 +6,7 @@
 	<Category en="1-shunt current detection method" jp="1シャント抵抗電流検出方式" />
 	<Category en="2-shunt current detection method" jp="2シャント抵抗電流検出方式" />
 	<Category en="3-shunt current detection method" jp="3シャント抵抗電流検出方式" />
-	<Category en="RAMP" jp="RAMP" />
+	<Category en="RAMP" jp="RAMP" default="true" />
 	<SensorType en="Hall sensor feedback" jp="ホールセンサフィードバック" />
 	<SensorType en="Sensorless feedback" jp="センサレスフィードバック" />
 	<ControlType en="Vector control" jp="ベクトル制御" />
