@@ -1,0 +1,46 @@
+{
+    "targetData": [
+        {
+            "algorithmModuleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+            "sensorSelectInfo": {
+                "moduleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+                "propertyId": "module.middleware.motor_algorithm.sensor_select",
+                "interfaceKeyword": "module.middleware.motor_algorithm.requires"
+            },
+            "propertyInfos": [
+                {
+                    "sensorModuleId": "module.middleware.motor_sensor_on_motor_sensor_bemf",
+                    "url": "https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/rampPropertyInfo_fsp6.5.1_v0.0.1.json"
+                },
+                {
+                    "sensorModuleId": "module.middleware.motor_sensor_on_motor_sensor_hall",
+                    "url": "https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/rampPropertyInfo_fsp6.5.1_v0.0.1.json"
+                },
+                {
+                    "sensorModuleId": "module.middleware.motor_sensor_on_motor_sensor_bemf_hfi",
+                    "url": "https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/rampPropertyInfo_hfi_fsp6.5.1_v0.0.1.json"
+                },
+                {
+                    "sensorModuleId": "module.middleware.motor_sensor_on_motor_sensor_afo",
+                    "url": "https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/rampPropertyInfo_afo_fsp6.5.1_v0.0.1.json"
+                }
+            ]
+        },
+        {
+            "algorithmModuleId": "module.middleware.motor_algorithm_on_motor_120deg_hall",
+            "propertyInfos": [
+                {
+                    "url": "https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/rampPropertyInfo_120degHall_fsp6.5.1_v0.0.1.json"
+                }
+            ]
+        },
+        {
+            "algorithmModuleId": "module.middleware.motor_algorithm_on_motor_120deg_sensorless",
+            "propertyInfos": [
+                {
+                    "url": "https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/rampPropertyInfo_120degLess_fsp6.5.1_v0.0.1.json"
+                }
+            ]
+        }
+    ]
+}
