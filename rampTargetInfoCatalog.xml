@@ -2,7 +2,7 @@
 <RampTargetCatalog>
     <Info>
         <SupportedFspVersion>6.6.0</SupportedFspVersion>
-        <Url>https://raw.githubusercontent.com/renesas/qe-tools/refs/heads/main/qe_motor/RampPropertyInfo/rampTargetInfo_fsp6.6.0_v0.0.2.json</Url>
+        <Url>https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/rampTargetInfo_fsp6.6.0_v0.0.1.json</Url>
     </Info>
     <Info>
         <SupportedFspVersion>6.4.0</SupportedFspVersion>
