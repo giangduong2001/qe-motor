@@ -13,8 +13,8 @@
         <Url>https://raw.githubusercontent.com/renesas/qe-tools/refs/heads/main/qe_motor/RampPropertyInfo/rampTargetInfo_fsp0.0.0_v0.0.1.json</Url>
     </Info>
     <Info>
-        <SupportedFspVersion>6.5.1</SupportedFspVersion>
-        <Url>https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/rampTargetInfo_fsp6.5.1_v0.0.1.json</Url>
+        <SupportedFspVersion>6.5.0</SupportedFspVersion>
+        <Url>https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/rampTargetInfo_fsp6.5.0_v0.0.1.json</Url>
     </Info>
 </RampTargetCatalog>
 
