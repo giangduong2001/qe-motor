@@ -1,0 +1,22 @@
+{
+    "targetData": [
+        {
+            "algorithmModuleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+            "sensorSelectInfo": {
+                "moduleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+                "propertyId": "module.middleware.motor_algorithm.sensor_select",
+                "interfaceKeyword": "module.middleware.motor_algorithm.requires"
+            },
+            "propertyInfos": [
+                {
+                    "sensorModuleId": "module.middleware.motor_sensor_on_motor_sensor_bemf",
+                    "url": "https://raw.githubusercontent.com/renesas/qe-tools/refs/heads/main/qe_motor/RampPropertyInfo/rampPropertyInfo_fsp6.6.0_v0.0.2.json"
+                },
+                {
+                    "sensorModuleId": "module.middleware.motor_sensor_on_motor_sensor_hall",
+                    "url": "https://raw.githubusercontent.com/renesas/qe-tools/refs/heads/main/qe_motor/RampPropertyInfo/rampPropertyInfo_fsp6.6.0_v0.0.2.json"
+                }
+            ]
+        }
+    ]
+}
