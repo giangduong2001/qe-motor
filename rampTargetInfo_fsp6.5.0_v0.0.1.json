@@ -9,20 +9,13 @@
             },
             "propertyInfos": [
                 {
-                    "sensorModuleId": "module.middleware.motor_sensor_on_motor_sensor_bemf",
+                    "sensorModuleId": [
+                        "module.middleware.motor_sensor_on_motor_sensor_bemf",
+                        "module.middleware.motor_sensor_on_motor_sensor_hall",
+                        "module.middleware.motor_sensor_on_motor_sensor_bemf_hfi",
+                        "module.middleware.motor_sensor_on_motor_sensor_afo"
+                    ],
                     "url": "https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/rampPropertyInfo_fsp6.5.0_v0.0.1.json"
-                },
-                {
-                    "sensorModuleId": "module.middleware.motor_sensor_on_motor_sensor_hall",
-                    "url": "https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/rampPropertyInfo_fsp6.5.0_v0.0.1.json"
-                },
-                {
-                    "sensorModuleId": "module.middleware.motor_sensor_on_motor_sensor_bemf_hfi",
-                    "url": "https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/rampPropertyInfo_hfi_fsp6.5.0_v0.0.1.json"
-                },
-                {
-                    "sensorModuleId": "module.middleware.motor_sensor_on_motor_sensor_afo",
-                    "url": "https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/rampPropertyInfo_afo_fsp6.5.0_v0.0.1.json"
                 }
             ]
         },
