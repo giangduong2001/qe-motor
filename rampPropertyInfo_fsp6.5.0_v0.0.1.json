@@ -985,7 +985,7 @@
         "moduleId": "module.middleware.motor_hal_driver_on_motor_hal_driver",
         "propertyId": "module.middleware.motor_hal_driver.shunt"
       },
-            "deviceSensorTypes": [
+      "deviceSensorTypes": [
         {
           "sensorTypeId": "Sensorless Vector Control",
           "sensorModuleId": "module.middleware.motor_sensor_on_motor_sensor_bemf",
