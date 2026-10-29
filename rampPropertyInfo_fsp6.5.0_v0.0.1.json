@@ -985,6 +985,89 @@
         "moduleId": "module.middleware.motor_hal_driver_on_motor_hal_driver",
         "propertyId": "module.middleware.motor_hal_driver.shunt"
       },
+      "deviceSensorTypes": [
+        {
+          "sensorTypeId": "Sensorless Vector Control",
+          "sensorModuleId": "module.middleware.motor_sensor_on_motor_sensor_bemf",
+          "moduleConfigs": [
+            {
+              "moduleId": "module.middleware.motor_sensor_on_motor_sensor_bemf",
+              "parentModuleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "interfaceId": "module.middleware.motor_algorithm.requires.sensor1",
+              "properties": []
+            },
+            {
+              "moduleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_algorithm.sensor_select",
+                  "value": "module.middleware.motor_algorithm.sensor_select.slot1"
+                }
+              ]
+            }
+          ],
+          "macros": [
+            {
+              "macroDef": "MOTOR_SENSOR_1",
+              "macroValue": "MOTOR_SENSOR_BEMF"
+            }
+          ]
+        },
+        {
+          "sensorTypeId": "Vector Control with hall sensors",
+          "sensorModuleId": "module.middleware.motor_sensor_on_motor_sensor_hall",
+          "moduleConfigs": [
+            {
+              "moduleId": "module.middleware.motor_sensor_on_motor_sensor_hall",
+              "parentModuleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "interfaceId": "module.middleware.motor_algorithm.requires.sensor1",
+              "properties": []
+            },
+            {
+              "moduleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_algorithm.sensor_select",
+                  "value": "module.middleware.motor_algorithm.sensor_select.slot1"
+                }
+              ]
+            }
+          ],
+          "macros": [
+            {
+              "macroDef": "MOTOR_SENSOR_1",
+              "macroValue": "MOTOR_SENSOR_HALL"
+            }
+          ]
+        },
+        {
+          "sensorTypeId": "Sensorless HFI Vector Control",
+          "sensorModuleId": "module.middleware.motor_sensor_on_motor_sensor_bemf_hfi",
+          "moduleConfigs": [
+            {
+              "moduleId": "module.middleware.motor_sensor_on_motor_sensor_bemf_hfi",
+              "parentModuleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "interfaceId": "module.middleware.motor_algorithm.requires.sensor1",
+              "properties": []
+            },
+            {
+              "moduleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_algorithm.sensor_select",
+                  "value": "module.middleware.motor_algorithm.sensor_select.slot1"
+                }
+              ]
+            }
+          ],
+          "macros": [
+            {
+              "macroDef": "MOTOR_SENSOR_1",
+              "macroValue": "MOTOR_SENSOR_BEMF"
+            }
+          ]
+        }
+      ],
       "devicesShuntTypes": [
         {
           "shuntTypeId": "1-Shunt",
@@ -1023,7 +1106,7 @@
                 },
                 {
                   "propertyId": "module.middleware.motor_algorithm.f_over_current",
-                  "value": "1.67F"
+                  "value": "3.2F"
                 },
                 {
                   "propertyId": "module.middleware.motor_algorithm.voltage_comp_v1",
@@ -1065,7 +1148,7 @@
                 },
                 {
                   "propertyId": "module.driver.adc.sampling_table_id_0",
-                  "value": "30"
+                  "value": "10"
                 },
                 {
                   "propertyId": "module.driver.adc.sample_and_hold_enable_mask",
@@ -1709,6 +1792,12 @@
               ]
             }
           ]
+        }
+      ],
+      "incompatibleSelections": [
+        {
+          "sensorTypeId": "Sensorless HFI Vector Control",
+          "shuntTypeId": "1-Shunt"
         }
       ]
     },
