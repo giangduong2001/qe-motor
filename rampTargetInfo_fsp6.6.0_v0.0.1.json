@@ -9,11 +9,10 @@
             },
             "propertyInfos": [
                 {
-                    "sensorModuleId": "module.middleware.motor_sensor_on_motor_sensor_bemf",
-                    "url": "https://raw.githubusercontent.com/renesas/qe-tools/refs/heads/main/qe_motor/RampPropertyInfo/rampPropertyInfo_fsp6.6.0_v0.0.2.json"
-                },
-                {
-                    "sensorModuleId": "module.middleware.motor_sensor_on_motor_sensor_hall",
+                    "sensorModuleIds": [
+                        "module.middleware.motor_sensor_on_motor_sensor_bemf",
+                        "module.middleware.motor_sensor_on_motor_sensor_hall"
+                    ],
                     "url": "https://raw.githubusercontent.com/renesas/qe-tools/refs/heads/main/qe_motor/RampPropertyInfo/rampPropertyInfo_fsp6.6.0_v0.0.2.json"
                 }
             ]
