@@ -1065,7 +1065,8 @@
               "macroDef": "MOTOR_SENSOR_1",
               "macroValue": "MOTOR_SENSOR_BEMF"
             }
-          ]
+          ],
+          "requiresSalientMotor": true
         }
       ],
       "devicesShuntTypes": [
