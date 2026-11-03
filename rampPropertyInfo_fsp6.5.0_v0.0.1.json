@@ -1065,8 +1065,7 @@
               "macroDef": "MOTOR_SENSOR_1",
               "macroValue": "MOTOR_SENSOR_BEMF"
             }
-          ],
-          "requiresSalientMotor": true
+          ]
         }
       ],
       "devicesShuntTypes": [
@@ -1799,6 +1798,21 @@
         {
           "sensorTypeId": "Sensorless HFI Vector Control",
           "shuntTypeId": "1-Shunt"
+        }
+      ],
+      "warnings": [
+        {
+          "when": {
+            "sensorTypeId": "Sensorless HFI Vector Control"
+          },
+          "messageId": "ChangeControlMethodDialog_Warning_SalientMotor"
+        },
+        {
+          "when": {
+            "sensorTypeId": "Sensorless HFI Vector Control",
+            "shuntTypeId": "3-Shunt"
+          },
+          "messageId": "ChangeControlMethodDialog_Warning_Test"
         }
       ]
     },
