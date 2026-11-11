@@ -1,0 +1,2692 @@
+{
+  "deviceData": {
+    "RA6T2": {
+      "motorControlModuleId": "module.middleware.motor_on_motor_control",
+      "motorTunerModuleId": "module.middleware.motor_tuner_on_motor_tuner_pm",
+      "sensorSelectInfo": {
+        "moduleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+        "propertyId": "module.middleware.motor_algorithm.sensor_select",
+        "interfaceKeyword": "module.middleware.motor_algorithm.requires"
+      },
+      "shuntSelectInfo": {
+        "moduleId": "module.middleware.motor_hal_driver_on_motor_hal_driver",
+        "propertyId": "module.middleware.motor_hal_driver.shunt"
+      },
+      "deviceSensorTypes": [
+        {
+          "sensorTypeId": "Sensorless Vector Control",
+          "sensorModuleId": "module.middleware.motor_sensor_on_motor_sensor_bemf",
+          "moduleConfigs": [
+            {
+              "moduleId": "module.middleware.motor_sensor_on_motor_sensor_bemf",
+              "parentModuleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "interfaceId": "module.middleware.motor_algorithm.requires.sensor1",
+              "properties": []
+            },
+            {
+              "moduleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_algorithm.sensor_select",
+                  "value": "module.middleware.motor_algorithm.sensor_select.slot1"
+                }
+              ]
+            }
+          ],
+          "macros": [
+            {
+              "macroDef": "MOTOR_SENSOR_1",
+              "macroValue": "MOTOR_SENSOR_BEMF"
+            }
+          ]
+        },
+        {
+          "sensorTypeId": "Vector Control with hall sensors",
+          "sensorModuleId": "module.middleware.motor_sensor_on_motor_sensor_hall",
+          "moduleConfigs": [
+            {
+              "moduleId": "module.middleware.motor_sensor_on_motor_sensor_hall",
+              "parentModuleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "interfaceId": "module.middleware.motor_algorithm.requires.sensor1",
+              "properties": []
+            },
+            {
+              "moduleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_algorithm.sensor_select",
+                  "value": "module.middleware.motor_algorithm.sensor_select.slot1"
+                }
+              ]
+            }
+          ],
+          "macros": [
+            {
+              "macroDef": "MOTOR_SENSOR_1",
+              "macroValue": "MOTOR_SENSOR_HALL"
+            }
+          ]
+        },
+        {
+          "sensorTypeId": "Vector Control with AFO sensors",
+          "sensorModuleId": "module.middleware.motor_sensor_on_motor_sensor_afo",
+          "moduleConfigs": [
+            {
+              "moduleId": "module.middleware.motor_sensor_on_motor_sensor_afo",
+              "parentModuleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "interfaceId": "module.middleware.motor_algorithm.requires.sensor1",
+              "properties": []
+            },
+            {
+              "moduleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_algorithm.sensor_select",
+                  "value": "module.middleware.motor_algorithm.sensor_select.slot1"
+                }
+              ]
+            }
+          ],
+          "macros": [
+            {
+              "macroDef": "MOTOR_SENSOR_1",
+              "macroValue": "MOTOR_SENSOR_BEMF"
+            }
+          ]
+        },
+        {
+          "sensorTypeId": "Vector Control with HFI sensors",
+          "sensorModuleId": "module.middleware.motor_sensor_on_motor_sensor_bemf_hfi",
+          "moduleConfigs": [
+            {
+              "moduleId": "module.middleware.motor_sensor_on_motor_sensor_bemf_hfi",
+              "parentModuleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "interfaceId": "module.middleware.motor_algorithm.requires.sensor1",
+              "properties": []
+            },
+            {
+              "moduleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_algorithm.sensor_select",
+                  "value": "module.middleware.motor_algorithm.sensor_select.slot1"
+                }
+              ]
+            }
+          ],
+          "macros": [
+            {
+              "macroDef": "MOTOR_SENSOR_1",
+              "macroValue": "MOTOR_SENSOR_BEMF"
+            }
+          ]
+        }
+      ],
+      "devicesShuntTypes": [
+        {
+          "shuntTypeId": "1-Shunt",
+          "propertyValue": "module.middleware.motor_hal_driver.shunt.1_shunt",
+          "moduleConfigs": [
+            {
+              "moduleId": "module.middleware.motor_sensor_on_motor_sensor_bemf",
+              "parentModuleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "interfaceId": "module.middleware.motor_algorithm.requires.sensor1",
+              "applicableSensorTypeId": "Sensorless Vector Control",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_sensor.f4_id_down_speed_rpm",
+                  "value": "800.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.f4_id_up_speed_rpm",
+                  "value": "300.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.e_obs_omega",
+                  "value": "600.0"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.middleware.motor_sensor_on_motor_sensor_afo",
+              "parentModuleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "interfaceId": "module.middleware.motor_algorithm.requires.sensor1",
+              "applicableSensorTypeId": "Vector Control with AFO sensors",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_sensor.name",
+                  "value": "g_motor0_sensor_afo"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.afo_slow_mode",
+                  "value": "module.middleware.motor_sensor.afo_slow_mode.openloop"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.afo_standstill_mode",
+                  "value": "module.middleware.motor_sensor.afo_standstill_mode.default"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.openloop_damping",
+                  "value": "module.middleware.motor_sensor.openloop_damping.enable"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.f4_ol_id_ref",
+                  "value": "1.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.ol_id_up_step",
+                  "value": "256"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.ol_id_down_step",
+                  "value": "500"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.f4_ol_iq_down_step_ratio",
+                  "value": "1.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.f4_id_down_speed_rpm",
+                  "value": "600.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.f4_id_up_speed_rpm",
+                  "value": "400.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.f4_opl2less_sw_time",
+                  "value": "0.025"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.f_fb_speed_limit_rate",
+                  "value": "0.2"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.ol_damping_zeta",
+                  "value": "1.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.afo_res_coeff",
+                  "value": "1.1"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.afo_speed_coeff",
+                  "value": "10.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.afo_mech_speed_limit_for_gain",
+                  "value": "700.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.afo_mech_speed_limit_for_model",
+                  "value": "700.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.afo_adaptive_omega",
+                  "value": "25.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.afo_speed_coeff_lpf_omega",
+                  "value": "3.18"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.afo_fc_div_fs",
+                  "value": "10"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_pll_est_omega",
+                  "value": "50.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_pll_est_zeta",
+                  "value": "1.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_posest_time",
+                  "value": "4000"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_pf_threshold",
+                  "value": "10.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_pulsefreq_boot",
+                  "value": "3"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_pulsefreq_drive",
+                  "value": "2"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_timeout_cnt",
+                  "value": "6000"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_pulsevolt_boot",
+                  "value": "8.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_pulsevolt_drive",
+                  "value": "8.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_mech_speed_slow_to_high",
+                  "value": "275.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_mech_speed_high_to_slow",
+                  "value": "205.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.ipd_u1_input_count",
+                  "value": "2"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.ipd_u1_wait_count",
+                  "value": "100"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.ipd_f4_inj_voltage",
+                  "value": "8.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.ipd_f4_iq_ref_const",
+                  "value": "0.5"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "applicableSensorTypeId": "Sensorless Vector Control",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_algorithm.pwm_carrier_period",
+                  "value": "100"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_current_omega",
+                  "value": "300.0F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_speed_omega",
+                  "value": "6.0F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_omega_t",
+                  "value": "20.0F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_speed_ctrl_period",
+                  "value": "0.001F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_iq_limit",
+                  "value": "1.67F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_over_current",
+                  "value": "3.2F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.period_magnitude",
+                  "value": "1.5"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_v1",
+                  "value": "0.024F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_v2",
+                  "value": "0.048F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_v3",
+                  "value": "0.072F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_v4",
+                  "value": "0.096F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_v5",
+                  "value": "0.120F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.u2_mtr_pp",
+                  "value": "4"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_r",
+                  "value": "1.3F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_ld",
+                  "value": "0.0013F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_lq",
+                  "value": "0.0013F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_m",
+                  "value": "0.01119F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_j",
+                  "value": "0.000003666F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_nominal_current",
+                  "value": "1.67F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.outerfunc_table.fluxweaken",
+                  "value": "module.middleware.motor_algorithm.outerfunc_table.fluxweaken.enabled"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.outerfunc_table.speedfb",
+                  "value": "module.middleware.motor_algorithm.outerfunc_table.speedfb.direct"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "applicableSensorTypeId": "Vector Control with hall sensors",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_algorithm.pwm_carrier_period",
+                  "value": "100"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_current_omega",
+                  "value": "300.0F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_speed_omega",
+                  "value": "6.0F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_omega_t",
+                  "value": "20.0F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_speed_ctrl_period",
+                  "value": "0.001F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_iq_limit",
+                  "value": "1.67F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_over_current",
+                  "value": "3.2F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.period_magnitude",
+                  "value": "1.5"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_v1",
+                  "value": "0.024F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_v2",
+                  "value": "0.048F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_v3",
+                  "value": "0.072F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_v4",
+                  "value": "0.096F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_v5",
+                  "value": "0.120F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.u2_mtr_pp",
+                  "value": "4"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_r",
+                  "value": "1.3F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_ld",
+                  "value": "0.0013F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_lq",
+                  "value": "0.0013F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_m",
+                  "value": "0.01119F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_j",
+                  "value": "0.000003666F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_nominal_current",
+                  "value": "1.67F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.outerfunc_table.fluxweaken",
+                  "value": "module.middleware.motor_algorithm.outerfunc_table.fluxweaken.enabled"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.outerfunc_table.speedfb",
+                  "value": "module.middleware.motor_algorithm.outerfunc_table.speedfb.direct"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "applicableSensorTypeId": "Vector Control with AFO sensors",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_algorithm.pwm_carrier_period",
+                  "value": "100"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_current_omega",
+                  "value": "600.0F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_speed_omega",
+                  "value": "5.0F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_omega_t",
+                  "value": "25.0F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_speed_ctrl_period",
+                  "value": "0.001F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_iq_limit",
+                  "value": "5.0F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_over_current",
+                  "value": "18.5F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.period_magnitude",
+                  "value": "0.5"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_v1",
+                  "value": "0.048F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_v2",
+                  "value": "0.096F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_v3",
+                  "value": "0.144F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_v4",
+                  "value": "0.192F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_v5",
+                  "value": "0.240F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.u2_mtr_pp",
+                  "value": "7"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_r",
+                  "value": "0.045F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_ld",
+                  "value": "0.0000951F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_lq",
+                  "value": "0.000125F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_m",
+                  "value": "0.0088F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_j",
+                  "value": "0.0000294367F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_nominal_current",
+                  "value": "12.3F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.outerfunc_table.fluxweaken",
+                  "value": "module.middleware.motor_algorithm.outerfunc_table.fluxweaken.disabled"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.outerfunc_table.speedfb",
+                  "value": "module.middleware.motor_algorithm.outerfunc_table.speedfb.lpf"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.middleware.motor_hal_driver_on_motor_hal_driver",
+              "applicableSensorTypeId": "Sensorless Vector Control",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_hal_driver.shunt",
+                  "value": "module.middleware.motor_hal_driver.shunt.1_shunt"
+                },
+                {
+                  "propertyId": "module.middleware.motor_hal_driver.diff_min",
+                  "value": "300"
+                },
+                {
+                  "propertyId": "module.middleware.motor_hal_driver.adjust_adc_delay",
+                  "value": "240"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.middleware.motor_hal_driver_on_motor_hal_driver",
+              "applicableSensorTypeId": "Vector Control with hall sensors",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_hal_driver.shunt",
+                  "value": "module.middleware.motor_hal_driver.shunt.1_shunt"
+                },
+                {
+                  "propertyId": "module.middleware.motor_hal_driver.diff_min",
+                  "value": "300"
+                },
+                {
+                  "propertyId": "module.middleware.motor_hal_driver.adjust_adc_delay",
+                  "value": "240"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.middleware.motor_hal_driver_on_motor_hal_driver",
+              "applicableSensorTypeId": "Vector Control with AFO sensors",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_hal_driver.shunt",
+                  "value": "module.middleware.motor_hal_driver.shunt.1_shunt"
+                },
+                {
+                  "propertyId": "module.middleware.motor_hal_driver.diff_min",
+                  "value": "180"
+                },
+                {
+                  "propertyId": "module.middleware.motor_hal_driver.adjust_adc_delay",
+                  "value": "120"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.adc_on_adc_b",
+              "applicableSensorTypeId": "Sensorless Vector Control",
+              "properties": [
+                {
+                  "propertyId": "module.driver.adc.scan_end_ipl_group_0",
+                  "value": "_disabled"
+                },
+                {
+                  "propertyId": "module.driver.adc.sample_and_hold_enable_mask",
+                  "excludeValue": [
+                    "module.driver.adc.sample_and_hold_enable_mask.unit_0",
+                    "module.driver.adc.sample_and_hold_enable_mask.unit_2",
+                    "module.driver.adc.sample_and_hold_enable_mask.unit_1"
+                  ],
+                  "includeValue": []
+                },
+                {
+                  "propertyId": "module.driver.adc.virtual_channel_0_scan_group",
+                  "value": "module.driver.adc.virtual_channel_0_scan_group.none"
+                },
+                {
+                  "propertyId": "module.driver.adc.virtual_channel_1_scan_group",
+                  "value": "module.driver.adc.virtual_channel_1_scan_group.none"
+                },
+                {
+                  "propertyId": "module.driver.adc.virtual_channel_4_scan_group",
+                  "value": "module.driver.adc.virtual_channel_4_scan_group.scan_group_2"
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_0_scan_end_isr_enable",
+                  "value": "module.driver.adc.scan_group_0_scan_end_isr_enable.disable"
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_0_gpt_trigger_enable_mask",
+                  "excludeValue": [],
+                  "includeValue": [
+                    "module.driver.adc.scan_group_0_gpt_trigger_enable_mask.gpt_channel_4_request_b",
+                    "module.driver.adc.scan_group_0_gpt_trigger_enable_mask.gpt_channel_8_request_b"
+                  ]
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_0_fifo_enable",
+                  "value": "module.driver.adc.scan_group_0_fifo_enable.enable"
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_1_gpt_trigger_enable_mask",
+                  "excludeValue": [
+                    "module.driver.adc.scan_group_1_gpt_trigger_enable_mask.gpt_channel_4_request_a"
+                  ],
+                  "includeValue": [
+                    "module.driver.adc.scan_group_1_gpt_trigger_enable_mask.gpt_channel_5_request_a"
+                  ]
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_2_enable",
+                  "value": "module.driver.adc.scan_group_2_enable.enable"
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_2_scan_end_isr_enable",
+                  "value": "module.driver.adc.scan_group_2_scan_end_isr_enable.disable"
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_2_gpt_trigger_enable_mask",
+                  "excludeValue": [],
+                  "includeValue": [
+                    "module.driver.adc.scan_group_2_gpt_trigger_enable_mask.gpt_channel_5_request_a"
+                  ]
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_2_limit_clip_isr_enable",
+                  "value": "module.driver.adc.scan_group_2_limit_clip_isr_enable.disable"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.adc_on_adc_b",
+              "applicableSensorTypeId": "Vector Control with hall sensors",
+              "properties": [
+                {
+                  "propertyId": "module.driver.adc.scan_end_ipl_group_0",
+                  "value": "_disabled"
+                },
+                {
+                  "propertyId": "module.driver.adc.sample_and_hold_enable_mask",
+                  "excludeValue": [
+                    "module.driver.adc.sample_and_hold_enable_mask.unit_0",
+                    "module.driver.adc.sample_and_hold_enable_mask.unit_2",
+                    "module.driver.adc.sample_and_hold_enable_mask.unit_1"
+                  ],
+                  "includeValue": []
+                },
+                {
+                  "propertyId": "module.driver.adc.virtual_channel_0_scan_group",
+                  "value": "module.driver.adc.virtual_channel_0_scan_group.none"
+                },
+                {
+                  "propertyId": "module.driver.adc.virtual_channel_1_scan_group",
+                  "value": "module.driver.adc.virtual_channel_1_scan_group.none"
+                },
+                {
+                  "propertyId": "module.driver.adc.virtual_channel_4_scan_group",
+                  "value": "module.driver.adc.virtual_channel_4_scan_group.scan_group_2"
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_0_scan_end_isr_enable",
+                  "value": "module.driver.adc.scan_group_0_scan_end_isr_enable.disable"
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_0_gpt_trigger_enable_mask",
+                  "excludeValue": [],
+                  "includeValue": [
+                    "module.driver.adc.scan_group_0_gpt_trigger_enable_mask.gpt_channel_4_request_b",
+                    "module.driver.adc.scan_group_0_gpt_trigger_enable_mask.gpt_channel_8_request_b"
+                  ]
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_0_fifo_enable",
+                  "value": "module.driver.adc.scan_group_0_fifo_enable.enable"
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_1_gpt_trigger_enable_mask",
+                  "excludeValue": [
+                    "module.driver.adc.scan_group_1_gpt_trigger_enable_mask.gpt_channel_4_request_a"
+                  ],
+                  "includeValue": [
+                    "module.driver.adc.scan_group_1_gpt_trigger_enable_mask.gpt_channel_5_request_a"
+                  ]
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_2_enable",
+                  "value": "module.driver.adc.scan_group_2_enable.enable"
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_2_scan_end_isr_enable",
+                  "value": "module.driver.adc.scan_group_2_scan_end_isr_enable.disable"
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_2_gpt_trigger_enable_mask",
+                  "excludeValue": [],
+                  "includeValue": [
+                    "module.driver.adc.scan_group_2_gpt_trigger_enable_mask.gpt_channel_5_request_a"
+                  ]
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_2_limit_clip_isr_enable",
+                  "value": "module.driver.adc.scan_group_2_limit_clip_isr_enable.disable"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.adc_on_adc_b",
+              "applicableSensorTypeId": "Vector Control with AFO sensors",
+              "properties": [
+                {
+                  "propertyId": "module.driver.adc.scan_end_ipl_group_0",
+                  "value": "_disabled"
+                },
+                {
+                  "propertyId": "module.driver.adc.sample_and_hold_enable_mask",
+                  "excludeValue": [
+                    "module.driver.adc.sample_and_hold_enable_mask.unit_0",
+                    "module.driver.adc.sample_and_hold_enable_mask.unit_2",
+                    "module.driver.adc.sample_and_hold_enable_mask.unit_1"
+                  ],
+                  "includeValue": []
+                },
+                {
+                  "propertyId": "module.driver.adc.virtual_channel_0_scan_group",
+                  "value": "module.driver.adc.virtual_channel_0_scan_group.none"
+                },
+                {
+                  "propertyId": "module.driver.adc.virtual_channel_1_scan_group",
+                  "value": "module.driver.adc.virtual_channel_1_scan_group.none"
+                },
+                {
+                  "propertyId": "module.driver.adc.virtual_channel_4_scan_group",
+                  "value": "module.driver.adc.virtual_channel_4_scan_group.scan_group_2"
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_0_scan_end_isr_enable",
+                  "value": "module.driver.adc.scan_group_0_scan_end_isr_enable.disable"
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_0_gpt_trigger_enable_mask",
+                  "excludeValue": [],
+                  "includeValue": [
+                    "module.driver.adc.scan_group_0_gpt_trigger_enable_mask.gpt_channel_4_request_b",
+                    "module.driver.adc.scan_group_0_gpt_trigger_enable_mask.gpt_channel_8_request_b"
+                  ]
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_0_fifo_enable",
+                  "value": "module.driver.adc.scan_group_0_fifo_enable.enable"
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_1_gpt_trigger_enable_mask",
+                  "excludeValue": [
+                    "module.driver.adc.scan_group_1_gpt_trigger_enable_mask.gpt_channel_4_request_a"
+                  ],
+                  "includeValue": [
+                    "module.driver.adc.scan_group_1_gpt_trigger_enable_mask.gpt_channel_5_request_a"
+                  ]
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_2_enable",
+                  "value": "module.driver.adc.scan_group_2_enable.enable"
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_2_scan_end_isr_enable",
+                  "value": "module.driver.adc.scan_group_2_scan_end_isr_enable.disable"
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_2_gpt_trigger_enable_mask",
+                  "excludeValue": [],
+                  "includeValue": [
+                    "module.driver.adc.scan_group_2_gpt_trigger_enable_mask.gpt_channel_5_request_a"
+                  ]
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_2_limit_clip_isr_enable",
+                  "value": "module.driver.adc.scan_group_2_limit_clip_isr_enable.disable"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.three_phase_on_gpt_three_phase",
+              "applicableSensorTypeId": "Sensorless Vector Control",
+              "properties": [
+                {
+                  "propertyId": "module.driver.three_phase.mode",
+                  "value": "module.driver.three_phase.mode.mode_asymmetric_pwm_mode3"
+                },
+                {
+                  "propertyId": "module.driver.three_phase.buffer_mode",
+                  "value": "module.driver.three_phase.buffer_mode.double"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.three_phase_on_gpt_three_phase",
+              "applicableSensorTypeId": "Vector Control with hall sensors",
+              "properties": [
+                {
+                  "propertyId": "module.driver.three_phase.mode",
+                  "value": "module.driver.three_phase.mode.mode_asymmetric_pwm_mode3"
+                },
+                {
+                  "propertyId": "module.driver.three_phase.buffer_mode",
+                  "value": "module.driver.three_phase.buffer_mode.double"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.three_phase_on_gpt_three_phase",
+              "applicableSensorTypeId": "Vector Control with AFO sensors",
+              "properties": [
+                {
+                  "propertyId": "module.driver.three_phase.mode",
+                  "value": "module.driver.three_phase.mode.mode_asymmetric_pwm_mode3"
+                },
+                {
+                  "propertyId": "module.driver.three_phase.buffer_mode",
+                  "value": "module.driver.three_phase.buffer_mode.double"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.timer_on_gpt",
+              "parentModuleId": "module.driver.three_phase_on_gpt_three_phase",
+              "interfaceId": "module.driver.three_phase.requires.gpt_u",
+              "applicableSensorTypeId": "Sensorless Vector Control",
+              "properties": [
+                {
+                  "propertyId": "module.driver.timer.gtior.custom_waveform_enable",
+                  "value": "module.driver.timer.gtior.custom_waveform_enable.enabled"
+                },
+                {
+                  "propertyId": "module.driver.timer.ipl",
+                  "value": "board.icu.common.irq.priority8"
+                },
+                {
+                  "propertyId": "module.driver.timer.adc_trigger",
+                  "excludeValue": [
+                    "module.driver.timer.adc_trigger.adc_trigger_down_count_start_adc_a"
+                  ],
+                  "includeValue": [
+                    "module.driver.timer.adc_trigger.adc_trigger_up_count_start_adc_a",
+                    "module.driver.timer.adc_trigger.adc_trigger_up_count_start_adc_b"
+                  ]
+                },
+                {
+                  "propertyId": "module.driver.timer.adc_a_compare_match",
+                  "value": "10"
+                },
+                {
+                  "propertyId": "module.driver.timer.adc_b_compare_match",
+                  "value": "200"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.timer_on_gpt",
+              "parentModuleId": "module.driver.three_phase_on_gpt_three_phase",
+              "interfaceId": "module.driver.three_phase.requires.gpt_u",
+              "applicableSensorTypeId": "Vector Control with hall sensors",
+              "properties": [
+                {
+                  "propertyId": "module.driver.timer.gtior.custom_waveform_enable",
+                  "value": "module.driver.timer.gtior.custom_waveform_enable.enabled"
+                },
+                {
+                  "propertyId": "module.driver.timer.ipl",
+                  "value": "board.icu.common.irq.priority8"
+                },
+                {
+                  "propertyId": "module.driver.timer.adc_trigger",
+                  "excludeValue": [
+                    "module.driver.timer.adc_trigger.adc_trigger_down_count_start_adc_a"
+                  ],
+                  "includeValue": [
+                    "module.driver.timer.adc_trigger.adc_trigger_up_count_start_adc_a",
+                    "module.driver.timer.adc_trigger.adc_trigger_up_count_start_adc_b"
+                  ]
+                },
+                {
+                  "propertyId": "module.driver.timer.adc_a_compare_match",
+                  "value": "10"
+                },
+                {
+                  "propertyId": "module.driver.timer.adc_b_compare_match",
+                  "value": "200"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.timer_on_gpt",
+              "parentModuleId": "module.driver.three_phase_on_gpt_three_phase",
+              "interfaceId": "module.driver.three_phase.requires.gpt_u",
+              "applicableSensorTypeId": "Vector Control with AFO sensors",
+              "properties": [
+                {
+                  "propertyId": "module.driver.timer.gtior.custom_waveform_enable",
+                  "value": "module.driver.timer.gtior.custom_waveform_enable.enabled"
+                },
+                {
+                  "propertyId": "module.driver.timer.ipl",
+                  "value": "board.icu.common.irq.priority8"
+                },
+                {
+                  "propertyId": "module.driver.timer.adc_trigger",
+                  "excludeValue": [
+                    "module.driver.timer.adc_trigger.adc_trigger_down_count_start_adc_a"
+                  ],
+                  "includeValue": [
+                    "module.driver.timer.adc_trigger.adc_trigger_up_count_start_adc_a",
+                    "module.driver.timer.adc_trigger.adc_trigger_up_count_start_adc_b"
+                  ]
+                },
+                {
+                  "propertyId": "module.driver.timer.adc_a_compare_match",
+                  "value": "10"
+                },
+                {
+                  "propertyId": "module.driver.timer.adc_b_compare_match",
+                  "value": "200"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.timer_on_gpt",
+              "parentModuleId": "module.driver.three_phase_on_gpt_three_phase",
+              "interfaceId": "module.driver.three_phase.requires.gpt_v",
+              "applicableSensorTypeId": "Sensorless Vector Control",
+              "properties": [
+                {
+                  "propertyId": "module.driver.timer.adc_trigger",
+                  "excludeValue": [],
+                  "includeValue": [
+                    "module.driver.timer.adc_trigger.adc_trigger_up_count_start_adc_a"
+                  ]
+                },
+                {
+                  "propertyId": "module.driver.timer.adc_a_compare_match",
+                  "value": "5000"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.timer_on_gpt",
+              "parentModuleId": "module.driver.three_phase_on_gpt_three_phase",
+              "interfaceId": "module.driver.three_phase.requires.gpt_v",
+              "applicableSensorTypeId": "Vector Control with hall sensors",
+              "properties": [
+                {
+                  "propertyId": "module.driver.timer.adc_trigger",
+                  "excludeValue": [],
+                  "includeValue": [
+                    "module.driver.timer.adc_trigger.adc_trigger_up_count_start_adc_a"
+                  ]
+                },
+                {
+                  "propertyId": "module.driver.timer.adc_a_compare_match",
+                  "value": "5000"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.timer_on_gpt",
+              "parentModuleId": "module.driver.three_phase_on_gpt_three_phase",
+              "interfaceId": "module.driver.three_phase.requires.gpt_v",
+              "applicableSensorTypeId": "Vector Control with AFO sensors",
+              "properties": [
+                {
+                  "propertyId": "module.driver.timer.adc_trigger",
+                  "excludeValue": [],
+                  "includeValue": [
+                    "module.driver.timer.adc_trigger.adc_trigger_up_count_start_adc_a"
+                  ]
+                },
+                {
+                  "propertyId": "module.driver.timer.adc_a_compare_match",
+                  "value": "5000"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.middleware.motor_tuner_on_motor_tuner_pm",
+              "applicableSensorTypeId": "Sensorless Vector Control",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_tuner.speed_ctrl_period",
+                  "value": "0.001"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.middleware.motor_tuner_on_motor_tuner_pm",
+              "applicableSensorTypeId": "Vector Control with hall sensors",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_tuner.speed_ctrl_period",
+                  "value": "0.001"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.middleware.motor_tuner_on_motor_tuner_pm",
+              "applicableSensorTypeId": "Vector Control with AFO sensors",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_tuner.speed_ctrl_period",
+                  "value": "500e-6F"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.timer_on_agt",
+              "applicableSensorTypeId": "Sensorless Vector Control",
+              "properties": [
+                {
+                  "propertyId": "module.driver.timer.period",
+                  "value": "1000"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.timer_on_agt",
+              "applicableSensorTypeId": "Vector Control with hall sensors",
+              "properties": [
+                {
+                  "propertyId": "module.driver.timer.period",
+                  "value": "1000"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.timer_on_agt",
+              "applicableSensorTypeId": "Vector Control with AFO sensors",
+              "properties": [
+                {
+                  "propertyId": "module.driver.timer.period",
+                  "value": "1000"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.middleware.motor_trajectory_on_motor_trajectory_linear",
+              "applicableSensorTypeId": "Sensorless Vector Control",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_trajectory.cycle_time_sec",
+                  "value": "0.001"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.middleware.motor_trajectory_on_motor_trajectory_linear",
+              "applicableSensorTypeId": "Vector Control with hall sensors",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_trajectory.cycle_time_sec",
+                  "value": "0.001"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.middleware.motor_trajectory_on_motor_trajectory_linear",
+              "applicableSensorTypeId": "Vector Control with AFO sensors",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_trajectory.cycle_time_sec",
+                  "value": "0.0005"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shuntTypeId": "2-Shunt",
+          "propertyValue": "module.middleware.motor_hal_driver.shunt.2_shunt",
+          "moduleConfigs": [
+            {
+              "moduleId": "module.middleware.motor_sensor_on_motor_sensor_bemf",
+              "parentModuleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "interfaceId": "module.middleware.motor_algorithm.requires.sensor1",
+              "applicableSensorTypeId": "Sensorless Vector Control",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_sensor.f4_id_down_speed_rpm",
+                  "value": "600.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.f4_id_up_speed_rpm",
+                  "value": "400.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.e_obs_omega",
+                  "value": "1000.0"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.middleware.motor_sensor_on_motor_sensor_afo",
+              "parentModuleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "interfaceId": "module.middleware.motor_algorithm.requires.sensor1",
+              "applicableSensorTypeId": "Vector Control with AFO sensors",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_sensor.name",
+                  "value": "g_motor0_sensor_afo"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.afo_slow_mode",
+                  "value": "module.middleware.motor_sensor.afo_slow_mode.openloop"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.afo_standstill_mode",
+                  "value": "module.middleware.motor_sensor.afo_standstill_mode.default"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.openloop_damping",
+                  "value": "module.middleware.motor_sensor.openloop_damping.enable"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.f4_ol_id_ref",
+                  "value": "1.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.ol_id_up_step",
+                  "value": "256"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.ol_id_down_step",
+                  "value": "500"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.f4_ol_iq_down_step_ratio",
+                  "value": "1.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.f4_id_down_speed_rpm",
+                  "value": "600.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.f4_id_up_speed_rpm",
+                  "value": "400.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.f4_opl2less_sw_time",
+                  "value": "0.025"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.f_fb_speed_limit_rate",
+                  "value": "0.2"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.ol_damping_zeta",
+                  "value": "1.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.afo_res_coeff",
+                  "value": "1.1"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.afo_speed_coeff",
+                  "value": "25.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.afo_mech_speed_limit_for_gain",
+                  "value": "700.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.afo_mech_speed_limit_for_model",
+                  "value": "700.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.afo_adaptive_omega",
+                  "value": "25.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.afo_speed_coeff_lpf_omega",
+                  "value": "3.18"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.afo_fc_div_fs",
+                  "value": "10"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_pll_est_omega",
+                  "value": "50.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_pll_est_zeta",
+                  "value": "1.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_posest_time",
+                  "value": "4000"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_pf_threshold",
+                  "value": "10.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_pulsefreq_boot",
+                  "value": "3"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_pulsefreq_drive",
+                  "value": "2"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_timeout_cnt",
+                  "value": "6000"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_pulsevolt_boot",
+                  "value": "8.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_pulsevolt_drive",
+                  "value": "8.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_mech_speed_slow_to_high",
+                  "value": "275.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_mech_speed_high_to_slow",
+                  "value": "205.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.ipd_u1_input_count",
+                  "value": "2"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.ipd_u1_wait_count",
+                  "value": "100"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.ipd_f4_inj_voltage",
+                  "value": "12.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.ipd_f4_iq_ref_const",
+                  "value": "0.5"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.middleware.motor_sensor_on_motor_sensor_bemf_hfi",
+              "parentModuleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "interfaceId": "module.middleware.motor_algorithm.requires.sensor1",
+              "applicableSensorTypeId": "Vector Control with HFI sensors",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_sensor.name",
+                  "value": "g_motor0_sensor_bemf_hfi"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.e_obs_omega",
+                  "value": "1000.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.e_obs_zeta",
+                  "value": "1.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.pll_est_omega",
+                  "value": "20.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.pll_est_zeta",
+                  "value": "1.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_pll_est_omega",
+                  "value": "50.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_pll_est_zeta",
+                  "value": "1.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_posest_time",
+                  "value": "4000"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_pf_threshold",
+                  "value": "10.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_pulsefreq_boot",
+                  "value": "3"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_pulsefreq_drive",
+                  "value": "2"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_timeout_cnt",
+                  "value": "6000"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_pulsevolt_boot",
+                  "value": "8.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_pulsevolt_drive",
+                  "value": "8.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_mech_speed_slow_to_high",
+                  "value": "275.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_mech_speed_high_to_slow",
+                  "value": "205.0"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "applicableSensorTypeId": "Sensorless Vector Control",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_current_omega",
+                  "value": "300.0F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_speed_omega",
+                  "value": "6.0F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_omega_t",
+                  "value": "20.0F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_iq_limit",
+                  "value": "1.67F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_over_current",
+                  "value": "3.2F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.u2_mtr_pp",
+                  "value": "4"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_r",
+                  "value": "1.3F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_ld",
+                  "value": "0.0013F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_lq",
+                  "value": "0.0013F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_m",
+                  "value": "0.01119F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_j",
+                  "value": "0.000003666F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_nominal_current",
+                  "value": "1.67F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.outerfunc_table.fluxweaken",
+                  "value": "module.middleware.motor_algorithm.outerfunc_table.fluxweaken.enabled"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.outerfunc_table.speedfb",
+                  "value": "module.middleware.motor_algorithm.outerfunc_table.speedfb.direct"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "applicableSensorTypeId": "Vector Control with hall sensors",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_current_omega",
+                  "value": "300.0F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_speed_omega",
+                  "value": "6.0F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_omega_t",
+                  "value": "20.0F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_iq_limit",
+                  "value": "1.67F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_over_current",
+                  "value": "3.2F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.u2_mtr_pp",
+                  "value": "4"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_r",
+                  "value": "1.3F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_ld",
+                  "value": "0.0013F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_lq",
+                  "value": "0.0013F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_m",
+                  "value": "0.01119F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_j",
+                  "value": "0.000003666F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_nominal_current",
+                  "value": "1.67F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.outerfunc_table.fluxweaken",
+                  "value": "module.middleware.motor_algorithm.outerfunc_table.fluxweaken.enabled"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.outerfunc_table.speedfb",
+                  "value": "module.middleware.motor_algorithm.outerfunc_table.speedfb.direct"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "applicableSensorTypeId": "Vector Control with AFO sensors",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_current_omega",
+                  "value": "600.0F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_speed_omega",
+                  "value": "5.0F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_omega_t",
+                  "value": "25.0F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_iq_limit",
+                  "value": "5.0F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_over_current",
+                  "value": "18.5F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.u2_mtr_pp",
+                  "value": "7"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_r",
+                  "value": "0.045F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_ld",
+                  "value": "0.0000951F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_lq",
+                  "value": "0.000125F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_m",
+                  "value": "0.0088F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_j",
+                  "value": "0.0000294367F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_nominal_current",
+                  "value": "12.3F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.outerfunc_table.fluxweaken",
+                  "value": "module.middleware.motor_algorithm.outerfunc_table.fluxweaken.disabled"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.outerfunc_table.speedfb",
+                  "value": "module.middleware.motor_algorithm.outerfunc_table.speedfb.lpf"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "applicableSensorTypeId": "Vector Control with HFI sensors",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_current_omega",
+                  "value": "600.0F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_speed_omega",
+                  "value": "5.0F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_omega_t",
+                  "value": "25.0F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_iq_limit",
+                  "value": "5.0F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_over_current",
+                  "value": "18.5F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.u2_mtr_pp",
+                  "value": "7"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_r",
+                  "value": "0.045F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_ld",
+                  "value": "0.0000951F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_lq",
+                  "value": "0.000125F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_m",
+                  "value": "0.0088F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_j",
+                  "value": "0.0000294367F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_nominal_current",
+                  "value": "12.3F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.outerfunc_table.fluxweaken",
+                  "value": "module.middleware.motor_algorithm.outerfunc_table.fluxweaken.disabled"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.outerfunc_table.speedfb",
+                  "value": "module.middleware.motor_algorithm.outerfunc_table.speedfb.lpf"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_algorithm.pwm_carrier_period",
+                  "value": "50"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_speed_ctrl_period",
+                  "value": "0.0005F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.period_magnitude",
+                  "value": "1.5"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_v1",
+                  "value": "0.048F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_v2",
+                  "value": "0.096F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_v3",
+                  "value": "0.144F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_v4",
+                  "value": "0.192F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_v5",
+                  "value": "0.240F"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.middleware.motor_hal_driver_on_motor_hal_driver",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_hal_driver.shunt",
+                  "value": "module.middleware.motor_hal_driver.shunt.2_shunt"
+                },
+                {
+                  "propertyId": "module.middleware.motor_hal_driver.diff_min",
+                  "value": "300"
+                },
+                {
+                  "propertyId": "module.middleware.motor_hal_driver.adjust_adc_delay",
+                  "value": "240"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.adc_on_adc_b",
+              "applicableSensorTypeId": "Sensorless Vector Control",
+              "properties": [
+                {
+                  "propertyId": "module.driver.adc.virtual_channel_1_scan_group",
+                  "value": "module.driver.adc.virtual_channel_1_scan_group.none"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.adc_on_adc_b",
+              "applicableSensorTypeId": "Vector Control with hall sensors",
+              "properties": [
+                {
+                  "propertyId": "module.driver.adc.virtual_channel_1_scan_group",
+                  "value": "module.driver.adc.virtual_channel_1_scan_group.none"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.adc_on_adc_b",
+              "applicableSensorTypeId": "Vector Control with AFO sensors",
+              "properties": [
+                {
+                  "propertyId": "module.driver.adc.virtual_channel_1_scan_group",
+                  "value": "module.driver.adc.virtual_channel_1_scan_group.scan_group_0"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.adc_on_adc_b",
+              "applicableSensorTypeId": "Vector Control with HFI sensors",
+              "properties": [
+                {
+                  "propertyId": "module.driver.adc.virtual_channel_1_scan_group",
+                  "value": "module.driver.adc.virtual_channel_1_scan_group.scan_group_0"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.adc_on_adc_b",
+              "properties": [
+                {
+                  "propertyId": "module.driver.adc.scan_end_ipl_group_0",
+                  "value": "board.icu.common.irq.priority5"
+                },
+                {
+                  "propertyId": "module.driver.adc.sample_and_hold_enable_mask",
+                  "excludeValue": [
+                    "module.driver.adc.sample_and_hold_enable_mask.unit_1"
+                  ],
+                  "includeValue": [
+                    "module.driver.adc.sample_and_hold_enable_mask.unit_0",
+                    "module.driver.adc.sample_and_hold_enable_mask.unit_2"
+                  ]
+                },
+                {
+                  "propertyId": "module.driver.adc.virtual_channel_0_scan_group",
+                  "value": "module.driver.adc.virtual_channel_0_scan_group.scan_group_0"
+                },
+                {
+                  "propertyId": "module.driver.adc.virtual_channel_4_scan_group",
+                  "value": "module.driver.adc.virtual_channel_4_scan_group.scan_group_0"
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_0_scan_end_isr_enable",
+                  "value": "module.driver.adc.scan_group_0_scan_end_isr_enable.enable"
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_0_gpt_trigger_enable_mask",
+                  "excludeValue": [
+                    "module.driver.adc.scan_group_0_gpt_trigger_enable_mask.gpt_channel_4_request_b",
+                    "module.driver.adc.scan_group_0_gpt_trigger_enable_mask.gpt_channel_8_request_b"
+                  ],
+                  "includeValue": []
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_0_fifo_enable",
+                  "value": "module.driver.adc.scan_group_0_fifo_enable.disable"
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_1_gpt_trigger_enable_mask",
+                  "excludeValue": [
+                    "module.driver.adc.scan_group_1_gpt_trigger_enable_mask.gpt_channel_5_request_a"
+                  ],
+                  "includeValue": [
+                    "module.driver.adc.scan_group_1_gpt_trigger_enable_mask.gpt_channel_4_request_a"
+                  ]
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_2_enable",
+                  "value": "module.driver.adc.scan_group_2_enable.disable"
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_2_scan_end_isr_enable",
+                  "value": "module.driver.adc.scan_group_2_scan_end_isr_enable.enable"
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_2_gpt_trigger_enable_mask",
+                  "excludeValue": [
+                    "module.driver.adc.scan_group_2_gpt_trigger_enable_mask.gpt_channel_5_request_a"
+                  ],
+                  "includeValue": []
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_2_limit_clip_isr_enable",
+                  "value": "module.driver.adc.scan_group_2_limit_clip_isr_enable.enable"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.three_phase_on_gpt_three_phase",
+              "properties": [
+                {
+                  "propertyId": "module.driver.three_phase.mode",
+                  "value": "module.driver.three_phase.mode.mode_symmetric_pwm"
+                },
+                {
+                  "propertyId": "module.driver.three_phase.buffer_mode",
+                  "value": "module.driver.three_phase.buffer_mode.single"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.timer_on_gpt",
+              "parentModuleId": "module.driver.three_phase_on_gpt_three_phase",
+              "interfaceId": "module.driver.three_phase.requires.gpt_u",
+              "properties": [
+                {
+                  "propertyId": "module.driver.timer.gtior.custom_waveform_enable",
+                  "value": "module.driver.timer.gtior.custom_waveform_enable.disabled"
+                },
+                {
+                  "propertyId": "module.driver.timer.ipl",
+                  "value": "_disabled"
+                },
+                {
+                  "propertyId": "module.driver.timer.adc_trigger",
+                  "excludeValue": [
+                    "module.driver.timer.adc_trigger.adc_trigger_up_count_start_adc_a",
+                    "module.driver.timer.adc_trigger.adc_trigger_up_count_start_adc_b"
+                  ],
+                  "includeValue": [
+                    "module.driver.timer.adc_trigger.adc_trigger_down_count_start_adc_a"
+                  ]
+                },
+                {
+                  "propertyId": "module.driver.timer.adc_a_compare_match",
+                  "value": "0"
+                },
+                {
+                  "propertyId": "module.driver.timer.adc_b_compare_match",
+                  "value": "0"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.timer_on_gpt",
+              "parentModuleId": "module.driver.three_phase_on_gpt_three_phase",
+              "interfaceId": "module.driver.three_phase.requires.gpt_v",
+              "properties": [
+                {
+                  "propertyId": "module.driver.timer.adc_trigger",
+                  "excludeValue": [
+                    "module.driver.timer.adc_trigger.adc_trigger_up_count_start_adc_a"
+                  ],
+                  "includeValue": []
+                },
+                {
+                  "propertyId": "module.driver.timer.adc_a_compare_match",
+                  "value": "0"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.middleware.motor_tuner_on_motor_tuner_pm",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_tuner.speed_ctrl_period",
+                  "value": "500e-6F"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.timer_on_agt",
+              "properties": [
+                {
+                  "propertyId": "module.driver.timer.period",
+                  "value": "500"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.middleware.motor_trajectory_on_motor_trajectory_linear",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_trajectory.cycle_time_sec",
+                  "value": "0.0005"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "shuntTypeId": "3-Shunt",
+          "propertyValue": "module.middleware.motor_hal_driver.shunt.3_shunt",
+          "moduleConfigs": [
+            {
+              "moduleId": "module.middleware.motor_sensor_on_motor_sensor_bemf",
+              "parentModuleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "interfaceId": "module.middleware.motor_algorithm.requires.sensor1",
+              "applicableSensorTypeId": "Sensorless Vector Control",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_sensor.f4_id_down_speed_rpm",
+                  "value": "600.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.f4_id_up_speed_rpm",
+                  "value": "400.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.e_obs_omega",
+                  "value": "1000.0"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.middleware.motor_sensor_on_motor_sensor_afo",
+              "parentModuleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "interfaceId": "module.middleware.motor_algorithm.requires.sensor1",
+              "applicableSensorTypeId": "Vector Control with AFO sensors",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_sensor.name",
+                  "value": "g_motor0_sensor_afo"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.afo_slow_mode",
+                  "value": "module.middleware.motor_sensor.afo_slow_mode.openloop"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.afo_standstill_mode",
+                  "value": "module.middleware.motor_sensor.afo_standstill_mode.default"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.openloop_damping",
+                  "value": "module.middleware.motor_sensor.openloop_damping.enable"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.f4_ol_id_ref",
+                  "value": "1.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.ol_id_up_step",
+                  "value": "256"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.ol_id_down_step",
+                  "value": "500"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.f4_ol_iq_down_step_ratio",
+                  "value": "1.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.f4_id_down_speed_rpm",
+                  "value": "600.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.f4_id_up_speed_rpm",
+                  "value": "400.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.f4_opl2less_sw_time",
+                  "value": "0.025"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.f_fb_speed_limit_rate",
+                  "value": "0.2"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.ol_damping_zeta",
+                  "value": "1.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.afo_res_coeff",
+                  "value": "1.1"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.afo_speed_coeff",
+                  "value": "25.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.afo_mech_speed_limit_for_gain",
+                  "value": "700.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.afo_mech_speed_limit_for_model",
+                  "value": "700.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.afo_adaptive_omega",
+                  "value": "25.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.afo_speed_coeff_lpf_omega",
+                  "value": "3.18"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.afo_fc_div_fs",
+                  "value": "10"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_pll_est_omega",
+                  "value": "50.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_pll_est_zeta",
+                  "value": "1.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_posest_time",
+                  "value": "4000"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_pf_threshold",
+                  "value": "10.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_pulsefreq_boot",
+                  "value": "3"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_pulsefreq_drive",
+                  "value": "2"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_timeout_cnt",
+                  "value": "6000"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_pulsevolt_boot",
+                  "value": "8.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_pulsevolt_drive",
+                  "value": "8.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_mech_speed_slow_to_high",
+                  "value": "275.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_mech_speed_high_to_slow",
+                  "value": "205.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.ipd_u1_input_count",
+                  "value": "2"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.ipd_u1_wait_count",
+                  "value": "100"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.ipd_f4_inj_voltage",
+                  "value": "12.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.ipd_f4_iq_ref_const",
+                  "value": "0.5"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.middleware.motor_sensor_on_motor_sensor_bemf_hfi",
+              "parentModuleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "interfaceId": "module.middleware.motor_algorithm.requires.sensor1",
+              "applicableSensorTypeId": "Vector Control with HFI sensors",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_sensor.name",
+                  "value": "g_motor0_sensor_bemf_hfi"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.e_obs_omega",
+                  "value": "1000.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.e_obs_zeta",
+                  "value": "1.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.pll_est_omega",
+                  "value": "20.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.pll_est_zeta",
+                  "value": "1.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_pll_est_omega",
+                  "value": "50.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_pll_est_zeta",
+                  "value": "1.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_posest_time",
+                  "value": "4000"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_pf_threshold",
+                  "value": "10.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_pulsefreq_boot",
+                  "value": "3"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_pulsefreq_drive",
+                  "value": "2"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_timeout_cnt",
+                  "value": "6000"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_pulsevolt_boot",
+                  "value": "8.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_pulsevolt_drive",
+                  "value": "8.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_mech_speed_slow_to_high",
+                  "value": "275.0"
+                },
+                {
+                  "propertyId": "module.middleware.motor_sensor.hfi_mech_speed_high_to_slow",
+                  "value": "205.0"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "applicableSensorTypeId": "Sensorless Vector Control",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_current_omega",
+                  "value": "300.0F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_speed_omega",
+                  "value": "6.0F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_omega_t",
+                  "value": "20.0F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_iq_limit",
+                  "value": "1.67F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_over_current",
+                  "value": "3.2F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.u2_mtr_pp",
+                  "value": "4"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_r",
+                  "value": "1.3F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_ld",
+                  "value": "0.0013F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_lq",
+                  "value": "0.0013F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_m",
+                  "value": "0.01119F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_j",
+                  "value": "0.000003666F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_nominal_current",
+                  "value": "1.67F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.outerfunc_table.fluxweaken",
+                  "value": "module.middleware.motor_algorithm.outerfunc_table.fluxweaken.enabled"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.outerfunc_table.speedfb",
+                  "value": "module.middleware.motor_algorithm.outerfunc_table.speedfb.direct"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "applicableSensorTypeId": "Vector Control with hall sensors",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_current_omega",
+                  "value": "300.0F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_speed_omega",
+                  "value": "6.0F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_omega_t",
+                  "value": "20.0F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_iq_limit",
+                  "value": "1.67F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_over_current",
+                  "value": "3.2F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.u2_mtr_pp",
+                  "value": "4"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_r",
+                  "value": "1.3F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_ld",
+                  "value": "0.0013F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_lq",
+                  "value": "0.0013F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_m",
+                  "value": "0.01119F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_j",
+                  "value": "0.000003666F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_nominal_current",
+                  "value": "1.67F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.outerfunc_table.fluxweaken",
+                  "value": "module.middleware.motor_algorithm.outerfunc_table.fluxweaken.enabled"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.outerfunc_table.speedfb",
+                  "value": "module.middleware.motor_algorithm.outerfunc_table.speedfb.direct"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "applicableSensorTypeId": "Vector Control with AFO sensors",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_current_omega",
+                  "value": "600.0F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_speed_omega",
+                  "value": "5.0F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_omega_t",
+                  "value": "25.0F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_iq_limit",
+                  "value": "5.0F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_over_current",
+                  "value": "18.5F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.u2_mtr_pp",
+                  "value": "7"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_r",
+                  "value": "0.045F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_ld",
+                  "value": "0.0000951F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_lq",
+                  "value": "0.000125F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_m",
+                  "value": "0.0088F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_j",
+                  "value": "0.0000294367F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_nominal_current",
+                  "value": "12.3F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.outerfunc_table.fluxweaken",
+                  "value": "module.middleware.motor_algorithm.outerfunc_table.fluxweaken.disabled"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.outerfunc_table.speedfb",
+                  "value": "module.middleware.motor_algorithm.outerfunc_table.speedfb.lpf"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "applicableSensorTypeId": "Vector Control with HFI sensors",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_current_omega",
+                  "value": "600.0F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_speed_omega",
+                  "value": "5.0F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_omega_t",
+                  "value": "25.0F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_iq_limit",
+                  "value": "5.0F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_over_current",
+                  "value": "18.5F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.u2_mtr_pp",
+                  "value": "7"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_r",
+                  "value": "0.045F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_ld",
+                  "value": "0.0000951F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_lq",
+                  "value": "0.000125F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_m",
+                  "value": "0.0088F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_j",
+                  "value": "0.0000294367F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f4_mtr_nominal_current",
+                  "value": "12.3F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.outerfunc_table.fluxweaken",
+                  "value": "module.middleware.motor_algorithm.outerfunc_table.fluxweaken.disabled"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.outerfunc_table.speedfb",
+                  "value": "module.middleware.motor_algorithm.outerfunc_table.speedfb.lpf"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.middleware.motor_algorithm_on_motor_pm_foc",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_algorithm.pwm_carrier_period",
+                  "value": "50"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.f_speed_ctrl_period",
+                  "value": "0.0005F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.period_magnitude",
+                  "value": "1.5"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_v1",
+                  "value": "0.048F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_v2",
+                  "value": "0.096F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_v3",
+                  "value": "0.144F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_v4",
+                  "value": "0.192F"
+                },
+                {
+                  "propertyId": "module.middleware.motor_algorithm.voltage_comp_v5",
+                  "value": "0.240F"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.middleware.motor_hal_driver_on_motor_hal_driver",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_hal_driver.shunt",
+                  "value": "module.middleware.motor_hal_driver.shunt.3_shunt"
+                },
+                {
+                  "propertyId": "module.middleware.motor_hal_driver.diff_min",
+                  "value": "300"
+                },
+                {
+                  "propertyId": "module.middleware.motor_hal_driver.adjust_adc_delay",
+                  "value": "240"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.adc_on_adc_b",
+              "applicableSensorTypeId": "Sensorless Vector Control",
+              "properties": [
+                {
+                  "propertyId": "module.driver.adc.sample_and_hold_enable_mask",
+                  "excludeValue": [],
+                  "includeValue": [
+                    "module.driver.adc.sample_and_hold_enable_mask.unit_0",
+                    "module.driver.adc.sample_and_hold_enable_mask.unit_1",
+                    "module.driver.adc.sample_and_hold_enable_mask.unit_2"
+                  ]
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.adc_on_adc_b",
+              "applicableSensorTypeId": "Vector Control with hall sensors",
+              "properties": [
+                {
+                  "propertyId": "module.driver.adc.sample_and_hold_enable_mask",
+                  "excludeValue": [],
+                  "includeValue": [
+                    "module.driver.adc.sample_and_hold_enable_mask.unit_0",
+                    "module.driver.adc.sample_and_hold_enable_mask.unit_1",
+                    "module.driver.adc.sample_and_hold_enable_mask.unit_2"
+                  ]
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.adc_on_adc_b",
+              "applicableSensorTypeId": "Vector Control with AFO sensors",
+              "properties": [
+                {
+                  "propertyId": "module.driver.adc.sample_and_hold_enable_mask",
+                  "excludeValue": [
+                    "module.driver.adc.sample_and_hold_enable_mask.unit_1"
+                  ],
+                  "includeValue": [
+                    "module.driver.adc.sample_and_hold_enable_mask.unit_0",
+                    "module.driver.adc.sample_and_hold_enable_mask.unit_2"
+                  ]
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.adc_on_adc_b",
+              "applicableSensorTypeId": "Vector Control with HFI sensors",
+              "properties": [
+                {
+                  "propertyId": "module.driver.adc.sample_and_hold_enable_mask",
+                  "excludeValue": [
+                    "module.driver.adc.sample_and_hold_enable_mask.unit_1"
+                  ],
+                  "includeValue": [
+                    "module.driver.adc.sample_and_hold_enable_mask.unit_0",
+                    "module.driver.adc.sample_and_hold_enable_mask.unit_2"
+                  ]
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.adc_on_adc_b",
+              "properties": [
+                {
+                  "propertyId": "module.driver.adc.scan_end_ipl_group_0",
+                  "value": "board.icu.common.irq.priority5"
+                },
+                {
+                  "propertyId": "module.driver.adc.virtual_channel_0_scan_group",
+                  "value": "module.driver.adc.virtual_channel_0_scan_group.scan_group_0"
+                },
+                {
+                  "propertyId": "module.driver.adc.virtual_channel_1_scan_group",
+                  "value": "module.driver.adc.virtual_channel_1_scan_group.scan_group_0"
+                },
+                {
+                  "propertyId": "module.driver.adc.virtual_channel_4_scan_group",
+                  "value": "module.driver.adc.virtual_channel_4_scan_group.scan_group_0"
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_0_scan_end_isr_enable",
+                  "value": "module.driver.adc.scan_group_0_scan_end_isr_enable.enable"
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_0_gpt_trigger_enable_mask",
+                  "excludeValue": [
+                    "module.driver.adc.scan_group_0_gpt_trigger_enable_mask.gpt_channel_4_request_b",
+                    "module.driver.adc.scan_group_0_gpt_trigger_enable_mask.gpt_channel_8_request_b"
+                  ],
+                  "includeValue": []
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_0_fifo_enable",
+                  "value": "module.driver.adc.scan_group_0_fifo_enable.disable"
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_1_gpt_trigger_enable_mask",
+                  "excludeValue": [
+                    "module.driver.adc.scan_group_1_gpt_trigger_enable_mask.gpt_channel_5_request_a"
+                  ],
+                  "includeValue": [
+                    "module.driver.adc.scan_group_1_gpt_trigger_enable_mask.gpt_channel_4_request_a"
+                  ]
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_2_enable",
+                  "value": "module.driver.adc.scan_group_2_enable.disable"
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_2_scan_end_isr_enable",
+                  "value": "module.driver.adc.scan_group_2_scan_end_isr_enable.enable"
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_2_gpt_trigger_enable_mask",
+                  "excludeValue": [
+                    "module.driver.adc.scan_group_2_gpt_trigger_enable_mask.gpt_channel_5_request_a"
+                  ],
+                  "includeValue": []
+                },
+                {
+                  "propertyId": "module.driver.adc.scan_group_2_limit_clip_isr_enable",
+                  "value": "module.driver.adc.scan_group_2_limit_clip_isr_enable.enable"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.three_phase_on_gpt_three_phase",
+              "properties": [
+                {
+                  "propertyId": "module.driver.three_phase.mode",
+                  "value": "module.driver.three_phase.mode.mode_symmetric_pwm"
+                },
+                {
+                  "propertyId": "module.driver.three_phase.buffer_mode",
+                  "value": "module.driver.three_phase.buffer_mode.single"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.timer_on_gpt",
+              "parentModuleId": "module.driver.three_phase_on_gpt_three_phase",
+              "interfaceId": "module.driver.three_phase.requires.gpt_u",
+              "properties": [
+                {
+                  "propertyId": "module.driver.timer.gtior.custom_waveform_enable",
+                  "value": "module.driver.timer.gtior.custom_waveform_enable.disabled"
+                },
+                {
+                  "propertyId": "module.driver.timer.ipl",
+                  "value": "_disabled"
+                },
+                {
+                  "propertyId": "module.driver.timer.adc_trigger",
+                  "excludeValue": [
+                    "module.driver.timer.adc_trigger.adc_trigger_up_count_start_adc_a",
+                    "module.driver.timer.adc_trigger.adc_trigger_up_count_start_adc_b"
+                  ],
+                  "includeValue": [
+                    "module.driver.timer.adc_trigger.adc_trigger_down_count_start_adc_a"
+                  ]
+                },
+                {
+                  "propertyId": "module.driver.timer.adc_a_compare_match",
+                  "value": "0"
+                },
+                {
+                  "propertyId": "module.driver.timer.adc_b_compare_match",
+                  "value": "0"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.timer_on_gpt",
+              "parentModuleId": "module.driver.three_phase_on_gpt_three_phase",
+              "interfaceId": "module.driver.three_phase.requires.gpt_v",
+              "properties": [
+                {
+                  "propertyId": "module.driver.timer.adc_trigger",
+                  "excludeValue": [
+                    "module.driver.timer.adc_trigger.adc_trigger_up_count_start_adc_a"
+                  ],
+                  "includeValue": []
+                },
+                {
+                  "propertyId": "module.driver.timer.adc_a_compare_match",
+                  "value": "0"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.middleware.motor_tuner_on_motor_tuner_pm",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_tuner.speed_ctrl_period",
+                  "value": "500e-6F"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.driver.timer_on_agt",
+              "properties": [
+                {
+                  "propertyId": "module.driver.timer.period",
+                  "value": "500"
+                }
+              ]
+            },
+            {
+              "moduleId": "module.middleware.motor_trajectory_on_motor_trajectory_linear",
+              "properties": [
+                {
+                  "propertyId": "module.middleware.motor_trajectory.cycle_time_sec",
+                  "value": "0.0005"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "incompatibleSelections": [
+        {
+          "sensorTypeId": "Vector Control with HFI sensors",
+          "shuntTypeId": "1-Shunt"
+        }
+      ],
+      "warnings": [
+        {
+          "when": {
+            "sensorTypeId": "Vector Control with HFI sensors"
+          },
+          "messageId": "ChangeControlMethodDialog_Warning_SalientMotor"
+        },
+        {
+          "when": {
+            "sensorTypeId": "Vector Control with HFI sensors",
+            "shuntTypeId": "3-Shunt"
+          },
+          "messageId": "ChangeControlMethodDialog_Warning_Test"
+        }
+      ]
+    }
+  }
+}
