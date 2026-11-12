@@ -16,7 +16,7 @@
                         "module.middleware.motor_sensor_on_motor_sensor_afo"
                     ],
                     "propertyInfoUrl": "https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/rampPropertyInfo_fsp6.7.0_v0.0.1.json",
-                    "scriptUrl": "https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/changeControlMethodRampProject_v0.0.2.py"
+                    "scriptUrl": "https://raw.githubusercontent.com/renesas/qe-tools/refs/heads/main/qe_motor/RampPythonScript/changeControlMethodRampProject_v0.0.2.py"
                 }
             ]
         },
@@ -25,7 +25,7 @@
             "propertyInfos": [
                 {
                     "propertyInfoUrl": "https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/rampPropertyInfo_120degHall_fsp6.5.0_v0.0.1.json",
-                    "scriptUrl": "https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/changeControlMethodRampProject_v0.0.2.py"
+                    "scriptUrl": "https://raw.githubusercontent.com/renesas/qe-tools/refs/heads/main/qe_motor/RampPythonScript/changeControlMethodRampProject_v0.0.2.py"
                 }
             ]
         },
@@ -34,7 +34,7 @@
             "propertyInfos": [
                 {
                     "propertyInfoUrl": "https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/rampPropertyInfo_120degLess_fsp6.5.0_v0.0.1.json",
-                    "scriptUrl": "https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/changeControlMethodRampProject_v0.0.2.py"
+                    "scriptUrl": "https://raw.githubusercontent.com/renesas/qe-tools/refs/heads/main/qe_motor/RampPythonScript/changeControlMethodRampProject_v0.0.2.py"
                 }
             ]
         }
