@@ -11,60 +11,11 @@ FSP_MINOR_MISMATCH_EXIT_CODE = 2
 FSP_MAJOR_MISMATCH_EXIT_CODE = 3
 
 start_time = time.time()
-DEBUG_ENABLED = True
-CURRENT_STAGE = "startup"
-CURRENT_CONTEXT = {}
-
-
-def flushConsole():
-    try:
-        sys.stdout.flush()
-    except Exception:
-        pass
-    try:
-        sys.stderr.flush()
-    except Exception:
-        pass
-
-
-def debug(message):
-    if DEBUG_ENABLED:
-        print("[DEBUG] " + str(message))
-        flushConsole()
-
-
-def setDebugContext(stage, **context):
-    global CURRENT_STAGE, CURRENT_CONTEXT
-    CURRENT_STAGE = stage
-    CURRENT_CONTEXT = context
-    debug("Stage: " + stage)
-    if context:
-        debug("Context: " + repr(context))
-
-
-def printExceptionDetails(prefix, exception):
-    print(prefix + ": " + str(exception))
-    print(prefix + " type: " + type(exception).__name__)
-    print(prefix + " stage: " + str(CURRENT_STAGE))
-    print(prefix + " context: " + repr(CURRENT_CONTEXT))
-    print(prefix + " traceback follows")
-    traceback.print_exc()
-    flushConsole()
-
 
 # load necessary modules
-for easeModuleName in [
-    '/System/Resources',
-    '/FSP/ProjectGen',
-    '/FSP/Configuration'
-]:
-    try:
-        setDebugContext("loadModule", module=easeModuleName)
-        loadModule(easeModuleName)
-        debug("Loaded EASE module: " + easeModuleName)
-    except Exception as exception:
-        printExceptionDetails("[FAILURE] EASE module load failed", exception)
-        raise
+loadModule('/System/Resources')
+loadModule('/FSP/ProjectGen')
+loadModule('/FSP/Configuration')
 
 if len(sys.argv) < 3:
     print('[ERROR] Arguments missing. Usage: <projectName> <configFile>')
@@ -90,21 +41,12 @@ familyName = get_arg('--family_name')
 requiredFspVersion = get_arg('--required_fsp_version')
 
 # determine the root folder where project folders will be created
-setDebugContext("workspace")
 workspaceRoot = getWorkspace().getLocation().toOSString()
 print('working with projects at ' + workspaceRoot)
-debug("sys.argv: " + repr(sys.argv))
 
 # get config file data
-try:
-    setDebugContext("load JSON", configFile=configFile)
-    debug("Config file exists: " + str(os.path.isfile(configFile) if configFile else False))
-    with open(configFile) as configMap:
-        configData = json.load(configMap)
-    debug("JSON root keys: " + repr(sorted(configData.keys())))
-except Exception as exception:
-    printExceptionDetails("[FAILURE] Config JSON load failed", exception)
-    raise
+with open(configFile) as configMap:
+    configData = json.load(configMap)
 
 
 def getModuleFactoryId(module):
@@ -118,7 +60,6 @@ def isExactModuleFactory(module, expectedModuleId):
 
 
 def findModule(moduleId, projectConfig, stackModule):
-    debug("findModule: moduleId=" + str(moduleId) + ", stackModule=" + str(stackModule))
     for thread in projectConfig.getThreads():
         # print("-" * 50)
         # print('Searching for: ' + moduleId)
@@ -131,13 +72,10 @@ def findModule(moduleId, projectConfig, stackModule):
                 if module is not None:
                     # print("")
                     # print("\t" + 'Found module ' + module.getDisplay())
-                    debug("findModule found: " + str(module.getId()))
                     return module
             # else:
             #     print("")
             #     print("\t" + 'Skip stack ' + stack.getId())
-    debug("findModule not found: " + str(moduleId))
-    return None
 
 
 def findModuleInStack(moduleId, stack, depth=0):
@@ -251,7 +189,6 @@ def validateSensorMarkers(boardData):
                 raise ValueError("Unknown applicableSensorTypeId: " + sid)
 
 def createStack(projectConfig, moduleId, stackModule):
-    setDebugContext("createStack", moduleId=moduleId, stackModule=stackModule)
     if moduleId:
         module = findModule(moduleId, projectConfig, stackModule)
         if module is None:
@@ -267,30 +204,16 @@ def createStack(projectConfig, moduleId, stackModule):
 
 
 def createStackWithParent(projectConfig, moduleId, stackModule, parentModuleId, interfaceId):
-    setDebugContext(
-        "createStackWithParent",
-        moduleId=moduleId,
-        parentModuleId=parentModuleId,
-        interfaceId=interfaceId,
-        stackModule=stackModule
-    )
     parentModule = findModule(parentModuleId, projectConfig, stackModule)
     if parentModule is None:
         raise ValueError("Parent module not found: " + str(parentModuleId))
     print("\t" + "-" * 50)
     print("\t" + "Start searching for child module - " + moduleId + " in parent module - " + parentModule.getId())
-    interfaceIds = [iface.getId() for iface in parentModule.getInterfaces()]
-    debug("Available parent interfaces: " + repr(interfaceIds))
     for iface in parentModule.getInterfaces():
         if iface.getId() != interfaceId:
             continue
         if iface.hasModule():
             connectedModule = iface.getModule()
-            debug(
-                "Connected module comparison: requested=" + str(moduleId)
-                + ", actual=" + str(connectedModule.getId())
-                + ", actualFactoryId=" + str(getModuleFactoryId(connectedModule))
-            )
             if isExactModuleFactory(connectedModule, moduleId):
                 print("\t" * 3 + "using " + connectedModule.getId())
                 return connectedModule
@@ -316,11 +239,6 @@ def deleteStackWithParent(projectConfig, stackModule, parentModuleId, interfaceI
                 )
                 return True
             connectedModule = iface.getModule()
-            debug(
-                "Delete module comparison: expected=" + str(expectedModuleId)
-                + ", actual=" + str(connectedModule.getId())
-                + ", actualFactoryId=" + str(getModuleFactoryId(connectedModule))
-            )
 
             if (expectedModuleId is not None and not isExactModuleFactory(connectedModule, expectedModuleId)):
                 print("[ERROR] Unexpected module on interface: " + connectedModule.getId())
@@ -338,19 +256,9 @@ def isLockedPropertyException(exception):
 
 
 def setModuleProperty(module, propId, propValue, propIncludeValue, propExcludeValue):
-    setDebugContext(
-        "setModuleProperty",
-        moduleId=(module.getId() if module is not None else None),
-        propertyId=propId,
-        value=propValue,
-        includeValue=propIncludeValue,
-        excludeValue=propExcludeValue
-    )
     if module is None:
         raise ValueError("Property target module is None: " + str(propId))
 
-    availablePropertyIds = [prop.getId() for prop in module.getProperties()]
-    debug("Property count on module: " + str(len(availablePropertyIds)))
     for prop in module.getProperties():
         if prop.getId() != propId:
             continue
@@ -418,7 +326,6 @@ def setModuleProperty(module, propId, propValue, propIncludeValue, propExcludeVa
             "JSON property has neither value nor bitmap fields: " + propId
         )
 
-    debug("Available property IDs: " + repr(availablePropertyIds))
     raise ValueError(
         "Property ID not found on module " + module.getId() + ": " + propId
     )
@@ -456,16 +363,6 @@ def parseVersion(version):
 
 def main():
     try:
-        setDebugContext(
-            "main arguments",
-            projectName=projectName,
-            configFile=configFile,
-            selectedSensorType=selectedSensorType,
-            selectedShuntType=selectedShuntType,
-            boardName=boardName,
-            familyName=familyName,
-            requiredFspVersion=requiredFspVersion
-        )
         if not configFile:
             print("[ERROR] 'configFile' argument missing")
             return FAIL_EXIT_CODE
@@ -495,22 +392,16 @@ def main():
         # check FSP compatibility
         availableFspVersions = getAvailableFspVersions(familyName)
         availableVersions = [str(v).strip() for v in availableFspVersions]
-        debug("Available FSP versions: " + repr(availableVersions))
         mismatchCode = checkFspVersionMismatch(requiredFspVersion, availableVersions)
         if mismatchCode != SUCCESS_EXIT_CODE:
             return mismatchCode
 
-        setDebugContext("project lookup", projectName=projectName)
-        projectExists = getProject(projectName).exists()
-        debug("Project exists: " + str(projectExists))
-        if not projectExists:
+        if not getProject(projectName).exists():
             # import project into workspace if not already present
             projectPath = os.path.join(workspaceRoot, projectName)
             print('Importing project ' + projectName)
             importProject(projectPath)
-        setDebugContext("openDDSCConfiguration", projectName=projectName)
         projectConfig = openDDSCConfiguration(projectName)
-        debug("DDSC configuration opened")
 
         deviceData = configData.get("deviceData")
         if not isinstance(deviceData, dict):
@@ -526,11 +417,6 @@ def main():
             stackModule = boardData['motorControlModuleId']
             sensorTypes = boardData.get("deviceSensorTypes") or []
             shuntTypes = boardData.get("devicesShuntTypes") or []
-            debug("Available sensorTypeIds: " + repr([item.get("sensorTypeId") for item in sensorTypes]))
-            debug("Available shuntTypeIds: " + repr([item.get("shuntTypeId") for item in shuntTypes]))
-            debug("incompatibleSelections: " + repr(boardData.get("incompatibleSelections") or []))
-            debug("warnings: " + repr(boardData.get("warnings") or []))
-            setDebugContext("validate JSON selections", selectedSensorType=selectedSensorType, selectedShuntType=selectedShuntType)
             findSelectedDefinition(sensorTypes, "sensorTypeId", selectedSensorType, "sensor type")
             findSelectedDefinition(shuntTypes, "shuntTypeId", selectedShuntType, "shunt type")
             validateSensorMarkers(boardData)
@@ -542,17 +428,7 @@ def main():
                 if selectedSensorType and sensorType["sensorTypeId"] == selectedSensorType:
 
                     sensorTypeModules = sensorType["moduleConfigs"]
-                    debug("Selected sensor moduleConfigs: " + str(len(sensorTypeModules)))
-                    for sensorModuleIndex, sensorTypeModule in enumerate(sensorTypeModules):
-                        setDebugContext(
-                            "sensor moduleConfig",
-                            index=sensorModuleIndex,
-                            sensorTypeId=selectedSensorType,
-                            moduleId=sensorTypeModule.get("moduleId"),
-                            parentModuleId=sensorTypeModule.get("parentModuleId"),
-                            interfaceId=sensorTypeModule.get("interfaceId"),
-                            propertyCount=len(sensorTypeModule.get("properties") or [])
-                        )
+                    for sensorTypeModule in sensorTypeModules:
                         sensorTypeModuleId = sensorTypeModule["moduleId"]
                         sensorTypeParentModuleId = sensorTypeModule.get("parentModuleId")
                         sensorTypeInterfaceId = sensorTypeModule.get("interfaceId")
@@ -587,20 +463,7 @@ def main():
                 if selectedShuntType and shuntType["shuntTypeId"] == selectedShuntType:
 
                     shuntTypeModules = shuntType["moduleConfigs"]
-                    debug("Selected shunt moduleConfigs: " + str(len(shuntTypeModules)))
-                    for shuntModuleIndex, shuntTypeModule in enumerate(shuntTypeModules):
-                        setDebugContext(
-                            "shunt moduleConfig",
-                            index=shuntModuleIndex,
-                            shuntTypeId=selectedShuntType,
-                            selectedSensorType=selectedSensorType,
-                            moduleId=shuntTypeModule.get("moduleId"),
-                            applicableSensorTypeId=shuntTypeModule.get("applicableSensorTypeId"),
-                            operation=shuntTypeModule.get("operation", "createOrUpdate"),
-                            parentModuleId=shuntTypeModule.get("parentModuleId"),
-                            interfaceId=shuntTypeModule.get("interfaceId"),
-                            propertyCount=len(shuntTypeModule.get("properties") or [])
-                        )
+                    for shuntTypeModule in shuntTypeModules:
                         shuntTypeModuleId = shuntTypeModule["moduleId"]
                         shuntTypeParentModuleId = shuntTypeModule.get("parentModuleId")
                         shuntTypeInterfaceId = shuntTypeModule.get("interfaceId")
@@ -653,28 +516,23 @@ def main():
                             setModuleProperty(stack, shuntTypeModulePropertyId, shuntTypeModulePropertyValue,
                                               shuntTypeModulePropertyIncludeValue, shuntTypeModulePropertyExcludeValue)
 
-        setDebugContext("save DDSC configuration", projectName=projectName)
         projectConfig.save()
-        debug("DDSC configuration saved successfully")
         return SUCCESS_EXIT_CODE
 
     except Exception as e:
-        printExceptionDetails("[FAILURE] Failed to add or delete stack", e)
+        print('[FAILURE] Failed to add or delete stack:', str(e))
+        print('[FAILURE] Exception type:', type(e).__name__)
+        traceback.print_exc()
         return FAIL_EXIT_CODE
 
 
 try:
-    setDebugContext("invoke main")
     exit_code = main()
-except SystemExit as exception:
-    exit_code = exception.code if isinstance(exception.code, int) else FAIL_EXIT_CODE
-    print("[FAILURE] SystemExit caught with code: " + str(exit_code))
-except Exception as exception:
-    printExceptionDetails("[FAILURE] Unexpected top-level error", exception)
+except SystemExit:
+    pass  # allow sys.exit() silently
+except:
+    # Avoid unhandled exceptions from escaping to Eclipse
+    print("[FAILURE] Unexpected top-level error.")
     exit_code = FAIL_EXIT_CODE
-print("[DEBUG] Final stage: " + str(CURRENT_STAGE))
-print("[DEBUG] Final context: " + repr(CURRENT_CONTEXT))
-print("Execution time: " + str(time.time() - start_time) + "s")
-print("Exit code: " + str(exit_code))
-flushConsole()
+print(f"Execution time: {time.time() - start_time}s")
 exit_code
