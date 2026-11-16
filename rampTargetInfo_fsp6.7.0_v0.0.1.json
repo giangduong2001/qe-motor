@@ -24,7 +24,7 @@
             "algorithmModuleId": "module.middleware.motor_algorithm_on_motor_120deg_hall",
             "propertyInfos": [
                 {
-                    "propertyInfoUrl": "https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/rampPropertyInfo_120degHall_fsp6.5.0_v0.0.1.json",
+                    "propertyInfoUrl": "https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/rampPropertyInfo_fsp6.7.0_v0.0.1.json",
                     "scriptUrl": "https://raw.githubusercontent.com/renesas/qe-tools/refs/heads/main/qe_motor/RampPythonScript/changeControlMethodRampProject_v0.0.2.py"
                 }
             ]
@@ -33,7 +33,7 @@
             "algorithmModuleId": "module.middleware.motor_algorithm_on_motor_120deg_sensorless",
             "propertyInfos": [
                 {
-                    "propertyInfoUrl": "https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/rampPropertyInfo_120degLess_fsp6.5.0_v0.0.1.json",
+                    "propertyInfoUrl": "https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/rampPropertyInfo_fsp6.7.0_v0.0.1.json",
                     "scriptUrl": "https://raw.githubusercontent.com/renesas/qe-tools/refs/heads/main/qe_motor/RampPythonScript/changeControlMethodRampProject_v0.0.2.py"
                 }
             ]
