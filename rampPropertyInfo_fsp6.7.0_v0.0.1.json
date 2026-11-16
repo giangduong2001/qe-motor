@@ -2688,7 +2688,7 @@
         }
       ]
     },
-    "RA4T2": {
+    "RA4T1": {
       "motorControlModuleId": "module.middleware.motor_on_motor_control",
       "motorTunerModuleId": "module.middleware.motor_tuner_on_motor_tuner_pm",
       "sensorSelectInfo": {
