@@ -3,9 +3,9 @@
     {
       "variantSchema":  { "major": 1, "minorMin": 0, "minorMax": 0 },
       "registrySchema": { "major": 1, "minorMin": 0, "minorMax": 0 },
-      "scriptUrl": ".../GenerateVariantConfigurationFile_v0.0.1.py",
-      "variantTemplateUrl":  ".../ramp_variant_config.h.v1.tmpl",
-      "registryTemplateUrl": ".../ramp_instance_registry.c.v1.tmpl"
+      "scriptUrl": "https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/GenerateVariantConfigurationFile.py",
+      "variantTemplateUrl":  "https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/ramp_variant_config.h.v1.tmpl",
+      "registryTemplateUrl": "https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/ramp_instance_registry.c.v1.tmpl"
     }
   ]
 }
