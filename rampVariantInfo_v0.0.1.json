@@ -1,0 +1,11 @@
+{
+  "variantData": [
+    {
+      "variantSchema":  { "major": 1, "minorMin": 0, "minorMax": 0 },
+      "registrySchema": { "major": 1, "minorMin": 0, "minorMax": 0 },
+      "scriptUrl": ".../GenerateVariantConfigurationFile_v0.0.1.py",
+      "variantTemplateUrl":  ".../ramp_variant_config.h.v1.tmpl",
+      "registryTemplateUrl": ".../ramp_instance_registry.c.v1.tmpl"
+    }
+  ]
+}
