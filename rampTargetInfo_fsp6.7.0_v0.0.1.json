@@ -39,5 +39,5 @@
             ]
         }
     ],
-    "variantInfoUrl":"https://raw.githubusercontent.com/giangduong2001/qe-motor/refs/heads/main/rampVariantInfo_v0.0.1.json"
+    "variantInfoUrl":"https://raw.githubusercontent.com/renesas/qe-tools/refs/heads/main/qe_motor/RampVariantInfo/rampVariantInfo_v0.0.1.json"
 }
